@@ -41,5 +41,7 @@ int main(int argc, char** argv)
         std::cout << buf << std::endl;
     }
 
+    close(fd);
+
     return 0;
 }

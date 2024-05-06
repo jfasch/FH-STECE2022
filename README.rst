@@ -90,6 +90,6 @@ Test
 
 .. code-block:: console
 
-   $ echo 42666 > /tmp/file
-   $ ./exercises/02-sensor/bin/read-sensor /tmp/file
+   $ echo 42666 > /tmp/temperature
+   $ ./exercises/02-sensor/bin/read-sensor /tmp/temperature
    Hier noch brav sein!

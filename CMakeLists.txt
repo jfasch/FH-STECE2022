@@ -7,4 +7,5 @@ if (${CMAKE_COMPILER_IS_GNUCC})
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -O0 -g3 -Wall -Werror")
 endif()
 
+ADD_SUBDIRECTORY(exercises)
 ADD_SUBDIRECTORY(livecoding)

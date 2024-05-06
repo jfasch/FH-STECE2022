@@ -4,8 +4,6 @@ ADD_EXECUTABLE(
   suite-sensor.cpp
 
   fixture-tmpdir.cpp
-  fixture-tmpdir-cwd.cpp
-  fixture-tmpdir-cwd.h
   fixture-tmpdir.h
   )
 

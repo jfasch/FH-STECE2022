@@ -9,3 +9,5 @@ endif()
 
 ADD_SUBDIRECTORY(exercises)
 ADD_SUBDIRECTORY(livecoding)
+
+ADD_SUBDIRECTORY(googletest)

@@ -15,11 +15,12 @@ int main(int argc, char** argv)
     ssize_t nread, nwritten;
 
     fd = open(filename1, O_RDONLY);
-    fd2 = open(filename2,O_WRONLY|O_EXCL|00740);
     if (fd == -1) {
         perror("open");
         return 1;
     }
+
+    fd2 = open(filename2, O_WRONLY|O_CREAT|O_EXCL, 0666);
     if (fd2 == -1) {
         perror("open");
         return 4;
@@ -32,8 +33,8 @@ int main(int argc, char** argv)
             return 2;
         }
 
-	nwritten = write(fd2, buffer, sizeof(buffer));
-	if (nwritten == -1) {
+        nwritten = write(fd2, buffer, nread);
+        if (nwritten == -1) {
             perror("write");
             return 3;
         }

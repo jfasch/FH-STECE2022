@@ -44,6 +44,7 @@ TEST_F(sensor_fixture, sensor_file_bad_content)
     const char bad_content[] = "bad-content";
     ssize_t nwritten = write(fd, bad_content, sizeof(bad_content));
     ASSERT_EQ(nwritten, sizeof(bad_content));
+    close(fd);
 
     double temperature = -273.15;
     int error = read_temperature(sensor_file.c_str(), &temperature);

@@ -8,10 +8,13 @@ tmpdir_fixture::tmpdir_fixture()
     strcpy(tmpdir_template_c, tmpdir_template.c_str());
 
     char* retname = mkdtemp(tmpdir_template_c);
-    if (retname == NULL)
+    if (retname == NULL) {
+        delete[] tmpdir_template_c;
         throw std::runtime_error(strerror(errno));
+    }
 
     dirname = retname;
+    delete[] tmpdir_template_c;
 }
 
 tmpdir_fixture::~tmpdir_fixture()

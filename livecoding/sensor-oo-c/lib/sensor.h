@@ -4,7 +4,12 @@
 extern "C" {
 #endif
 
-int read_temperature(const char* filename, double* temperature);
+struct Sensor
+{
+    const char* filename;
+};
+void sensor_init(struct Sensor* sensor, const char* filename);
+int sensor_get_temperature(struct Sensor* sensor, double* temperature);
 
 #ifdef __cplusplus
 }

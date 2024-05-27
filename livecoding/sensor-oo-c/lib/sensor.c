@@ -1,15 +1,21 @@
+#include "sensor.h"
+
 #include <fcntl.h>
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <errno.h>
 
+void sensor_init(struct Sensor* sensor, const char* filename)
+{
+    sensor->filename = filename;
+}
 
-int read_temperature(const char* filename, double* temperature)
+int sensor_get_temperature(struct Sensor* sensor, double* temperature)
 {
     int retval = 0;
 
-    int fd = open(filename, O_RDONLY);
+    int fd = open(sensor->filename, O_RDONLY);
     if (fd == -1) {
         if (errno == ENOENT) {
             retval = -1;

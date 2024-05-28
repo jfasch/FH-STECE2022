@@ -1,16 +1,23 @@
 #pragma once
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <string>
+
 
 struct Sensor
 {
-    const char* filename;
+    std::string filename;
 };
-void sensor_init(struct Sensor* sensor, const char* filename);
-int sensor_get_temperature(struct Sensor* sensor, double* temperature);
+void sensor_init(struct Sensor* sensor, std::string filename);
+double sensor_get_temperature(struct Sensor* sensor);
 
-#ifdef __cplusplus
-}
-#endif
+struct SensorError
+{
+    SensorError(int error, std::string message)
+    {
+        this->error = error;
+        this->message = message;
+    };
+
+    int error;
+    std::string message;
+};

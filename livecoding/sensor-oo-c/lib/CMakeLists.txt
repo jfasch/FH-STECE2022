@@ -2,7 +2,7 @@ ADD_LIBRARY(
   02-sensor-oo-c
 
   sensor.h
-  sensor.c
+  sensor.cpp
 )
 
 TARGET_INCLUDE_DIRECTORIES(

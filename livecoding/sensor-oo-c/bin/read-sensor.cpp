@@ -1,13 +1,9 @@
 #include <sensor.h>
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
-/* struct Sensor */
-/* { */
-/*     const char* filename; */
-/* }; */
-/* void sensor_init(struct Sensor* obj, const char& filename); */
-/* int sensor_get_temperature(struct Sensor* obj, double* temperature); */
 
 int main(int argc, char** argv)
 {
@@ -15,18 +11,19 @@ int main(int argc, char** argv)
         fprintf(stderr, "Usage: %s <temperature-file>\n", argv[0]);
         return 1;
     }
-    const char* filename = argv[1];
+    std::string filename = argv[1];
 
     struct Sensor sensor;
     sensor_init(&sensor, filename);
 
-    double temperature;
-    int error = sensor_get_temperature(&sensor, &temperature);
-    if (error) {
-        fprintf(stderr, "NIX GUT: %d\n", error);
+    try {
+        double temperature = sensor_get_temperature(&sensor);
+        printf("%lf\n", temperature);
+    }
+    catch (SensorError e) {
+        fprintf(stderr, "NIX GUT: %d (%s)\n", e.error, e.message.c_str());
         return 2;
     }
 
-    printf("%lf\n", temperature);
     return 0;
 }

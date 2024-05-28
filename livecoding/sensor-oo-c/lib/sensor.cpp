@@ -6,29 +6,23 @@
 #include <unistd.h>
 #include <errno.h>
 
-void sensor_init(struct Sensor* sensor, const char* filename)
+
+void sensor_init(struct Sensor* sensor, std::string filename)
 {
     sensor->filename = filename;
 }
 
-int sensor_get_temperature(struct Sensor* sensor, double* temperature)
+double sensor_get_temperature(struct Sensor* sensor)
 {
-    int retval = 0;
-
-    int fd = open(sensor->filename, O_RDONLY);
+    int fd = open(sensor->filename.c_str(), O_RDONLY);
     if (fd == -1) {
-        if (errno == ENOENT) {
-            retval = -1;
-            goto cleanup_exit;
-        }
-        if (errno == EACCES) {
-            retval = -2;
-            goto cleanup_exit;
-        }
+        if (errno == ENOENT)
+            throw SensorError(-1, "file does not exist");
+        if (errno == EACCES)
+            throw SensorError(-2, "file nix permission");
 
         perror("open");
-        retval = -42; // todo
-        goto cleanup_exit;
+        throw SensorError(-42, "todo"); // todo
     }
 
     char buffer[64];
@@ -36,23 +30,17 @@ int sensor_get_temperature(struct Sensor* sensor, double* temperature)
     ssize_t nread = read(fd, buffer, sizeof(buffer)-1);
     if (nread == -1) {
         perror("read");
-        retval = -42;
-        goto cleanup_exit;
+        close(fd);
+        throw SensorError(-42, "todo");
     }
 
-cleanup_exit:
-    if (fd != -1)
-        close(fd);
-    if (retval != 0)
-        return retval;
+    close(fd);
 
     int millidegrees;
     int nconverted = sscanf(buffer, "%d", &millidegrees);
 
     if (nconverted != 1)
-        return -3;
+        throw SensorError(-3, "bad content");
 
-    *temperature = (double)millidegrees/1000;
-
-    return 0;
+    return (double)millidegrees/1000;
 }

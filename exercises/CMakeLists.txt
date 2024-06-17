@@ -1,3 +1,4 @@
 ADD_SUBDIRECTORY(01-copy)
 ADD_SUBDIRECTORY(02-sensor)
 ADD_SUBDIRECTORY(03-parse-passwd)
+ADD_SUBDIRECTORY(04-vector-into-map)

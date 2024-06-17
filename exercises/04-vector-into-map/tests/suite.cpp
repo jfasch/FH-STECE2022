@@ -25,7 +25,6 @@ TEST(vector_into_map_suite, no_overwrites)
     my_pair_array pair_array{{"eins", 1}, {"zwei", 2}, {"drei", 3}, {"eins", 1000}};
 
     using my_pair_map = std::map<std::string, int>;
-
     my_pair_map pair_map = vector_into_map(pair_array);
 
     ASSERT_EQ(pair_map.size(), 3);

@@ -6,3 +6,4 @@ ADD_SUBDIRECTORY(sensor-oo-c)
 
 ADD_EXECUTABLE(string-demo string-demo.cpp)
 ADD_EXECUTABLE(ptr-arith-stl ptr-arith-stl.cpp)
+ADD_EXECUTABLE(map-demo map-demo.cpp)

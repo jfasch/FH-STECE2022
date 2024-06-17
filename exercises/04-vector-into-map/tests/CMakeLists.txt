@@ -2,6 +2,7 @@ ADD_EXECUTABLE(
   04-vector-into-map-tests
 
   suite.cpp
+  suite-2.cpp
 )
 
 TARGET_LINK_LIBRARIES(

@@ -5,7 +5,11 @@ std::map<std::string, int> vector_into_map(std::vector<std::pair<std::string, in
 {
     std::map<std::string, int> rv;
 
-    // ... hier noch brav sein ...
+    for (auto key_value_pair: array)
+        // insert()
+        // (https://en.cppreference.com/w/cpp/container/map/insert)
+        // guarantees that no elements are overwritten
+        rv.insert(key_value_pair);
 
     return rv;
 }

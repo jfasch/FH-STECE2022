@@ -13,3 +13,5 @@ TARGET_LINK_LIBRARIES(
   gtest_main 
   )
 
+add_test(NAME 03-parse-passwd-tests COMMAND 03-parse-passwd-tests)
+

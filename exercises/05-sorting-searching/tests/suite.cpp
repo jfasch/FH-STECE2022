@@ -30,7 +30,7 @@ TEST(sorting_searching_suite, sort_descending)
 
 TEST(sorting_searching_suite, find_by_name_found)
 {
-    std::vector<Person> persons = {{"Joerg", "1966-06-29", 174},
+    std::vector<Person> persons = {{"Joerg", "1966-06-19", 174},
                                    {"Johanna", "1995-06-11", 164},
                                    {"Caro", "1997-04-25", 161},
                                    {"Philipp", "1986-0004-06", 176}

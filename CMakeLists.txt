@@ -9,7 +9,14 @@ endif()
 
 enable_testing()
 
-add_subdirectory(exercises)
-add_subdirectory(livecoding)
+add_subdirectory(proximity-vl53l1x)
+add_subdirectory(gyroscope-bno055)
+add_subdirectory(motor-control-btn9960lv)
+add_subdirectory(servo-ppm)
 
+
+add_subdirectory(bin)
+
+add_subdirectory(livecoding)
+add_subdirectory(exercises)
 add_subdirectory(googletest)

@@ -1,0 +1,15 @@
+add_executable(
+  fh-stece22-suite
+
+  sysfs-file-tests.cpp
+
+  fixture-tmpdir.cpp
+  fixture-tmpdir.h
+)
+
+target_link_libraries(
+  fh-stece22-suite
+
+  toolcase-base
+  gtest_main 
+)

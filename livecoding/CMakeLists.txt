@@ -13,3 +13,7 @@ ADD_EXECUTABLE(find-demo find-demo.cpp)
 ADD_EXECUTABLE(find-if-demo find-if-demo.cpp)
 ADD_EXECUTABLE(find-if-demo-lambda find-if-demo-lambda.cpp)
 ADD_EXECUTABLE(sort-demo sort-demo.cpp)
+
+ADD_EXECUTABLE(address-space address-space.cpp)
+
+ADD_EXECUTABLE(point point.cpp)

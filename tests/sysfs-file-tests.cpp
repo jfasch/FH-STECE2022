@@ -36,4 +36,3 @@ TEST_F(sysfs_file_suite, write_int)
 
     ASSERT_EQ(i, 1234);
 }
-

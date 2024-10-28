@@ -1,4 +1,4 @@
-add_executable(
-  gyroscope-bno055-prog
-  gyroscope-bno055-prog.cpp
-)
+cmake_minimum_required(VERSION 3.0)
+project(bno055)
+
+add_executable(bno-prog getbno055.c i2c_bno055.c)

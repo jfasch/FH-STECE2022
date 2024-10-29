@@ -325,6 +325,7 @@ bool VL53L1X::setDistanceMode(DistanceMode mode)
 
       break;
 
+
     case Medium:
       // from VL53L1_preset_mode_standard_ranging()
 

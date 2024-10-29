@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
+#include <fcntl.h>
 
 #include <unistd.h>
 #include <stdio.h>
@@ -1288,8 +1289,6 @@ class VL53L1X
 
     bool init(bool io_2v8 = true);
 
-    unsigned long millis();
-
     void writeReg(uint16_t reg, uint8_t value);
     void writeReg16Bit(uint16_t reg, uint16_t value);
     void writeReg32Bit(uint16_t reg, uint32_t value);
@@ -1368,7 +1367,7 @@ class VL53L1X
     // I2C buses)
     ResultBuffer results;
 
-    int bus;
+    int bus_fd;
     uint8_t address;
 
     uint16_t io_timeout;
@@ -1383,6 +1382,8 @@ class VL53L1X
     uint8_t saved_vhv_timeout;
 
     DistanceMode distance_mode;
+
+    unsigned long millis();
 
     // Record the current time to check an upcoming timeout against
     void startTimeout() { timeout_start_ms = millis(); }

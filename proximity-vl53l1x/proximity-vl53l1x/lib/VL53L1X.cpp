@@ -5,6 +5,8 @@
 
 #include "VL53L1X.h"
 
+#include <unistd.h>
+
 // Constructors ////////////////////////////////////////////////////////////////
 
 VL53L1X::VL53L1X(int fd)
@@ -39,12 +41,12 @@ bool VL53L1X::init(bool io_2v8)
   // VL53L1_software_reset() begin
 
   writeReg(SOFT_RESET, 0x00);
-  delayMicroseconds(100);
+  usleep(100);
   writeReg(SOFT_RESET, 0x01);
 
   // give it some time to boot; otherwise the sensor NACKs during the readReg()
   // call below and the Arduino 101 doesn't seem to handle that well
-  delay(1);
+  usleep(1);
 
   // VL53L1_poll_for_boot_completion() begin
 

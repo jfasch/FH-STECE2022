@@ -156,6 +156,13 @@ bool VL53L1X::init(bool io_2v8)
   return true;
 }
 
+unsigned long millis() {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+}
+
+
 // // Write an 8-bit register
 // void VL53L1X::writeReg(uint16_t reg, uint8_t value)
 // {

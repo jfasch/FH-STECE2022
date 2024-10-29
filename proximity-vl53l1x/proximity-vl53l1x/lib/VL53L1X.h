@@ -5,7 +5,10 @@
 #include <stdint.h>
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
+
 #include <unistd.h>
+#include <stdio.h>
+#include <sys/time.h>
 
 class VL53L1X
 {
@@ -1285,6 +1288,8 @@ class VL53L1X
 
     bool init(bool io_2v8 = true);
 
+    unsigned long millis();
+
     void writeReg(uint16_t reg, uint8_t value);
     void writeReg16Bit(uint16_t reg, uint16_t value);
     void writeReg32Bit(uint16_t reg, uint32_t value);
@@ -1364,7 +1369,6 @@ class VL53L1X
     ResultBuffer results;
 
     int bus;
-
     uint8_t address;
 
     uint16_t io_timeout;

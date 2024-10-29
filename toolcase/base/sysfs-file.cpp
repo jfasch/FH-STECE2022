@@ -12,12 +12,13 @@ SysFSFile::SysFSFile(const std::string& path)
 int SysFSFile::read_int()
 {
     int fd = open(_path.c_str(), O_RDONLY);
-    assert(fd>=0);
+    assert(fd>=0);  // todo: error handling (what if path does not
+                    // exist?)
     char buffer[64] = {0};
     ssize_t nread = read(fd, buffer, sizeof(buffer));
     close(fd);
 
-    assert(nread < (ssize_t)sizeof(buffer));
+    assert(nread < (ssize_t)sizeof(buffer)); // todo: error handling
 
     // copy all into a std::string, for the sole purpose of using
     // std::stoi() on it. todo: use std::from_chars()
@@ -34,9 +35,9 @@ void SysFSFile::write_int(int i)
     std::string ssi = si.str();
 
     int fd = open(_path.c_str(), O_WRONLY);
-    assert(fd>=0);
+    assert(fd>=0); // todo: error handling
     ssize_t nwritten = write(fd, ssi.c_str(), ssi.size());
-    assert(nwritten == (ssize_t)ssi.size());
+    assert(nwritten == (ssize_t)ssi.size());  // todo: error handling
 
     close(fd);
 }

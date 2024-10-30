@@ -6,7 +6,7 @@
 #include <sstream>
 
 
-SysFSFile::SysFSFile(const std::string& path)
+SysFSFile::SysFSFile(const std::filesystem::path& path)
 : _path(path)
 {}
 
@@ -32,11 +32,14 @@ void SysFSFile::write_int64(int64_t i)
 {
     // todo: performance is not what sstream is known for
     std::ostringstream si;
-    si << i << std::ends;
+    si << i << std::endl;
     std::string ssi = si.str();
 
-    int fd = open(_path.c_str(), O_WRONLY);
-    assert(fd>=0); // todo: error handling
+    int fd = open(_path.c_str(), O_WRONLY|O_TRUNC);
+    if (fd == -1) {
+        perror("open");
+        assert(false); // todo: error handling
+    }
     ssize_t nwritten = write(fd, ssi.c_str(), ssi.size());
     assert(nwritten == (ssize_t)ssi.size());  // todo: error handling
 

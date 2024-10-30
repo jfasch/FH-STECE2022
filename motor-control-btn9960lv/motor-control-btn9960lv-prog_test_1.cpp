@@ -12,16 +12,16 @@ int main() {
     SysFSFile period("/sys/class/pwm/pwmchip0/pwm0/period");
     SysFSFile duty_cycle("/sys/class/pwm/pwmchip0/pwm0/duty_cycle"); 
 
-    exporT.write_int(0);
+    exporT.write_int64(0);
     sleep(1); 
-    enable.write_int(1);
-    period.write_int(1000000); 
-    duty_cycle.write_int(500000); 
+    enable.write_int64(1);
+    period.write_int64(1000000); 
+    duty_cycle.write_int64(500000); 
 
     sleep(10); 
 
-    enable.write_int(0);
-    unexporT.write_int(0);
+    enable.write_int64(0);
+    unexporT.write_int64(0);
 
     sleep(1);
 

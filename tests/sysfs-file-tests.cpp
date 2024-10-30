@@ -14,7 +14,7 @@ TEST_F(sysfs_file_suite, read_int_with_linefeed)
     std::ofstream(dirname / "my-file") << "1234\n";
 
     SysFSFile f(dirname / "my-file");
-    ASSERT_EQ(f.read_int(), 1234);
+    ASSERT_EQ(f.read_int64(), 1234);
 }
 
 TEST_F(sysfs_file_suite, read_int_without_linefeed)
@@ -22,14 +22,14 @@ TEST_F(sysfs_file_suite, read_int_without_linefeed)
     std::ofstream(dirname / "my-file") << "1234";
 
     SysFSFile f(dirname / "my-file");
-    ASSERT_EQ(f.read_int(), 1234);
+    ASSERT_EQ(f.read_int64(), 1234);
 }
 
 TEST_F(sysfs_file_suite, write_int)
 {
     std::ofstream(dirname / "my-file"); // create file
 
-    SysFSFile(dirname / "my-file").write_int(1234);
+    SysFSFile(dirname / "my-file").write_int64(1234);
 
     int i;
     std::ifstream(dirname / "my-file") >> i;

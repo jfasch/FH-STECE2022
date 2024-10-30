@@ -1,5 +1,6 @@
 #include "sysfs-file.h"
 
+#include <fcntl.h>
 #include <unistd.h>
 #include <assert.h>
 #include <sstream>
@@ -9,7 +10,7 @@ SysFSFile::SysFSFile(const std::string& path)
 : _path(path)
 {}
 
-int SysFSFile::read_int()
+int64_t SysFSFile::read_int64()
 {
     int fd = open(_path.c_str(), O_RDONLY);
     assert(fd>=0);  // todo: error handling (what if path does not
@@ -24,10 +25,10 @@ int SysFSFile::read_int()
     // std::stoi() on it. todo: use std::from_chars()
     std::string s_buffer(buffer);
 
-    return std::stoi(s_buffer);
+    return std::stoll(s_buffer);
 }
 
-void SysFSFile::write_int(int i)
+void SysFSFile::write_int64(int64_t i)
 {
     // todo: performance is not what sstream is known for
     std::ostringstream si;

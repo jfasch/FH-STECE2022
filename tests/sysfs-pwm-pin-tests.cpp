@@ -51,4 +51,4 @@ TEST_F(sysfs_pwm_pin_suite, get_period)
 // more
 // ----
 
-// * duty_cycle exceeds period
+// * duty_cycle exceeds period -> error

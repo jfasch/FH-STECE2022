@@ -14,17 +14,24 @@ public:
 
     int64_t period()
     {
-        return -666; // fake news
+        return _period_file.read_int64();
     }
 
     int64_t duty_cycle()
     {
-        return -666; // fake news
+        return _duty_cycle_file.read_int64();
     }
 
     void set_duty_cycle(uint64_t i)
     {
-        // fake news
+        if (i > (uint64_t) period())
+        {
+            throw std::invalid_argument("Duty cycle is bigger than period");
+        }
+        else
+        {
+            _duty_cycle_file.write_int64(i);
+        }
     }
 
 private:

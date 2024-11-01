@@ -48,10 +48,6 @@ TEST_F(sysfs_pwm_pin_suite, get_period)
     ASSERT_EQ(duty_cycle_file.read_int64(), PERIOD_NS_INIT/2);
 }
 
-// more
-// ----
-
-// * duty_cycle exceeds period -> error
 TEST_F(sysfs_pwm_pin_suite, duty_cycle_bigger_period)
 {
     SysFSPWMPin pin(dirname);
@@ -61,7 +57,7 @@ TEST_F(sysfs_pwm_pin_suite, duty_cycle_bigger_period)
 
     uint64_t bigger_duty_cycle = PERIOD_NS_INIT + 1000;
 
-    EXPECT_THROW(pin.set_duty_cycle(bigger_duty_cycle), std::invalid_argument);
+    ASSERT_THROW(pin.set_duty_cycle(bigger_duty_cycle), std::invalid_argument);
 
     ASSERT_EQ(pin.duty_cycle(), 0); 
 }

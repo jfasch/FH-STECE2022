@@ -35,22 +35,22 @@ int i2c_read(int file, uint8_t reg, uint8_t *buf, uint8_t len) {
 
 int main() {
     int file;
-
+    
     const char *filename = I2C_DEV_FILE;
 
     // I2C-Gerät öffnen
-    if ((file = open(filename, O_RDWR)) < 0) {
+    if ((file = open(filename, O_RDWR)) == -1) {
         perror("Failed to open the i2c bus");
-        return -1;
+        return 1;
     }
     // VL53L1X-Adresse festlegen
-    if (ioctl(file, I2C_SLAVE, VL53L1X_ADDR) < 0) {
+    if (ioctl(file, I2C_SLAVE, VL53L1X_ADDR) == -1) {
         perror("Failed to acquire bus access and/or talk to slave");
-        return -1;
+        return 1;
     }
 
     VL53L1X sensor(file);
-
+    
     sensor.setTimeout(500);
     if (!sensor.init())
     {
@@ -65,7 +65,7 @@ int main() {
 
     while(true)
     {
-      std::cout << sensor.read() << std::endl;
+      std::cout << sensor.read_sensor() << std::endl;
      if (sensor.timeoutOccurred()) { std::cout << " TIMEOUT" << "\n" << std::endl; }
     }
 

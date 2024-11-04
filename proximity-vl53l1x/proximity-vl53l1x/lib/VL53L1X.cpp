@@ -4,8 +4,10 @@
 // VL53L1X datasheet.
 
 #include "VL53L1X.h"
-
+#include <ostream>
 #include <unistd.h>
+#include <iostream>
+
 
 // Constructors ////////////////////////////////////////////////////////////////
 
@@ -36,7 +38,10 @@ void VL53L1X::setAddress(uint8_t new_addr)
 bool VL53L1X::init(bool io_2v8)
 {
   // check model ID and module type registers (values specified in datasheet)
-  if (readReg16Bit(IDENTIFICATION__MODEL_ID) != 0xEACC) { return false; }
+  if (readReg16Bit(IDENTIFICATION__MODEL_ID) != 0xEACC) { 
+    //60108 = 0xEACC
+    std::cout << "Erster Falsch Return"<< std::endl; //Funktioniert
+    return false; }
 
   // VL53L1_software_reset() begin
 
@@ -46,7 +51,7 @@ bool VL53L1X::init(bool io_2v8)
 
   // give it some time to boot; otherwise the sensor NACKs during the readReg()
   // call below and the Arduino 101 doesn't seem to handle that well
-  usleep(1);
+  usleep(1000);
 
   // VL53L1_poll_for_boot_completion() begin
 
@@ -55,9 +60,12 @@ bool VL53L1X::init(bool io_2v8)
   // check last_status in case we still get a NACK to try to deal with it correctly
   while ((readReg(FIRMWARE__SYSTEM_STATUS) & 0x01) == 0 || last_status != 0)
   {
+    std::cout << "laststatus Zeile 63 im cpp: " << last_status << std::endl;
+    std::cout << "Endlosschleife"<< std::endl;
     if (checkTimeoutExpired())
     {
       did_timeout = true;
+      std::cout << "Zweiter Falsch Return"<< std::endl;
       return false;
     }
   }
@@ -176,6 +184,7 @@ unsigned long VL53L1X::millis() {
 // Write an 8-bit register
 void VL53L1X::writeReg(uint16_t reg, uint8_t value)
 {
+  reg = (reg >> 8) | (reg << 8);
   write(bus_fd,&reg,2);
   write(bus_fd,&value,1);
 }
@@ -194,6 +203,8 @@ void VL53L1X::writeReg(uint16_t reg, uint8_t value)
 // Write a 16-bit register
 void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
 {
+  reg = (reg >> 8) | (reg << 8);
+  value = (value >> 8) | (value << 8);
   write(bus_fd,&reg,2);
   write(bus_fd,&value,2);
 }
@@ -215,6 +226,8 @@ void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
 // Write a 32-bit register
 void VL53L1X::writeReg32Bit(uint16_t reg, uint32_t value)
 {
+  reg = (reg >> 8) | (reg << 8);
+  value = (reg >> 24) | ((0x00FF0000 & reg) >> 8) | ((0x0000FF00 & reg) << 8) | ((0x000000FF & reg) << 24);
   write(bus_fd,&reg,2);
   write(bus_fd,&value,4);
 }
@@ -239,10 +252,11 @@ void VL53L1X::writeReg32Bit(uint16_t reg, uint32_t value)
 uint8_t VL53L1X::readReg(regAddr reg)
 {
   uint8_t value;
+  uint16_t bit_reg = reg;
+  bit_reg = (bit_reg >> 8) | (bit_reg << 8);
+  write(bus_fd,&bit_reg,2);
 
-  write(bus_fd,&reg,2);
-
-  ::read(bus_fd, &value, 1);
+  read(bus_fd, &value, 1);
 
   return value;
 }
@@ -269,10 +283,12 @@ uint16_t VL53L1X::readReg16Bit(uint16_t reg)
 {
   uint16_t value;
 
+  reg = (reg >> 8) | (reg << 8);
+
   write(bus_fd,&reg,2);
-
-  ::read(bus_fd, &value, 2);
-
+  read(bus_fd, &value, 2);
+  value = (value >> 8) | (value << 8);
+  
   return value;
 }
 
@@ -300,9 +316,14 @@ uint32_t VL53L1X::readReg32Bit(uint16_t reg)
 {
   uint32_t value;
 
+  reg = (reg >> 8) | (reg << 8);
+  
   write(bus_fd,&reg,2);
 
-  ::read(bus_fd, &value, 4);
+  read(bus_fd, &value, 4);
+
+  value = (reg >> 24) | ((0x00FF0000 & reg) >> 8) | ((0x0000FF00 & reg) << 8) | ((0x000000FF & reg) << 24);
+  
 
   return value;
 }
@@ -595,7 +616,7 @@ void VL53L1X::stopContinuous()
 // be available. If blocking is false, it will try to return data immediately.
 // (readSingle() also calls this function after starting a single-shot range
 // measurement)
-uint16_t VL53L1X::read(bool blocking)
+uint16_t VL53L1X::read_sensor(bool blocking)
 {
   if (blocking)
   {
@@ -637,7 +658,7 @@ uint16_t VL53L1X::readSingle(bool blocking)
 
   if (blocking)
   {
-    return read(true);
+    return read_sensor(true);
   }
   else
   {
@@ -768,24 +789,36 @@ void VL53L1X::setupManualCalibration()
 // read measurement results into buffer
 void VL53L1X::readResults()
 {
-  /*write(bus_fd,RESULT__RANGE_STATUS,2);
+  uint16_t reg = RESULT__RANGE_STATUS;
+  reg = (reg >> 8) | (reg << 8);
+  write(bus_fd, &reg ,2);
 
   //bus->requestFrom(address, (uint8_t)17);
+  uint16_t unikat = 0;
+  uint8_t read_array[17] = {0};
+  std::cout << "Unikat: " << unikat << std::endl;
+  unikat = read(bus_fd,read_array,17);
+  std::cout << "Unikat: " << unikat << std::endl;
 
-  results.range_status = bus->read();
+  results.range_status = read_array[0];
 
+  for(int i = 0; i < 17; i++)
+  {
+    std::cout << "read_array[" << i << "] " << read_array[i] << std::endl;
+  }
+  
   //bus->read(); // report_status: not used
 
-  results.stream_count = bus->read();
+  results.stream_count = read_array[2];
 
-  results.dss_actual_effective_spads_sd0  = (uint16_t)bus->read() << 8; // high byte
-  results.dss_actual_effective_spads_sd0 |=           bus->read();      // low byte
+  results.dss_actual_effective_spads_sd0  = (uint16_t)read_array[3] << 8; // high byte
+  results.dss_actual_effective_spads_sd0 |=           read_array[4];      // low byte
 
   //bus->read(); // peak_signal_count_rate_mcps_sd0: not used
   //bus->read();
 
-  results.ambient_count_rate_mcps_sd0  = (uint16_t)bus->read() << 8; // high byte
-  results.ambient_count_rate_mcps_sd0 |=           bus->read();      // low byte
+  results.ambient_count_rate_mcps_sd0  = (uint16_t)read_array[7] << 8; // high byte
+  results.ambient_count_rate_mcps_sd0 |=           read_array[8];      // low byte
 
   //bus->read(); // sigma_sd0: not used
   //bus->read();
@@ -793,11 +826,11 @@ void VL53L1X::readResults()
   //bus->read(); // phase_sd0: not used
   //bus->read();
 
-  results.final_crosstalk_corrected_range_mm_sd0  = (uint16_t)bus->read() << 8; // high byte
-  results.final_crosstalk_corrected_range_mm_sd0 |=           bus->read();      // low byte
+  results.final_crosstalk_corrected_range_mm_sd0  = (uint16_t)read_array[13] << 8; // high byte
+  results.final_crosstalk_corrected_range_mm_sd0 |=           read_array[14];      // low byte
 
-  results.peak_signal_count_rate_crosstalk_corrected_mcps_sd0  = (uint16_t)bus->read() << 8; // high byte
-  results.peak_signal_count_rate_crosstalk_corrected_mcps_sd0 |=           bus->read();      // low byte*/
+  results.peak_signal_count_rate_crosstalk_corrected_mcps_sd0  = (uint16_t)read_array[15] << 8; // high byte
+  results.peak_signal_count_rate_crosstalk_corrected_mcps_sd0 |=           read_array[16];      // low byte
 }
 
 // perform Dynamic SPAD Selection calculation/update
@@ -928,6 +961,10 @@ void VL53L1X::getRangingData()
     countRateFixedToFloat(results.peak_signal_count_rate_crosstalk_corrected_mcps_sd0);
   ranging_data.ambient_count_rate_MCPS =
     countRateFixedToFloat(results.ambient_count_rate_mcps_sd0);
+
+  std::cout << "results.final_crosstalk_corrected_range_mm_sd0  "<< results.final_crosstalk_corrected_range_mm_sd0 << std::endl;
+  std::cout << "ranging_data.range_mm  "<< ranging_data.range_mm << std::endl;
+  usleep(500000);
 }
 
 // Decode sequence step timeout in MCLKs from register value

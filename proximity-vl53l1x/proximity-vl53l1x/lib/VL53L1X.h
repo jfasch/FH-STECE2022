@@ -1276,7 +1276,7 @@ class VL53L1X
 
     RangingData ranging_data;
 
-    uint8_t last_status; // status of last I2C transmission
+    uint8_t last_status = 0; // status of last I2C transmission
 
     VL53L1X(int fd);
 
@@ -1309,8 +1309,8 @@ class VL53L1X
 
     void startContinuous(uint32_t period_ms);
     void stopContinuous();
-    uint16_t read(bool blocking = true);
-    uint16_t readRangeContinuousMillimeters(bool blocking = true) { return read(blocking); } // alias of read()
+    uint16_t read_sensor(bool blocking = true);
+    uint16_t readRangeContinuousMillimeters(bool blocking = true) { return read_sensor(blocking); } // alias of read()
     uint16_t readSingle(bool blocking = true);
     uint16_t readRangeSingleMillimeters(bool blocking = true) { return readSingle(blocking); } // alias of readSingle()
 

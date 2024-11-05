@@ -1,15 +1,19 @@
 #pragma once
+#include "sysfs-pwm-pin.h"
+#include <fstream>
 
 class servo
 {
 public:
-    servo(const PWMpin);
+    servo(SysFSPWMPin PWMpin) 
+    : _pwm(PWMpin)
+    {}
 
-    void set_position(uint64_t);
-    uint64_t get_position();
+    void set_position(int);
 
 private:
-    int position;
-    const PWMpin pwm;
-    const int period = 20 * 1000 * 1000;
+    const SysFSPWMPin _pwm;
+    const uint64_t _duty_cycle_mid;
+    const uint64_t _duty_cycle_max;
+    const uint64_t _duty_cycle_min;
 };

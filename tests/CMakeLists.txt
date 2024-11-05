@@ -1,6 +1,8 @@
 add_executable(
   fh-stece22-suite
 
+  demo-tests.cpp
+
   sysfs-file-tests.cpp
   sysfs-pwm-pin-tests.cpp
 

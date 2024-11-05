@@ -70,7 +70,6 @@ TEST_F(sysfs_pwm_pin_suite, duty_cycle_bigger_period)
 
 //     SysFSPWMPin pin(dirname);
 
-//     // yay, fail!
 //     ASSERT_EQ(pin.period(), std::numeric_limits<uint64_t>::max());
 // }
 

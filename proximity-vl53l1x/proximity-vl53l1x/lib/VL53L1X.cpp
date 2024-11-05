@@ -7,6 +7,7 @@
 #include <ostream>
 #include <unistd.h>
 #include <iostream>
+#include <cassert>
 
 
 // Constructors ////////////////////////////////////////////////////////////////
@@ -85,6 +86,8 @@ bool VL53L1X::init(bool io_2v8)
   // store oscillator info for later use
   fast_osc_frequency = readReg16Bit(OSC_MEASURED__FAST_OSC__FREQUENCY);
   osc_calibrate_val = readReg16Bit(RESULT__OSC_CALIBRATE_VAL);
+
+  std::cout << "osc_calibrate_val "<< osc_calibrate_val << std::endl;
 
   // VL53L1_DataInit() end
 
@@ -185,8 +188,10 @@ unsigned long VL53L1X::millis() {
 void VL53L1X::writeReg(uint16_t reg, uint8_t value)
 {
   reg = (reg >> 8) | (reg << 8);
-  write(bus_fd,&reg,2);
-  write(bus_fd,&value,1);
+  int bits = 2;
+  assert(bits == write(bus_fd,&reg,bits));
+  bits = 1;
+  assert(bits == write(bus_fd,&value,bits));
 }
 
 // // Write a 16-bit register
@@ -205,8 +210,9 @@ void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
 {
   reg = (reg >> 8) | (reg << 8);
   value = (value >> 8) | (value << 8);
-  write(bus_fd,&reg,2);
-  write(bus_fd,&value,2);
+  int bits = 2;
+  assert(bits == write(bus_fd,&reg,bits));
+  assert(bits == write(bus_fd,&value,2));
 }
 
 // // Write a 32-bit register
@@ -228,8 +234,10 @@ void VL53L1X::writeReg32Bit(uint16_t reg, uint32_t value)
 {
   reg = (reg >> 8) | (reg << 8);
   value = (reg >> 24) | ((0x00FF0000 & reg) >> 8) | ((0x0000FF00 & reg) << 8) | ((0x000000FF & reg) << 24);
-  write(bus_fd,&reg,2);
-  write(bus_fd,&value,4);
+  int bits = 2;
+  assert(bits == write(bus_fd,&reg,bits));
+  bits = 4;
+  assert(bits == write(bus_fd,&value,bits));
 }
 
 // // Read an 8-bit register
@@ -254,9 +262,10 @@ uint8_t VL53L1X::readReg(regAddr reg)
   uint8_t value;
   uint16_t bit_reg = reg;
   bit_reg = (bit_reg >> 8) | (bit_reg << 8);
-  write(bus_fd,&bit_reg,2);
-
-  read(bus_fd, &value, 1);
+  int bits = 2;
+  assert(bits == write(bus_fd,&bit_reg,bits));
+  bits = 1;
+  assert(bits == read(bus_fd, &value, bits));
 
   return value;
 }
@@ -284,9 +293,9 @@ uint16_t VL53L1X::readReg16Bit(uint16_t reg)
   uint16_t value;
 
   reg = (reg >> 8) | (reg << 8);
-
-  write(bus_fd,&reg,2);
-  read(bus_fd, &value, 2);
+  int bits = 2;
+  assert(bits == write(bus_fd,&reg,bits));
+  assert(bits == read(bus_fd, &value, bits));
   value = (value >> 8) | (value << 8);
   
   return value;
@@ -317,10 +326,10 @@ uint32_t VL53L1X::readReg32Bit(uint16_t reg)
   uint32_t value;
 
   reg = (reg >> 8) | (reg << 8);
-  
-  write(bus_fd,&reg,2);
-
-  read(bus_fd, &value, 4);
+  int bits = 2;
+  assert(bits == write(bus_fd,&reg,bits));
+  bits = 4;
+  assert(bits == read(bus_fd, &value, bits));
 
   value = (reg >> 24) | ((0x00FF0000 & reg) >> 8) | ((0x0000FF00 & reg) << 8) | ((0x000000FF & reg) << 24);
   
@@ -618,18 +627,18 @@ void VL53L1X::stopContinuous()
 // measurement)
 uint16_t VL53L1X::read_sensor(bool blocking)
 {
-  if (blocking)
-  {
-    startTimeout();
-    while (!dataReady())
-    {
-      if (checkTimeoutExpired())
-      {
-        did_timeout = true;
-        return 0;
-      }
-    }
-  }
+  // if (blocking)
+  // {
+  //   startTimeout();
+  //   while (!dataReady())
+  //   {
+  //     if (checkTimeoutExpired())
+  //     {
+  //       did_timeout = true;
+  //       return 0;
+  //     }
+  //   }
+  // }
 
   readResults();
 
@@ -790,21 +799,30 @@ void VL53L1X::setupManualCalibration()
 void VL53L1X::readResults()
 {
   uint16_t reg = RESULT__RANGE_STATUS;
+  std::cout << "Reg befor shift : " << reg << std::endl;
   reg = (reg >> 8) | (reg << 8);
-  write(bus_fd, &reg ,2);
+  std::cout << "Reg after shift : " << reg << std::endl;
+  uint16_t unikat = 0;
+  unikat = write(bus_fd, &reg ,2);
 
   //bus->requestFrom(address, (uint8_t)17);
-  uint16_t unikat = 0;
+  
+  // uint16_t new_reg = 0;
+  // unikat = read(bus_fd, &new_reg,2);
+  // std::cout << "Unikat: " << unikat << std::endl;
+  // std::cout << "Register: " << new_reg << std::endl;
   uint8_t read_array[17] = {0};
   std::cout << "Unikat: " << unikat << std::endl;
   unikat = read(bus_fd,read_array,17);
   std::cout << "Unikat: " << unikat << std::endl;
 
+  
+
   results.range_status = read_array[0];
 
   for(int i = 0; i < 17; i++)
   {
-    std::cout << "read_array[" << i << "] " << read_array[i] << std::endl;
+    std::cout << "read_array[" << i << "] " << (int) read_array[i] << std::endl;
   }
   
   //bus->read(); // report_status: not used
@@ -964,7 +982,7 @@ void VL53L1X::getRangingData()
 
   std::cout << "results.final_crosstalk_corrected_range_mm_sd0  "<< results.final_crosstalk_corrected_range_mm_sd0 << std::endl;
   std::cout << "ranging_data.range_mm  "<< ranging_data.range_mm << std::endl;
-  usleep(500000);
+  usleep(1000000);
 }
 
 // Decode sequence step timeout in MCLKs from register value

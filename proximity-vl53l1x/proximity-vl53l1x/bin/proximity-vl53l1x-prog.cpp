@@ -60,6 +60,7 @@ int main() {
 
     sensor.setDistanceMode(VL53L1X::Long);
     sensor.setMeasurementTimingBudget(50000);
+    std::cout << "Distancemode" << sensor.getDistanceMode() << std::endl;
 
     sensor.startContinuous(50);
 

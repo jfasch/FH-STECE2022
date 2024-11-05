@@ -23,7 +23,7 @@ struct sysfs_servo_suite : tmpdir_fixture
     // QESTION: enable file?!
     // ----------------------
 
-    sysfs_pwm_pin_suite()
+    sysfs_servo_suite()
     : period_file(dirname / "period"),
       duty_cycle_file(dirname / "duty_cycle")
     {

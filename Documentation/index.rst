@@ -9,7 +9,9 @@ Crazy Car NG, Running Linux
 
 .. sidebar::
 
-   * Github Project: https://github.com/jfasch/FH-STECE2022
+   * Github project: https://github.com/jfasch/FH-STECE2022
+   * Github workflow (forks, and pull requests):
+     :doc:`jfasch:about/site/work-in-progress/fh-joanneum/2021/git/git`
 
 The Mission
 -----------
@@ -24,7 +26,7 @@ in semester 4 and 5. During this class we want to learn
 * Linux hardware interfaces
 * Linux realtime
 * Some Python
-* ... and more
+* ... and more ...
 
 Also on FH Joanneum, there is a fun contest, `Crazy Car
 <https://www.fh-joanneum.at/veranstaltung/crazy-car/>`__. FH Joanneum

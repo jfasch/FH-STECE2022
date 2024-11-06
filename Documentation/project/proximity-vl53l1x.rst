@@ -9,27 +9,25 @@ Proximity Sensor: VL53L1X
 .. contents::
    :local:
 
-.. sidebar:: Lecture Coverage
+Plan
+----
 
-   * :ref:`2024-10-08-linux-and-i2c`
+Arduino implementation (https://github.com/pololu/vl53l1x-arduino) is
+known to work - colleagues are using it. Port it to Linux, following
+:ref:`2024-10-08-linux-and-i2c`.
 
-Facts
------
+Status
+------
 
-Time-of-Flight (ToF) ranging sensor.
-
-* Breakout board: https://shop.pimoroni.com/products/vl53l1x-breakout
-* Data sheet:
-  https://www.st.com/en/imaging-and-photonics-solutions/vl53l1x.html
-
-Arduino Implementation
-----------------------
-
-* Arduino: https://github.com/pololu/vl53l1x-arduino
+* 2024-11-05: ongoing. Reading sensor data yields an all-zeroes block
+  (?).
 
 Notes
 -----
 
+* Breakout board: https://shop.pimoroni.com/products/vl53l1x-breakout
+* Data sheet:
+  https://www.st.com/en/imaging-and-photonics-solutions/vl53l1x.html
 * There is a Linux implementation,
   https://github.com/mjbogusz/vl53l1x-linux, but lets not use that (it
   handles the address change operation in a way that we don't want).

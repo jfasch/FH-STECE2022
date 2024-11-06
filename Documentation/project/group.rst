@@ -1,7 +1,7 @@
 .. ot-group:: crazycar
 
-Project: Linux On Crazy Car?
-============================
+Project Plan
+============
 
 .. contents::
    :local:

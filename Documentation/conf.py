@@ -18,9 +18,9 @@ import sys
 sys.path.insert(0, '../Raspi/src')
 
 # -- Project information -----------------------------------------------------
-project = 'ENDLESS'
+project = 'Crazy Car NG, Running Linux'
 copyright = '2024 (GPLv3)'
-html_title = 'ENDLESS'
+html_title = project
 html_baseurl = 'https://www.fh-joanneum.at'
 release = version = ''
 

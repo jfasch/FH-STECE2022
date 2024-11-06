@@ -37,10 +37,9 @@ from more static architectures.
 Reference Architecture
 ----------------------
 
-Give a working toolcase full of hardware that we can use code out of,
-a reference architecture can be implemented. This architecture should
-be comprised of components that are loosely coupled for several
-reasons:
+Given a working toolcase that we can use code out of, a reference
+architecture can be implemented. This architecture should be comprised
+of components that are loosely coupled for several reasons:
 
 #. Mix languages. For example, use Python for non-realtime
    responsibilities like cloud communication (MQTT)

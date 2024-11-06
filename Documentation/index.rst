@@ -26,7 +26,7 @@ in semester 4 and 5. During this class we want to learn
 * Linux hardware interfaces
 * Linux realtime
 * Some Python
-* ... and more ...
+* ... and more ....
 
 Also on FH Joanneum, there is a fun contest, `Crazy Car
 <https://www.fh-joanneum.at/veranstaltung/crazy-car/>`__. FH Joanneum

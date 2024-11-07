@@ -1,5 +1,5 @@
 .. ot-task:: crazycar.motor_control_btn9960lv
-   :dependencies: crazycar.sysfs_pwm
+   :dependencies: crazycar.sysfs_pwm, crazycar.sysfs_gpio
 
 .. include:: <mmlalias.txt>
 

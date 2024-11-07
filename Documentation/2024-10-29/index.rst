@@ -212,9 +212,6 @@ Tinker With Hardware, Think About Future.
 
 * Think about how this can be done in software
 
-  * See :ref:`fh2022-motor-control-btn9960lv-software-interface` for
-    an idea how it could look like
-
 VL53L1X (Group :doc:`../project/proximity-vl53l1x`)
 ...................................................
 

@@ -63,13 +63,13 @@ TEST_F(sysfs_pwm_pin_suite, duty_cycle_bigger_period)
     ASSERT_EQ(pin.duty_cycle(), 0); 
 }
 
-// TEST_F(sysfs_pwm_pin_suite, unsigned_vs_signed_clarification)
-// {
-//     // disregard fixture, and pull up period as maximum uint64_t.
-//     std::ofstream(dirname / "period") << "18446744073709551615\n";
+TEST_F(sysfs_pwm_pin_suite, unsigned_vs_signed_clarification)
+{
+    // disregard fixture, and pull up period as maximum uint64_t.
+    std::ofstream(dirname / "period") << "18446744073709551615\n";
 
-//     SysFSPWMPin pin(dirname);
+    SysFSPWMPin pin(dirname);
 
-//     ASSERT_EQ(pin.period(), std::numeric_limits<uint64_t>::max());
-// }
+    ASSERT_EQ(pin.period(), std::numeric_limits<uint64_t>::max());
+}
 

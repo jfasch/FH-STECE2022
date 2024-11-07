@@ -20,6 +20,7 @@ Currently On The Horizon
    motor-control-btn9960lv
    servo-motor
    sysfs-pwm
+   sysfs-gpio
 
 What's Next?
 ............

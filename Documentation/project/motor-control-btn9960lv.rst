@@ -17,7 +17,10 @@ Find out how to operate the two halfbridges on the `BTN9960LV eval
 board
 <https://www.infineon.com/cms/en/product/evaluation-boards/dc-shield_btn9960lv/>`__.
 
-Using :doc:`sysfs-pwm`, write a class that we can use.
+Using :doc:`sysfs-pwm`, and possibly a class ``SYSFSGPIO`` too, write a
+class that we can use.
+
+.. image:: motor-control-btn9960lv-one-pwm-two-gpio.jpg
 
 Status
 ------

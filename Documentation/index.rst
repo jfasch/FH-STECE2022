@@ -84,6 +84,8 @@ Project Plan
 
    project/group
 
+See :ref:`fh-stece2022-project-dependencies` for a visualization.
+
 Meetings, Hacking Sessions
 --------------------------
 

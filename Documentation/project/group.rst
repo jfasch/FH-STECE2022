@@ -31,6 +31,8 @@ What's Next?
    sensor-csv
    remote-control
 
+.. _fh-stece2022-project-dependencies:
+
 Dependencies
 ------------
 

@@ -1,11 +1,11 @@
-.. ot-topic:: crazycar.servo_motor
+.. ot-task:: crazycar.servo_motor
    :dependencies: crazycar.sysfs_pwm
 
 .. include:: <mmlalias.txt>
 
 
-RC Servo Motor Control
-======================
+ACTIVE: RC Servo Motor Control
+==============================
 
 .. contents::
    :local:

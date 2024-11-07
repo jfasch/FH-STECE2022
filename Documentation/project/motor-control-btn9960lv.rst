@@ -1,11 +1,11 @@
-.. ot-topic:: crazycar.motor_control_btn9960lv
+.. ot-task:: crazycar.motor_control_btn9960lv
    :dependencies: crazycar.sysfs_pwm
 
 .. include:: <mmlalias.txt>
 
 
-Motor Control: BTN9960LV
-========================
+ACTIVE: Motor Control: BTN9960LV
+================================
 
 .. contents::
    :local:

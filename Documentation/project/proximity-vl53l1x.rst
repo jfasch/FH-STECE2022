@@ -1,10 +1,10 @@
-.. ot-topic:: crazycar.proximity_vl53l1x
+.. ot-task:: crazycar.proximity_vl53l1x
 
 .. include:: <mmlalias.txt>
 
 
-Proximity Sensor: VL53L1X
-=========================
+ACTIVE: Proximity Sensor: VL53L1X
+=================================
 
 .. contents::
    :local:

@@ -1,10 +1,10 @@
-.. ot-topic:: crazycar.gyro_bno055
+.. ot-task:: crazycar.gyro_bno055
 
 .. include:: <mmlalias.txt>
 
 
-Gyroscope (BNO055)
-==================
+ACTIVE: Gyroscope (BNO055)
+==========================
 
 .. contents::
    :local:

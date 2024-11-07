@@ -9,7 +9,8 @@ Project Plan
 Task List
 ---------
 
-The tasks that are currently on the horizon:
+Currently On The Horizon
+........................
 
 .. toctree::
    :maxdepth: 1
@@ -19,6 +20,16 @@ The tasks that are currently on the horizon:
    motor-control-btn9960lv
    servo-motor
    sysfs-pwm
+
+What's Next?
+............
+
+.. toctree::
+   :maxdepth: 1
+
+   sensor-mqtt
+   sensor-csv
+   remote-control
 
 Dependencies
 ------------

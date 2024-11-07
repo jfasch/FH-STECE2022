@@ -1,10 +1,10 @@
-.. ot-topic:: crazycar.sysfs_pwm
+.. ot-task:: crazycar.sysfs_pwm
 
 .. include:: <mmlalias.txt>
 
 
-PMW Abstraction On Top Of ``/sys/class/pwm/``
-=============================================
+DONE: PMW Abstraction On Top Of ``/sys/class/pwm/``
+===================================================
 
 .. contents::
    :local:

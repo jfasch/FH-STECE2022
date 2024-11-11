@@ -1,8 +1,8 @@
 .. include:: <mmlalias.txt>
 
 
-2024-11-12(6): Project, Future
-==============================
+2024-11-12(6): POSIX MQ, Xbox
+=============================
 
 .. contents::
    :local:
@@ -24,6 +24,7 @@ Org
 Material
 --------
 
+* :doc:`jfasch:trainings/material/soup/linux/sysprog/ipc-mqueue/topic`
 * signed vs. unsigned: ``SysFSPWMPin`` has a mixture of ``uint64_t``
   and ``int64_t``. Should take care, mostly about semantics:
   ``period`` and ``duty_cycle`` cannot become negative, so these
@@ -35,7 +36,7 @@ Material
 Project
 -------
 
-* Look into architecture
+* Architecture: Xbox, message queue
 * Anyone for :doc:`../project/remote-control`?
 * :doc:`../project/sysfs-pwm`: clarify we do not want
   ``gpiochipN/export`` in a PWM pin object. A PWM pin object does not

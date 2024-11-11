@@ -35,6 +35,7 @@ Material
 Project
 -------
 
+* Anyone for :doc:`../project/remote-control`?
 * :doc:`../project/sysfs-pwm`: clarify we do not want
   ``gpiochipN/export`` in a PWM pin object. A PWM pin object does not
   allocate resources, the resources are there, and it manages
@@ -64,11 +65,9 @@ Homework
   `std::stoull()
   <https://en.cppreference.com/w/cpp/string/basic_string/stoul>`__
 
-Myself
+Future
+------
 
-* create git page, and link it to course main page
-* ``./fh-stece22-suite: /usr/lib/arm-linux-gnueabihf/libstdc++.so.6:
-  version `GLIBCXX_3.4.26' not found (required by
-  ./fh-stece22-suite)``
-* uint64/int64 woes (pwm vs. sysfsfile) -> see existing commented-out
-  test
+jjj
+
+* task: init (export pwm, gpio, and whatnot)

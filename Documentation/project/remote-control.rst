@@ -5,8 +5,8 @@
 .. include:: <mmlalias.txt>
 
 
-Remote Control (Manual Driving)
-===============================
+Xbox Remote Control (Manual Driving)
+====================================
 
 .. contents::
    :local:
@@ -15,7 +15,8 @@ Plan
 ----
 
 Once :doc:`motor-control-btn9960lv` and :doc:`servo-motor` are usable,
-we can use a remote control (Playstation? Wii?) to drive the car.
+we can use a remote control (XBox? Playstation? see below) to drive
+the car.
 
 We can then record sensor values as we drive, for example; see
 :doc:`sensor-mqtt` and :doc:`sensor-csv`.
@@ -33,7 +34,7 @@ works with the `"xbox360controller" Python library
 available on `PyPI <https://pypi.org/project/xbox360controller/>`__
 (see :doc:`here <jfasch:trainings/material/soup/python/swdev/group>`
 for what PyPI is). Under the MIT license, which is compatible to use
-with ours (GPLv3).
+with ours (GPLv3). **Implementation language: Python**
 
 **Fallback: Playstation**
 
@@ -49,8 +50,9 @@ Not yet started
 Notes
 -----
 
-On remote control integration:
+Open source remote control implementations:
 
+* https://pypi.org/project/xbox360controller/
 * http://xwiimote.github.io/xwiimote/
 * https://www.baeldung.com/linux/android-remote-control
 * https://wiki.archlinux.org/title/Gamepad

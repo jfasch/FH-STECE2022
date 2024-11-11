@@ -10,7 +10,7 @@
 Crazy Car Software Architecture
 -------------------------------
 
-.. image:: ../architecture.svg
+.. image:: ../architecture/architecture.svg
 
 Project Status
 --------------

@@ -74,7 +74,7 @@ of components that are loosely coupled for several reasons:
    having the hardware sensors available
 #. Testability
 
-.. image:: architecture.svg
+.. image:: architecture/architecture.svg
 
 Project Plan
 ------------

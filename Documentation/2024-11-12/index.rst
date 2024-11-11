@@ -35,6 +35,7 @@ Material
 Project
 -------
 
+* Look into architecture
 * Anyone for :doc:`../project/remote-control`?
 * :doc:`../project/sysfs-pwm`: clarify we do not want
   ``gpiochipN/export`` in a PWM pin object. A PWM pin object does not

@@ -33,6 +33,8 @@ Status
 Notes
 -----
 
+* Terminology:
+  https://www.nxp.com/docs/en/quick-reference-guide/SENSORTERMSPG.pdf
 * Breakout board:
   https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code
 * Datasheet:

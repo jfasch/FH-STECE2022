@@ -4,6 +4,13 @@ Development Workflow
 .. contents::
    :local:
 
+Documentation
+-------------
+
+See `the docs CI on readthedocs
+<https://fh-stece2022.readthedocs.io/>`__ for the latest documentation
+build.
+
 Checkout and Initialization
 ---------------------------
 
@@ -94,18 +101,8 @@ Test
    $ ./exercises/02-sensor/bin/read-sensor /tmp/temperature
    Hier noch brav sein!
 
-Documentation
--------------
-
-ReadTheDocs
-...........
-
-See `the docs CI on readthedocs
-<https://fh-stece2022.readthedocs.io/>`__ for the latest documentation
-build.
-
 Building Documentation Locally
-..............................
+------------------------------
 
 * ``requirements.txt`` contains a lot, it's probably best to use a
   virtual environment

@@ -12,25 +12,25 @@ public:
       _duty_cycle_file(pindir / "duty_cycle")
     {}
 
-    int64_t period()
+    uint64_t period()
     {
-        return _period_file.read_int64();
+        return _period_file.read_uint64();
     }
 
-    int64_t duty_cycle()
+    uint64_t duty_cycle()
     {
-        return _duty_cycle_file.read_int64();
+        return _duty_cycle_file.read_uint64();
     }
 
     void set_duty_cycle(uint64_t i)
     {
-        if (i > (uint64_t) period())
+        if (i > period())
         {
             throw std::invalid_argument("Duty cycle is bigger than period");
         }
         else
         {
-            _duty_cycle_file.write_int64(i);
+            _duty_cycle_file.write_uint64(i);
         }
     }
 

@@ -1,8 +1,11 @@
 add_executable(
   fh-stece22-suite
 
+  demo-tests.cpp
+
   sysfs-file-tests.cpp
   sysfs-pwm-pin-tests.cpp
+  sysfs-gpio-tests.cpp
 
   fixture-tmpdir.cpp
   fixture-tmpdir.h

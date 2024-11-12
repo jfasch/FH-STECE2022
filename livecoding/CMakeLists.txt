@@ -19,3 +19,6 @@ ADD_EXECUTABLE(address-space address-space.cpp)
 ADD_EXECUTABLE(point point.cpp)
 
 ADD_EXECUTABLE(file-create file-create.cpp)
+
+ADD_EXECUTABLE(namemangling-main namemangling-main.cpp namemangling-lib.cpp)
+ADD_EXECUTABLE(namemangling-main-simulink namemangling-main-c.cpp namemangling-lib-c.cpp namemangling-lib.cpp)

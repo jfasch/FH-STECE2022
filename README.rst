@@ -4,6 +4,13 @@ Development Workflow
 .. contents::
    :local:
 
+Documentation
+-------------
+
+See `the docs CI on readthedocs
+<https://fh-stece2022.readthedocs.io/>`__ for the latest documentation
+build.
+
 Checkout and Initialization
 ---------------------------
 
@@ -93,3 +100,26 @@ Test
    $ echo 42666 > /tmp/temperature
    $ ./exercises/02-sensor/bin/read-sensor /tmp/temperature
    Hier noch brav sein!
+
+Building Documentation Locally
+------------------------------
+
+* ``requirements.txt`` contains a lot, it's probably best to use a
+  virtual environment
+
+  .. code-block:: console
+
+     $ python -m venv ~/My-Environments/FH-STECE2022
+     $ . ~/My-Environments/FH-STECE2022/bin/activate
+     $ python -m pip install -r requirements.txt
+
+* ``chdir`` to ``Documentation/``, and build
+
+  .. code-block:: console
+
+     $ cd Documentation/
+     $ make html
+     ... roedel ...
+
+* The build lands in ``/tmp/FH-STECE2022/``; point your browser to
+  ``/tmp/FH-STECE2022/html/index.html``

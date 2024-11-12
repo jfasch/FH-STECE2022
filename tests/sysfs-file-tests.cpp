@@ -52,3 +52,77 @@ TEST_F(sysfs_file_suite, write_int64_truncate)
     std::ifstream(dirname / "my-file") >> i;
     ASSERT_EQ(i, 666);
 }
+
+TEST_F(sysfs_file_suite, read_uint64_t)
+{
+    std::ofstream(dirname / "my-file") << "42\n";
+
+    SysFSFile file(dirname / "my-file");
+
+    ASSERT_EQ(file.read_uint64(), 42);
+}
+
+TEST_F(sysfs_file_suite, write_uint64_t)
+{
+    std::ofstream(dirname / "my-file") << "0\n";
+
+    SysFSFile file(dirname / "my-file");
+
+    ASSERT_EQ(file.read_uint64(), 0);
+
+    file.write_uint64(42); // 2**64-1
+
+    uint64_t content;
+    std::ifstream(dirname / "my-file") >> content;
+
+    ASSERT_EQ(content, 42);
+}
+
+TEST_F(sysfs_file_suite, read_max_uint64_t)
+{
+    std::ofstream(dirname / "my-file") << "18446744073709551615\n"; // 2**64-1
+
+    SysFSFile file(dirname / "my-file");
+
+    ASSERT_EQ(file.read_uint64(), std::numeric_limits<uint64_t>::max());
+}
+
+TEST_F(sysfs_file_suite, write_max_uint64_t)
+{
+    std::ofstream(dirname / "my-file") << "0\n";
+
+    SysFSFile file(dirname / "my-file");
+
+    ASSERT_EQ(file.read_uint64(), 0);
+
+    file.write_uint64(18446744073709551615ULL); // 2**64-1
+
+    uint64_t content;
+    std::ifstream(dirname / "my-file") >> content;
+
+    ASSERT_EQ(content, 18446744073709551615ULL);
+}
+
+TEST_F(sysfs_file_suite, read_string)
+{
+    std::ofstream(dirname / "my-file") << "blah\n";
+
+    SysFSFile file(dirname / "my-file");
+
+    ASSERT_EQ(file.read_string(), "blah");
+}
+
+TEST_F(sysfs_file_suite, write_string)
+{
+    std::ofstream(dirname / "my-file") << "blah\n";
+
+    SysFSFile file(dirname / "my-file");
+    ASSERT_EQ(file.read_string(), "blah");
+
+    file.write_string("blech");
+
+    std::string content;
+    std::ifstream(dirname / "my-file") >> content;
+
+    ASSERT_EQ(content, "blech");
+}

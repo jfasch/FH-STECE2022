@@ -42,26 +42,35 @@ TEST_F(sweet_servo_suite, sunny)
 {
     ASSERT_EQ(pin.period(), PERIOD_NS_INIT);
     
-    best_servo.set_position(-100);
+    best_servo.set_position(servo_min);
     ASSERT_EQ(pin.duty_cycle(), duty_cycle_min);
     
     best_servo.set_position(0);
     ASSERT_EQ(pin.duty_cycle(), duty_cycle_mid);
     
-    best_servo.set_position(100);
+    best_servo.set_position(servo_max);
     ASSERT_EQ(pin.duty_cycle(), duty_cycle_max);
+
+    uint64_t range_positive = duty_cycle_max - duty_cycle_mid;
+    uint64_t range_negative = duty_cycle_mid - duty_cycle_min;
+
+    best_servo.set_position(servo_max/2);
+    ASSERT_EQ(pin.duty_cycle(), duty_cycle_max - range_positive / 2);
+
+    best_servo.set_position(servo_min/2);
+    ASSERT_EQ(pin.duty_cycle(), duty_cycle_min + range_negative / 2);
 }
 
 TEST_F(sweet_servo_suite, out_of_range)
 {    
-    best_servo.set_position(-101);
+    best_servo.set_position(servo_min - 1);
     ASSERT_EQ(pin.duty_cycle(), duty_cycle_min);
-    best_servo.set_position(-2000);
+    best_servo.set_position(servo_min * 20);
     ASSERT_EQ(pin.duty_cycle(), duty_cycle_min);
     
-    best_servo.set_position(101);
+    best_servo.set_position(servo_max + 1);
     ASSERT_EQ(pin.duty_cycle(), duty_cycle_max);
-    best_servo.set_position(2000);
+    best_servo.set_position(servo_max * 20);
     ASSERT_EQ(pin.duty_cycle(), duty_cycle_max);
 }
 

@@ -8,7 +8,7 @@
 class servo
 {
 public:
-    servo(SysFSPWMPin PWMpin, uint8_t duty_mid, uint8_t duty_min, uint8_t duty_max);
+    servo(SysFSPWMPin PWMpin, uint64_t duty_mid, uint64_t duty_min, uint64_t duty_max);
 
     void set_position(int position);
 

@@ -29,6 +29,7 @@ VL53L1X::VL53L1X(int fd)
 void VL53L1X::setAddress(uint8_t new_addr)
 {
   writeReg(I2C_SLAVE__DEVICE_ADDRESS, new_addr & 0x7F);
+  std::cout << "setAddress: " << I2C_SLAVE__DEVICE_ADDRESS << std::endl;
   address = new_addr;
 }
 
@@ -59,17 +60,18 @@ bool VL53L1X::init(bool io_2v8)
   startTimeout();
 
   // check last_status in case we still get a NACK to try to deal with it correctly
-  while ((readReg(FIRMWARE__SYSTEM_STATUS) & 0x01) == 0 || last_status != 0)
-  {
-    std::cout << "laststatus Zeile 63 im cpp: " << last_status << std::endl;
-    std::cout << "Endlosschleife"<< std::endl;
-    if (checkTimeoutExpired())
-    {
-      did_timeout = true;
-      std::cout << "Zweiter Falsch Return"<< std::endl;
-      return false;
-    }
-  }
+  // while ((readReg(FIRMWARE__SYSTEM_STATUS) & 0x01) == 0 || last_status != 0) //last_status wird nicht verwendet
+  // {
+  //   std::cout << "laststatus Zeile 63 im cpp: " << last_status << std::endl;
+  //   std::cout << "Endlosschleife"<< std::endl;
+  //   if (checkTimeoutExpired())
+  //   {
+  //     did_timeout = true;
+  //     std::cout << "Zweiter Falsch Return"<< std::endl;
+  //     return false;
+  //   }
+  // }
+  assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
   // VL53L1_poll_for_boot_completion() end
 
   // VL53L1_software_reset() end
@@ -84,8 +86,8 @@ bool VL53L1X::init(bool io_2v8)
   }
 
   // store oscillator info for later use
-  fast_osc_frequency = readReg16Bit(OSC_MEASURED__FAST_OSC__FREQUENCY);
-  osc_calibrate_val = readReg16Bit(RESULT__OSC_CALIBRATE_VAL);
+  fast_osc_frequency = readReg16Bit(OSC_MEASURED__FAST_OSC__FREQUENCY);   //48414 BD1E
+  osc_calibrate_val = readReg16Bit(RESULT__OSC_CALIBRATE_VAL); //37 0025
 
   std::cout << "osc_calibrate_val "<< osc_calibrate_val << std::endl;
 
@@ -169,8 +171,11 @@ bool VL53L1X::init(bool io_2v8)
 
 unsigned long VL53L1X::millis() {
     struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+    assert(0 == gettimeofday(&tv, NULL));
+    std::cout << "tv.tv_sec: " << (tv.tv_sec) << 1731400000 << std::endl;
+    std::cout << "tv.tv_sec: " << ((tv.tv_sec - 1731400000) * 1000) << std::endl;
+    std::cout << "tv.tv_usec: " << (tv.tv_usec / 1000) << std::endl;
+    return ((tv.tv_sec - 1731400000) * 1000) + (tv.tv_usec / 1000);
 }
 
 
@@ -190,8 +195,10 @@ void VL53L1X::writeReg(uint16_t reg, uint8_t value)
   reg = (reg >> 8) | (reg << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
+  std::cout << "writeReg: uint16_t reg, uint8_t value: " << bus_fd << std::endl;
   bits = 1;
   assert(bits == write(bus_fd,&value,bits));
+  std::cout << "writeReg: uint16_t reg, uint8_t value: " << bus_fd << std::endl;
 }
 
 // // Write a 16-bit register
@@ -212,7 +219,9 @@ void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
   value = (value >> 8) | (value << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
+  std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bus_fd << std::endl;
   assert(bits == write(bus_fd,&value,2));
+  std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bus_fd << std::endl;
 }
 
 // // Write a 32-bit register
@@ -233,11 +242,13 @@ void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
 void VL53L1X::writeReg32Bit(uint16_t reg, uint32_t value)
 {
   reg = (reg >> 8) | (reg << 8);
-  value = (reg >> 24) | ((0x00FF0000 & reg) >> 8) | ((0x0000FF00 & reg) << 8) | ((0x000000FF & reg) << 24);
+  value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
+  std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bus_fd << std::endl;
   bits = 4;
   assert(bits == write(bus_fd,&value,bits));
+  std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bus_fd << std::endl;
 }
 
 // // Read an 8-bit register
@@ -264,8 +275,10 @@ uint8_t VL53L1X::readReg(regAddr reg)
   bit_reg = (bit_reg >> 8) | (bit_reg << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&bit_reg,bits));
+  std::cout << "readReg/writing: regAddr reg: " << bus_fd << std::endl;
   bits = 1;
   assert(bits == read(bus_fd, &value, bits));
+  std::cout << "readReg: regAddr reg: " << bus_fd << std::endl;
 
   return value;
 }
@@ -295,7 +308,9 @@ uint16_t VL53L1X::readReg16Bit(uint16_t reg)
   reg = (reg >> 8) | (reg << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
+  std::cout << "read16Reg/writing: uint16_t reg: " << bus_fd << std::endl;
   assert(bits == read(bus_fd, &value, bits));
+  std::cout << "read16Reg: uint16_t reg: " << bus_fd << std::endl;
   value = (value >> 8) | (value << 8);
   
   return value;
@@ -328,10 +343,12 @@ uint32_t VL53L1X::readReg32Bit(uint16_t reg)
   reg = (reg >> 8) | (reg << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
+  std::cout << "read32Reg/writing: uint16_t reg: " << bus_fd << std::endl;
   bits = 4;
   assert(bits == read(bus_fd, &value, bits));
+  std::cout << "read32Reg: uint16_t reg: " << bus_fd << std::endl;
 
-  value = (reg >> 24) | ((0x00FF0000 & reg) >> 8) | ((0x0000FF00 & reg) << 8) | ((0x000000FF & reg) << 24);
+  value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
   
 
   return value;
@@ -341,6 +358,7 @@ uint32_t VL53L1X::readReg32Bit(uint16_t reg)
 // based on VL53L1_SetDistanceMode()
 bool VL53L1X::setDistanceMode(DistanceMode mode)
 {
+  assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
   // save existing timing budget
   uint32_t budget_us = getMeasurementTimingBudget();
 
@@ -415,6 +433,7 @@ bool VL53L1X::setDistanceMode(DistanceMode mode)
 // based on VL53L1_SetMeasurementTimingBudgetMicroSeconds()
 bool VL53L1X::setMeasurementTimingBudget(uint32_t budget_us)
 {
+  assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
   // assumes PresetMode is LOWPOWER_AUTONOMOUS
 
   if (budget_us <= TimingGuard) { return false; }
@@ -465,6 +484,7 @@ bool VL53L1X::setMeasurementTimingBudget(uint32_t budget_us)
     timeoutMicrosecondsToMclks(range_config_timeout_us, macro_period_us)));
 
   // VL53L1_calc_timeout_register_values() end
+  assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
 
   return true;
 }
@@ -587,9 +607,15 @@ uint8_t VL53L1X::getROICenter()
 // period in milliseconds determining how often the sensor takes a measurement.
 void VL53L1X::startContinuous(uint32_t period_ms)
 {
+  assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
+  
   // from VL53L1_set_inter_measurement_period_ms()
   writeReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD, period_ms * osc_calibrate_val);
-
+  assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
+  assert(readReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD) == period_ms * osc_calibrate_val);
+  std::cout << "FIRMWARE__SYSTEM_STATUS" << std::endl;
+  assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
+  std::cout << "FIRMWARE__SYSTEM_STATUS" << std::endl;
   writeReg(SYSTEM__INTERRUPT_CLEAR, 0x01); // sys_interrupt_clear_range
   writeReg(SYSTEM__MODE_START, 0x40); // mode_range__timed
 }
@@ -982,7 +1008,7 @@ void VL53L1X::getRangingData()
 
   std::cout << "results.final_crosstalk_corrected_range_mm_sd0  "<< results.final_crosstalk_corrected_range_mm_sd0 << std::endl;
   std::cout << "ranging_data.range_mm  "<< ranging_data.range_mm << std::endl;
-  usleep(1000000);
+  usleep(5000000);
 }
 
 // Decode sequence step timeout in MCLKs from register value

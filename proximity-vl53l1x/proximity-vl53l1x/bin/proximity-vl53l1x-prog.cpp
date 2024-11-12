@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <sys/ioctl.h>
 #include <iostream>
+#include <sys/time.h>
 
 #include <VL53L1X.h>
 
@@ -66,7 +67,8 @@ int main() {
 
     while(true)
     {
-      std::cout << sensor.read_sensor() << std::endl;
+        std::cout << sensor.read_sensor() << std::endl;
+        std::cout << ' ' << std::endl;
      if (sensor.timeoutOccurred()) { std::cout << " TIMEOUT" << "\n" << std::endl; }
     }
 

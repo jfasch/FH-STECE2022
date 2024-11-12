@@ -19,5 +19,5 @@ public:
     void write_string(const std::string&);
 
 private:
-    const std::filesystem::path _path;
+    std::filesystem::path _path;
 };

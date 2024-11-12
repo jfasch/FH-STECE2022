@@ -7,6 +7,8 @@ add_executable(
   sysfs-pwm-pin-tests.cpp
   sysfs-gpio-tests.cpp
 
+  motor-tests.cpp
+
   fixture-tmpdir.cpp
   fixture-tmpdir.h
 )

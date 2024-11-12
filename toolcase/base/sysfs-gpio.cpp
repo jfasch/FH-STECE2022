@@ -6,9 +6,7 @@
 SysFSGPIO::SysFSGPIO(const std::filesystem::path& pindir)
 : _value_file(pindir / "value"),
   _direction_file(pindir / "direction")
-{
-    assert(direction() == OUT); // todo: error handling
-}
+{}
 
 SysFSGPIO::Direction SysFSGPIO::direction()
 {
@@ -29,5 +27,6 @@ bool SysFSGPIO::state()
 
 void SysFSGPIO::set_state(bool state)
 {
+    assert(direction() == OUT); // todo: error handling, speed optimization
     _value_file.write_uint64(state);
 }

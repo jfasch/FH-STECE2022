@@ -10,6 +10,11 @@ target_link_libraries(vehicle-motor-set-rpm toolcase-ipc)
 add_executable(vehicle-servo-set-angle vehicle-servo-set-angle.cpp)
 target_link_libraries(vehicle-servo-set-angle toolcase-ipc)
 
+
+
+add_executable(gpio-test gpio-test.cpp)
+target_link_libraries(gpio-test toolcase-base)
+
 add_executable(pwm-test pwm-test.cpp)
 target_link_libraries(pwm-test toolcase-base)
 

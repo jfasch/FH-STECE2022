@@ -28,31 +28,15 @@ Material
 * signed vs. unsigned: C/C++ lets you mix unsigned and signed entities
   as you want. one has to be careful.
 
-  Look in `toolcase/base/servo.cpp
-  <https://github.com/jfasch/FH-STECE2022/blob/main/toolcase/base/servo.cpp>`__
+  Look in `toolcase/base/sysfs-servo.cpp
+  <https://github.com/jfasch/FH-STECE2022/blob/main/toolcase/base/sysfs-servo.cpp>`__
 
 Project
 -------
 
 * Architecture: Xbox, message queue
 * Anyone for :doc:`/project/tasks/remote-control`?
-* :doc:`/project/tasks/sysfs-pwm`: clarify we do not want
-  ``gpiochipN/export`` in a PWM pin object. A PWM pin object does not
-  allocate resources, the resources are there, and it manages
-  them. Setup code, for before the user code, must be executed by
-  something that is closer to machine boot.
-* :doc:`/project/tasks/servo-motor`
+* ``SysFS_Servo``: talk about usage
 
-  * What does the class look like?
-
-* :doc:`/project/tasks/motor-control-btn9960lv`
-
-  * What does the class look like?
-
-* :doc:`/project/tasks/proximity-vl53l1x`
-
-  * What does the class look like?
-
-* :doc:`/project/tasks/gyroscope-bno055`
-
-  * What does the class look like?
+  * How is min/mid/max related to PWM period? Shouldn't those be
+    calculated from period?

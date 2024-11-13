@@ -50,9 +50,22 @@ Not yet started
 Notes
 -----
 
-Open source remote control implementations:
+Open source remote control implementations
+..........................................
 
 * https://pypi.org/project/xbox360controller/
 * http://xwiimote.github.io/xwiimote/
 * https://www.baeldung.com/linux/android-remote-control
 * https://wiki.archlinux.org/title/Gamepad
+
+Linux Debug Notes
+.................
+
+.. code-block:: console
+
+   $ sudo dnf install jstest-gtk
+   $ jstest-gtk
+
+.. code-block:: console
+
+   $ libinput debug-events --verbose

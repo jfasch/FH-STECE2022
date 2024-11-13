@@ -35,14 +35,14 @@ struct motor_suite : public tmpdir_fixture
 
         forward = SysFS_GPIO_Pin(forward_path);
         backward = SysFS_GPIO_Pin(backward_path);
-        speed = SysFSPWMPin(speed_path);
+        speed = SysFS_PWM_Pin(speed_path);
 
         motor = SysFSMotor(forward, backward, speed);
     }
 
     SysFS_GPIO_Pin forward;
     SysFS_GPIO_Pin backward;
-    SysFSPWMPin speed;
+    SysFS_PWM_Pin speed;
 
     SysFSMotor motor;
 };

@@ -7,6 +7,7 @@ add_library(toolcase-base
   sysfs-gpio-pin.cpp
 
   sysfs-pwm-pin.h
+  sysfs-pwm-pin.cpp
 
   sysfs-servo.h
   sysfs-servo.cpp

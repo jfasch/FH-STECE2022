@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-SysFS_Servo::SysFS_Servo(SysFSPWMPin pwm, uint64_t duty_mid, uint64_t duty_min, uint64_t duty_max)
+SysFS_Servo::SysFS_Servo(SysFS_PWM_Pin pwm, uint64_t duty_mid, uint64_t duty_min, uint64_t duty_max)
 : _pwm(pwm),
   _duty_cycle_mid(duty_mid),
   _duty_cycle_min(duty_min),

@@ -30,7 +30,7 @@ struct sysfs_pwm_pin_suite : tmpdir_fixture
 
 TEST_F(sysfs_pwm_pin_suite, get_period)
 {
-    SysFSPWMPin pin(dirname);
+    SysFS_PWM_Pin pin(dirname);
 
     ASSERT_EQ(pin.period(), PERIOD_NS_INIT);
     ASSERT_EQ(pin.duty_cycle(), 0);
@@ -45,7 +45,7 @@ TEST_F(sysfs_pwm_pin_suite, get_period)
 
 TEST_F(sysfs_pwm_pin_suite, duty_cycle_bigger_period)
 {
-    SysFSPWMPin pin(dirname);
+    SysFS_PWM_Pin pin(dirname);
 
     ASSERT_EQ(pin.period(), PERIOD_NS_INIT);
     ASSERT_EQ(pin.duty_cycle(), 0);
@@ -62,7 +62,7 @@ TEST_F(sysfs_pwm_pin_suite, unsigned_vs_signed_clarification)
     // disregard fixture, and pull up period as maximum uint64_t.
     std::ofstream(dirname / "period") << "18446744073709551615\n";
 
-    SysFSPWMPin pin(dirname);
+    SysFS_PWM_Pin pin(dirname);
 
     ASSERT_EQ(pin.period(), std::numeric_limits<uint64_t>::max());
 }

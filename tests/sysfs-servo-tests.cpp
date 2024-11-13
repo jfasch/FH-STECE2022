@@ -13,7 +13,7 @@ struct sweet_servo_suite : tmpdir_fixture
 
     SysFS_File period_file;
     SysFS_File duty_cycle_file;
-    SysFSPWMPin pin;
+    SysFS_PWM_Pin pin;
     uint64_t duty_cycle_mid;
     uint64_t duty_cycle_min;
     uint64_t duty_cycle_max;

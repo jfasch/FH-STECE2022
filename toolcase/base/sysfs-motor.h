@@ -7,6 +7,6 @@
 class SysFSMotor
 {
 public:
-    SysFSMotor(SysFS_GPIO_Pin forward, SysFS_GPIO_Pin backward, SysFSPWMPin speed) {}
+    SysFSMotor(SysFS_GPIO_Pin forward, SysFS_GPIO_Pin backward, SysFS_PWM_Pin speed) {}
     void set_speed(int) {}
 };

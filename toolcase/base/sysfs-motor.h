@@ -41,7 +41,7 @@ public:
 
         else if(speed == 0 && _was_speed_set == false)
         {
-            _forward.set_state(true);
+            _forward.set_state(false);
             _backward.set_state(false);
             _speed.set_duty_cycle(_speed.period() / 100 * std::abs(speed));
         }

@@ -2,7 +2,7 @@
 
 #include <base/sysfs-pwm-pin.h>
 #include <base/sysfs-file.h>
-#include <base/servo.h>
+#include <base/sysfs-servo.h>
 
 #include "fixture-tmpdir.h"
 #include <fstream>
@@ -17,7 +17,7 @@ struct sweet_servo_suite : tmpdir_fixture
     uint64_t duty_cycle_mid;
     uint64_t duty_cycle_min;
     uint64_t duty_cycle_max;
-    servo best_servo;
+    SysFS_Servo best_servo;
 
     sweet_servo_suite()
     : period_file(dirname / "period"),

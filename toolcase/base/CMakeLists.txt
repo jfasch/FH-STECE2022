@@ -8,8 +8,8 @@ add_library(toolcase-base
 
   sysfs-pwm-pin.h
 
-  servo.h
-  servo.cpp
+  sysfs-servo.h
+  sysfs-servo.cpp
 )
 
 target_include_directories(

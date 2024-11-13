@@ -1,15 +1,16 @@
-#include "servo.h"
+#include "sysfs-servo.h"
+
 #include <fstream>
 #include <iostream>
 
-servo::servo(SysFSPWMPin PWMpin, uint64_t duty_mid, uint64_t duty_min, uint64_t duty_max)
-: _pwm(PWMpin),
+SysFS_Servo::SysFS_Servo(SysFSPWMPin pwm, uint64_t duty_mid, uint64_t duty_min, uint64_t duty_max)
+: _pwm(pwm),
   _duty_cycle_mid(duty_mid),
   _duty_cycle_min(duty_min),
   _duty_cycle_max(duty_max)  
 {}
 
-void servo::set_position(int position) {
+void SysFS_Servo::set_position(int position) {
     //error handling
 
     // std::cout << "\n\n" << position << "\n\n";

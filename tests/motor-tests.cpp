@@ -37,14 +37,14 @@ struct motor_suite : public tmpdir_fixture
         backward = SysFS_GPIO_Pin(backward_path);
         speed = SysFS_PWM_Pin(speed_path);
 
-        motor = SysFSMotor(forward, backward, speed);
+        motor = SysFS_Motor(forward, backward, speed);
     }
 
     SysFS_GPIO_Pin forward;
     SysFS_GPIO_Pin backward;
     SysFS_PWM_Pin speed;
 
-    SysFSMotor motor;
+    SysFS_Motor motor;
 };
 
 TEST_F(motor_suite, forward_slightly)

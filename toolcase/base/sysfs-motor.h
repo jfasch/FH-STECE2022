@@ -4,9 +4,9 @@
 #include "sysfs-pwm-pin.h"
 
 
-class SysFSMotor
+class SysFS_Motor
 {
 public:
-    SysFSMotor(SysFS_GPIO_Pin forward, SysFS_GPIO_Pin backward, SysFS_PWM_Pin speed) {}
+    SysFS_Motor(SysFS_GPIO_Pin forward, SysFS_GPIO_Pin backward, SysFS_PWM_Pin speed) {}
     void set_speed(int) {}
 };

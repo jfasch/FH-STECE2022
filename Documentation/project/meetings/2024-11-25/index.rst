@@ -1,16 +1,35 @@
 .. include:: <mmlalias.txt>
 
 
-2024-11-12(6): POSIX MQ, Xbox
-=============================
+2024-11-25(3): Project
+======================
 
 .. contents::
    :local:
+
+Org
+---
+
+* **Licensing**
+
+  * We are under the `GPLv3
+    <https://www.gnu.org/licenses/gpl-3.0.en.html>`__
+  * BNO055 source was under MIT right? Please check, should be added
+    as a note to :doc:`/project/tasks/gyroscope-bno055`.
+
+* **MAC Adresses**
+
+  * Do we have a list?
 
 Material
 --------
 
 * :doc:`jfasch:trainings/material/soup/linux/sysprog/ipc-mqueue/topic`
+* signed vs. unsigned: C/C++ lets you mix unsigned and signed entities
+  as you want. one has to be careful.
+
+  Look in `toolcase/base/servo.cpp
+  <https://github.com/jfasch/FH-STECE2022/blob/main/toolcase/base/servo.cpp>`__
 
 Project
 -------
@@ -37,18 +56,3 @@ Project
 * :doc:`/project/tasks/gyroscope-bno055`
 
   * What does the class look like?
-
-Homework
---------
-
-* ``ip addr``
-* Someone to implement signed/unsigned? |longrightarrow|
-  `std::stoull()
-  <https://en.cppreference.com/w/cpp/string/basic_string/stoul>`__
-
-Future
-------
-
-jjj
-
-* task: init (export pwm, gpio, and whatnot)

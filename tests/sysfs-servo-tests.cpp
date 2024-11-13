@@ -28,13 +28,8 @@ struct sweet_servo_suite : tmpdir_fixture
       duty_cycle_max(1.7*1000*1000),
       best_servo(pin, duty_cycle_mid, duty_cycle_min, duty_cycle_max)
     {
-        // create files (SysFSFile insists)
-        std::ofstream(dirname / "period", std::ios::out);
-        std::ofstream(dirname / "duty_cycle", std::ios::out);
-
-        // write initial content
-        period_file.write_int64(PERIOD_NS_INIT);
-        duty_cycle_file.write_int64(0);
+        std::ofstream(dirname / "period", std::ios::out) << PERIOD_NS_INIT << '\n';
+        std::ofstream(dirname / "duty_cycle", std::ios::out) << 0 << '\n';
     }
 };
 
@@ -73,17 +68,3 @@ TEST_F(sweet_servo_suite, out_of_range)
     best_servo.set_position(servo_max * 20);
     ASSERT_EQ(pin.duty_cycle(), duty_cycle_max);
 }
-
-// TEST_F(sweet_servo_suite, faulty_input)
-// {    
-//     best_servo.set_position("asdf");
-//     ASSERT_EQ(duty_cycle_file.read_int64(), duty_cycle_min);
-//     best_servo.set_position(-2000);
-//     ASSERT_EQ(duty_cycle_file.read_int64(), duty_cycle_min);
-    
-//     best_servo.set_position(101);
-//     ASSERT_EQ(duty_cycle_file.read_int64(), duty_cycle_max);
-//     best_servo.set_position(2000);
-//     ASSERT_EQ(duty_cycle_file.read_int64(), duty_cycle_max);
-// }
-

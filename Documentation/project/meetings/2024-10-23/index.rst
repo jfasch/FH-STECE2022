@@ -16,8 +16,8 @@ contexts, and therefore cannot use Linux kernel drivers).
 
 These devices are:
 
-* :doc:`../project/proximity-vl53l1x`
-* :doc:`../project/gyroscope-bno055`
+* :doc:`/project/tasks/proximity-vl53l1x`
+* :doc:`/project/tasks/gyroscope-bno055`
 
 Go over Linux userspace I2C:
 
@@ -43,7 +43,7 @@ coincidentally using a driver for a PWM device:
 PWM
 ---
 
-* :doc:`../project/motor-control-btn9960lv`
+* :doc:`/project/tasks/motor-control-btn9960lv`
 
   That device is controlled via two PWM channels. The Raspberry has
   only one (pin 18 has an alternative setting), so we use a PCA9685
@@ -52,4 +52,4 @@ PWM
   |longrightarrow|
   :doc:`jfasch:trainings/material/soup/linux/hardware/pwm/topic`
 
-* :doc:`../project/servo-motor`
+* :doc:`/project/tasks/servo-motor`

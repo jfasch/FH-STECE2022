@@ -42,12 +42,12 @@ Project
 * Software implications: aggregating objects into instances of higher
   level types
 
-    * Show :doc:`../project/sysfs-pwm`
-    * :doc:`../project/servo-motor`, which aggregates a :doc:`../project/sysfs-pwm`
-    * :doc:`../project/motor-control-btn9960lv`, which aggregates one
-      or two :doc:`../project/sysfs-pwm`
+    * Show :doc:`/project/tasks/sysfs-pwm`
+    * :doc:`/project/tasks/servo-motor`, which aggregates a :doc:`/project/tasks/sysfs-pwm`
+    * :doc:`/project/tasks/motor-control-btn9960lv`, which aggregates
+      one or two :doc:`/project/tasks/sysfs-pwm`
 
-* :doc:`../project/motor-control-btn9960lv`
+* :doc:`/project/tasks/motor-control-btn9960lv`
 
   * How's it with hardware? Do we need 2 PWMs, or just one?
 
@@ -55,13 +55,13 @@ Project
 
   * How's it with software? Write test together.
 
-* :doc:`../project/servo-motor`
+* :doc:`/project/tasks/servo-motor`
 
   * How's it with software? Write test together.
 
-* :doc:`../project/proximity-vl53l1x`: talk about usage sketch of
+* :doc:`/project/tasks/proximity-vl53l1x`: talk about usage sketch of
   ``class VL53L1X``
-* :doc:`../project/gyroscope-bno055`: talk about usage sketch of
+* :doc:`/project/tasks/gyroscope-bno055`: talk about usage sketch of
   ``class BNO055``
 
 Homework

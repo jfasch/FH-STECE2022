@@ -1,13 +1,13 @@
 #pragma once
 
-#include "sysfs-gpio.h"
+#include "sysfs-gpio-pin.h"
 #include "sysfs-pwm-pin.h"
 
 
-class SysFSMotor
+class SysFS_Motor
 {
 public:
-    SysFSMotor(SysFSGPIO forward, SysFSGPIO backward, SysFSPWMPin speed)
+    SysFS_Motor(SysFS_GPIO_Pin forward, SysFS_GPIO_Pin backward, SysFS_PWM_Pin speed)
     :_forward(forward), _backward(backward), _speed(speed), _was_speed_set(false)
     {}
 
@@ -54,8 +54,9 @@ public:
     }
 
 private:
-SysFSGPIO _forward;
-SysFSGPIO _backward;
-SysFSPWMPin _speed;
+SysFS_GPIO_Pin _forward;
+SysFS_GPIO_Pin _backward;
+SysFS_PWM_Pin _speed;
 bool _was_speed_set;
 };
+

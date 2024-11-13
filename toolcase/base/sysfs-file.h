@@ -4,10 +4,10 @@
 #include <stdint.h>
 
 
-class SysFSFile
+class SysFS_File
 {
 public:
-    SysFSFile(const std::filesystem::path& path);
+    SysFS_File(const std::filesystem::path& path);
 
     int64_t read_int64();
     void write_int64(int64_t);

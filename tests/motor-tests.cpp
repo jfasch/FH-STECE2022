@@ -1,5 +1,5 @@
 #include "fixture-tmpdir.h"
-#include <base/sysfs-gpio.h>
+#include <base/sysfs-gpio-pin.h>
 #include <base/sysfs-pwm-pin.h>
 #include <base/sysfs-motor.h>
 
@@ -33,18 +33,18 @@ struct motor_suite : public tmpdir_fixture
         std::ofstream(backward_path / "value", std::ios::out) << 0 << '\n';
         std::ofstream(backward_path / "direction", std::ios::out) << "out" << '\n';
 
-        forward = SysFSGPIO(forward_path);
-        backward = SysFSGPIO(backward_path);
-        speed = SysFSPWMPin(speed_path);
+        forward = SysFS_GPIO_Pin(forward_path);
+        backward = SysFS_GPIO_Pin(backward_path);
+        speed = SysFS_PWM_Pin(speed_path);
 
-        motor = SysFSMotor(forward, backward, speed);
+        motor = SysFS_Motor(forward, backward, speed);
     }
 
-    SysFSGPIO forward;
-    SysFSGPIO backward;
-    SysFSPWMPin speed;
+    SysFS_GPIO_Pin forward;
+    SysFS_GPIO_Pin backward;
+    SysFS_PWM_Pin speed;
 
-    SysFSMotor motor;
+    SysFS_Motor motor;
 };
 
 TEST_F(motor_suite, forward_slightly)

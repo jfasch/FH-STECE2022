@@ -5,7 +5,7 @@ add_executable(
 
   sysfs-file-tests.cpp
   sysfs-pwm-pin-tests.cpp
-  sysfs-gpio-tests.cpp
+  sysfs-gpio-pin-tests.cpp
 
   motor-tests.cpp
 

@@ -5,7 +5,7 @@
 #include <filesystem>
 
 
-class SysFSGPIO
+class SysFS_GPIO_Pin
 {
 public:
     enum Direction
@@ -15,7 +15,7 @@ public:
     };
 
 public:
-    SysFSGPIO(const std::filesystem::path& pindir);
+    SysFS_GPIO_Pin(const std::filesystem::path& pindir);
 
     Direction direction();
     bool state();

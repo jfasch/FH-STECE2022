@@ -1,17 +1,12 @@
 #include <gtest/gtest.h>
 
-#include <base/sysfs-gpio.h>
+#include <base/sysfs-gpio-pin.h>
 #include <base/sysfs-file.h>
 
 #include "fixture-tmpdir.h"
 #include <fstream>
 
 
-// tmpdir_fixture.dirname is used as pin directory, initially
-// containing files
-
-// * ``period`` containing PERIOD_NS_INIT
-// * ``duty_cycle`` containing 0
 struct sysfs_gpio_suite : tmpdir_fixture 
 {
     SysFS_File direction_file;
@@ -29,9 +24,9 @@ struct sysfs_gpio_suite : tmpdir_fixture
 
 TEST_F(sysfs_gpio_suite, basic)
 {
-    SysFSGPIO gpio(dirname);
+    SysFS_GPIO_Pin gpio(dirname);
     ASSERT_EQ(gpio.state(), false);
-    ASSERT_EQ(gpio.direction(), SysFSGPIO::OUT);
+    ASSERT_EQ(gpio.direction(), SysFS_GPIO_Pin::OUT);
 
     gpio.set_state(true);
 

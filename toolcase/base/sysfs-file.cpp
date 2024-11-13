@@ -1,9 +1,9 @@
 #include "sysfs-file.h"
 
+#include <fstream>
 #include <fcntl.h>
 #include <unistd.h>
 #include <assert.h>
-#include <sstream>
 
 
 SysFSFile::SysFSFile(const std::filesystem::path& path)

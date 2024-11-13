@@ -7,6 +7,9 @@ add_library(toolcase-base
   sysfs-gpio.cpp
 
   sysfs-pwm-pin.h
+
+  servo.h
+  servo.cpp
 )
 
 target_include_directories(

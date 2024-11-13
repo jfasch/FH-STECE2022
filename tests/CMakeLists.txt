@@ -11,6 +11,8 @@ add_executable(
 
   fixture-tmpdir.cpp
   fixture-tmpdir.h
+
+  sysfs-servo-tests.cpp
 )
 
 target_link_libraries(

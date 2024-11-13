@@ -51,12 +51,47 @@ TEST_F(motor_suite, forward_slightly)
 {
     motor.set_speed(10);
     ASSERT_EQ(speed.duty_cycle(), speed.period()/10);
+    ASSERT_TRUE(forward.state());
+    ASSERT_FALSE(backward.state());
 }
 
-TEST_F(motor_suite, zero)
+TEST_F(motor_suite, backward_slightly)
+{
+    motor.set_speed(-10);
+    ASSERT_EQ(speed.duty_cycle(), speed.period()/10);
+    ASSERT_FALSE(forward.state());
+    ASSERT_TRUE(backward.state());
+}
+
+TEST_F(motor_suite, zero_no_speed_before)
 {
     motor.set_speed(0);
     ASSERT_EQ(speed.duty_cycle(), 0);
+    ASSERT_FALSE(forward.state());
+    ASSERT_FALSE(backward.state());
+}
+
+TEST_F(motor_suite, zero_speed_set_before)
+{
+    motor.set_speed(50);
+    motor.set_speed(0);
+    ASSERT_EQ(speed.duty_cycle(), 0);
     ASSERT_NE(forward.state(), backward.state());
+}
+
+TEST_F(motor_suite, forward_invalid_positive_value)
+{
+    motor.set_speed(180);
+    ASSERT_EQ(speed.duty_cycle(), speed.period());
+    ASSERT_TRUE(forward.state());
+    ASSERT_FALSE(backward.state());
+}
+
+TEST_F(motor_suite, forward_invalid_negative_value)
+{
+    motor.set_speed(-180);
+    ASSERT_EQ(speed.duty_cycle(), speed.period());
+    ASSERT_FALSE(forward.state());
+    ASSERT_TRUE(backward.state());
 }
 

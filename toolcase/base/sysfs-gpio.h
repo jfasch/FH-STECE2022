@@ -22,6 +22,6 @@ public:
     void set_state(bool);
 
 private:
-    SysFSFile _value_file;
-    SysFSFile _direction_file;
+    SysFS_File _value_file;
+    SysFS_File _direction_file;
 };

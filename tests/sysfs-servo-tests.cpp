@@ -11,8 +11,8 @@ struct sweet_servo_suite : tmpdir_fixture
 {
     uint64_t PERIOD_NS_INIT = 20*1000*1000;
 
-    SysFSFile period_file;
-    SysFSFile duty_cycle_file;
+    SysFS_File period_file;
+    SysFS_File duty_cycle_file;
     SysFSPWMPin pin;
     uint64_t duty_cycle_mid;
     uint64_t duty_cycle_min;

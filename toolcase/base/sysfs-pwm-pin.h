@@ -35,6 +35,6 @@ public:
     }
 
 private:
-    SysFSFile _period_file;
-    SysFSFile _duty_cycle_file;
+    SysFS_File _period_file;
+    SysFS_File _duty_cycle_file;
 };

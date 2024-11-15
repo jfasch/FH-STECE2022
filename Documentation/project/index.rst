@@ -21,7 +21,9 @@ Task Descriptions
    tasks/sysfs-pwm
    tasks/hardware-init
    tasks/crazy-pi
+   tasks/crazy-car
    tasks/driving-stage-1
+   tasks/commandline-driving
 
 Informal Ideas
 ..............

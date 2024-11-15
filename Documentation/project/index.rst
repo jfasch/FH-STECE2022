@@ -46,3 +46,4 @@ Meeting Minutes
    meetings/2024-10-29/index
    meetings/2024-11-05/index
    meetings/2024-11-12/index
+   meetings/2024-11-25/index

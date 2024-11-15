@@ -50,10 +50,17 @@ Not yet started
 Notes
 -----
 
+Xbox
+....
+
+* Configuring XInput (Xbox Controller) Support for Linux:
+  https://help.wooting.io/article/93-configuring-xinput-support-for-linux
+* xbox360controller on PyPi:
+  https://pypi.org/project/xbox360controller/
+
 Open source remote control implementations
 ..........................................
 
-* https://pypi.org/project/xbox360controller/
 * http://xwiimote.github.io/xwiimote/
 * https://www.baeldung.com/linux/android-remote-control
 * https://wiki.archlinux.org/title/Gamepad

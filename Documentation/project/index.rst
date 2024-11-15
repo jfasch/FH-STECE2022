@@ -10,15 +10,18 @@ Task Descriptions
 .. toctree::
    :maxdepth: 1
 
-   tasks/gyroscope-bno055.rst
-   tasks/motor-control-btn9960lv.rst
-   tasks/proximity-vl53l1x.rst
-   tasks/remote-control.rst
-   tasks/sensor-csv.rst
-   tasks/sensor-mqtt.rst
-   tasks/servo-motor.rst
-   tasks/sysfs-gpio.rst
-   tasks/sysfs-pwm.rst
+   tasks/gyroscope-bno055
+   tasks/motor-control-btn9960lv
+   tasks/proximity-vl53l1x
+   tasks/remote-control
+   tasks/sensor-csv
+   tasks/sensor-mqtt
+   tasks/servo-motor
+   tasks/sysfs-gpio
+   tasks/sysfs-pwm
+   tasks/hardware-init
+   tasks/crazy-pi
+   tasks/driving-stage-1
 
 Informal Ideas
 ..............

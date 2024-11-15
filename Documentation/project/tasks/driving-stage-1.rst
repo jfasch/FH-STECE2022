@@ -1,0 +1,21 @@
+.. ot-task:: crazycar.driving_stage_1
+   :dependencies: crazycar.servo_motor,
+                  crazycar.motor_control_btn9960lv,
+		  crazycar.driving_stage_1
+
+.. include:: <mmlalias.txt>
+
+
+Integration: Driving, Stage 1
+=============================
+
+.. contents::
+   :local:
+
+Plan
+====
+
+* Integrate a Pi via the :doc:`CrazyPi PCB <crazy-pi>`
+* Plug :doc:`motor control <motor-control-btn9960lv>`
+* Plug :doc:`servo control <servo-motor>`
+* Initialize 

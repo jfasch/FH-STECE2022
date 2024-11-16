@@ -7,16 +7,11 @@
 .. contents::
    :local:
 
-Crazy Car Software Architecture
--------------------------------
-
-.. image:: ../architecture/architecture.svg
-
 Project Status
 --------------
 
-:doc:`../project/motor-control-btn9960lv`
-.........................................
+:doc:`/project/tasks/motor-control-btn9960lv`
+.............................................
 
 * PWM test prog configures PWM pin, but leaves it in non-functional
   state after exit.
@@ -29,8 +24,8 @@ Project Status
     <https://github.com/jfasch/FH-STECE2022/blob/main/toolcase/base/sysfs-file.h>`__
   * |longrightarrow| CMakery
 
-:doc:`../project/servo-motor`
-.............................
+:doc:`/project/tasks/servo-motor`
+.................................
 
 * Check WiringPi: fork there? WiringPi test prog there?
 
@@ -51,14 +46,14 @@ Project Status
     https://github.com/raspberrypi/linux/issues/1533
     indicates. Beware.
 
-:doc:`../project/proximity-vl53l1x`
-...................................
+:doc:`/project/tasks/proximity-vl53l1x`
+.......................................
 
 * Hmm. C++ needed. Wait a few hours, we'll get to that.
 * |longrightarrow| what would a ``class VL53L1X`` look like?
 
-:doc:`../project/gyroscope-bno055`
-..................................
+:doc:`/project/tasks/gyroscope-bno055`
+......................................
 
 * Fork there? Test prog there? CMakery?
 * Commandline program where we can try around
@@ -105,19 +100,20 @@ Intro
 
 **Sensors**
 
-Two relatively autonomous tasks, :doc:`../project/proximity-vl53l1x`
-and :doc:`../project/gyroscope-bno055`. Good luck |:ninja:|
+Two relatively autonomous tasks,
+:doc:`/project/tasks/proximity-vl53l1x` and
+:doc:`/project/tasks/gyroscope-bno055`. Good luck |:ninja:|
 
 **Motor Controls**
 
 We have two PWM users, so we want to coordinate. Write a tool for it,
 
-* :doc:`../project/sysfs-pwm`
+* :doc:`/project/tasks/sysfs-pwm`
 
 ``class SysFSPWMPin`` can then be used from
 
-* :doc:`../project/motor-control-btn9960lv` and
-* :doc:`../project/servo-motor`.
+* :doc:`/project/tasks/motor-control-btn9960lv` and
+* :doc:`/project/tasks/servo-motor`.
 
 So please lets ...
 
@@ -137,7 +133,7 @@ that workflow, especially :ref:`fh-2021-git-sync-fork-from-upstream`.
 
 What is new there:
 
-* A failing unit test or two for :doc:`../project/sysfs-pwm`
+* A failing unit test or two for :doc:`/project/tasks/sysfs-pwm`
 * Fixes for ``proximity-vl53l1x``, see
   `proximity-vl53l1x/proximity-vl53l1x/bin/CMakeLists.txt
   <https://github.com/jfasch/FH-STECE2022/blob/main/proximity-vl53l1x/proximity-vl53l1x/bin/CMakeLists.txt>`__
@@ -165,12 +161,12 @@ What is new there:
    Failed
    ...
 
-Think About Servo Interface (Group :doc:`../project/servo-motor`)
-.................................................................
+Think About Servo Interface (Group :doc:`/project/tasks/servo-motor`)
+.....................................................................
 
 * (SysFSPWMPin is done already, so lets focus on the servo)
 * How would a servo class look like? See "Software Interface" in
-  :doc:`../project/servo-motor` for an idea.
+  :doc:`/project/tasks/servo-motor` for an idea.
 
   Write a test for it, much like `tests/sysfs-pwm-pin-tests.cpp
   <https://github.com/jfasch/FH-STECE2022/blob/main/tests/sysfs-pwm-pin-tests.cpp>`__
@@ -197,8 +193,8 @@ Think About Servo Interface (Group :doc:`../project/servo-motor`)
     write the test first.
        
 
-Halfbridge Horror (Group :doc:`../project/motor-control-btn9960lv`)
-...................................................................
+Halfbridge Horror (Group :doc:`/project/tasks/motor-control-btn9960lv`)
+.......................................................................
 
 Tinker With Hardware, Think About Future.
 
@@ -212,13 +208,13 @@ Tinker With Hardware, Think About Future.
 
 * Think about how this can be done in software
 
-VL53L1X (Group :doc:`../project/proximity-vl53l1x`)
-...................................................
+VL53L1X (Group :doc:`/project/tasks/proximity-vl53l1x`)
+.......................................................
 
 * Make it work, simply
 
-BNO055 (Group :doc:`../project/gyroscope-bno055`)
-.................................................
+BNO055 (Group :doc:`/project/tasks/gyroscope-bno055`)
+.....................................................
 
 * Figure out what we need, by trying around with the commandline
   program that you brought

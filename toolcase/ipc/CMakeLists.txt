@@ -1,7 +1,7 @@
 add_library(toolcase-ipc
 
-  vehicle-protocol.h
-  vehicle-protocol.cpp
+  crazy-car-protocol.h
+  crazy-car-protocol.cpp
 )
 
 target_include_directories(

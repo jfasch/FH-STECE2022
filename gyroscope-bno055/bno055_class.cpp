@@ -80,8 +80,8 @@ class Bno055
             // set config mode if not in config mode
             char data[2] = {0};
             data[0] = BNO055_OPR_MODE_ADDR;
-            opmode_t oldmode = (olddata & 0x0F);
-            if(oldmode == pwrmode) exit(0); // if new mode is the same
+            power_t oldmode = (power_t)(olddata & 0x0F);
+            if(oldmode == pwrmode) if(_message == 1) printf("Debug: Sensor is already in this mode"); // if new mode is the same
             else if(oldmode > 0 && pwrmode > 0) // switch to "config" first
             {  
                 data[1] = 0x0;
@@ -124,8 +124,8 @@ class Bno055
             // set config mode if not in config mode
             char data[2] = {0};
             data[0] = BNO055_OPR_MODE_ADDR;
-            opmode_t oldmode = (olddata & 0x0F);
-            if(oldmode == newmode) exit(0); // if new mode is the same
+            opmode_t oldmode = (opmode_t)(olddata & 0x0F);
+            if(oldmode == newmode) if(_message == 1) printf("Debug: Sensor is already in this mode"); // if new mode is the same
             else if(oldmode > 0 && newmode > 0) // switch to "config" first
             {  
                 data[1] = 0x0;
@@ -143,7 +143,7 @@ class Bno055
 
             // set mode
             data[1] = newmode;
-            if(verbose == 1) printf("Debug: Write opr_mode: [0x%02X] to register [0x%02X]\n", data[1], data[0]);
+            if(_message == 1) printf("Debug: Write opr_mode: [0x%02X] to register [0x%02X]\n", data[1], data[0]);
             if(write(_i2cfd, data, 2) != 2) 
             {
                 printf("Error: I2C write failure for register 0x%02X\n", data[0]);
@@ -199,23 +199,23 @@ class Bno055
             char datapage1[2] = {0};
             datapage1[0] = BNO055_PAGE_ID_ADDR;
             datapage1[1] = 0x1;
-            if(verbose == 1) printf("Debug: write page-ID: [0x%02X] to register [0x%02X]\n", data[1], data[0]);
-            if(write(i2cfd, data, 2) != 2) 
+            if(verbose == 1) printf("Debug: write page-ID: [0x%02X] to register [0x%02X]\n", datapage1[1], datapage1[0]);
+            if(write(_i2cfd, datapage1, 2) != 2) 
             {
-                printf("Error: I2C write failure for register 0x%02X\n", data[0]);
+                printf("Error: I2C write failure for register 0x%02X\n", datapage1[0]);
                 exit(-1);
             }
             usleep(50 * 1000);
             count = 0;
             while(count < 8) {
                 char reg = count;
-                if(write(i2cfd, &reg, 1) != 1) {
+                if(write(_i2cfd, &reg, 1) != 1) {
                     printf("Error: I2C write failure for register 0x%02X\n", reg);
                     exit(-1);
                 }
 
                 char data[16] = {0};
-                if(read(i2cfd, &data, 16) != 16) {
+                if(read(_i2cfd, &data, 16) != 16) {
                     printf("Error: I2C read failure for register 0x%02X\n", reg);
                     exit(-1);
                 
@@ -230,10 +230,10 @@ class Bno055
             char datapage0[2] = {0};
             datapage0[0] = BNO055_PAGE_ID_ADDR;
             datapage0[1] = 0x0;
-            if(verbose == 1) printf("Debug: write page-ID: [0x%02X] to register [0x%02X]\n", data[1], data[0]);
-            if(write(i2cfd, data, 2) != 2) 
+            if(_message == 1) printf("Debug: write page-ID: [0x%02X] to register [0x%02X]\n", datapage0[1], datapage0[0]);
+            if(write(_i2cfd, datapage0, 2) != 2) 
             {
-                printf("Error: I2C write failure for register 0x%02X\n", data[0]);
+                printf("Error: I2C write failure for register 0x%02X\n", datapage0[0]);
                 exit(-1);
             }
             usleep(50 * 1000);
@@ -273,7 +273,13 @@ class Bno055
         void print_sensor_data_gyr()
         {
             bnogyr sensorprint =  get_sensor_data_gyr();
-            printf("GYR %3.2f %3.2f %3.2f\n", sensorprint.gdata_x, bnsensorprintod.gdata_y, sensorprint.gdata_z);
+            printf("GYR %3.2f %3.2f %3.2f\n", sensorprint.gdata_x, sensorprint.gdata_y, sensorprint.gdata_z);
         }
 
 };
+
+int main()
+{
+
+    exit(0);
+}

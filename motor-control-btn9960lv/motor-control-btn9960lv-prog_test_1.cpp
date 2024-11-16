@@ -6,11 +6,11 @@
 
 
 int main() {
-    SysFSFile exporT("/sys/class/pwm/pwmchip0/export");
-    SysFSFile unexporT("/sys/class/pwm/pwmchip0/unexport");
-    SysFSFile enable("/sys/class/pwm/pwmchip0/pwm0/enable");
-    SysFSFile period("/sys/class/pwm/pwmchip0/pwm0/period");
-    SysFSFile duty_cycle("/sys/class/pwm/pwmchip0/pwm0/duty_cycle"); 
+    SysFS_File exporT("/sys/class/pwm/pwmchip0/export");
+    SysFS_File unexporT("/sys/class/pwm/pwmchip0/unexport");
+    SysFS_File enable("/sys/class/pwm/pwmchip0/pwm0/enable");
+    SysFS_File period("/sys/class/pwm/pwmchip0/pwm0/period");
+    SysFS_File duty_cycle("/sys/class/pwm/pwmchip0/pwm0/duty_cycle"); 
 
     exporT.write_int64(0);
     sleep(1); 

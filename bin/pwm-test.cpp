@@ -14,7 +14,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    SysFSPWMPin my_pin(argv[1]);
+    SysFS_PWM_Pin my_pin(argv[1]);
 
     uint64_t period = my_pin.period();
     uint64_t step = period / 10;

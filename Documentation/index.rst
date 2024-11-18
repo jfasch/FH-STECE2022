@@ -48,11 +48,11 @@ on a car. These implementations should be usable from many possible
 architectures, including the reference architecture below, but also
 from more static architectures.
 
-* :doc:`project/proximity-vl53l1x`
-* :doc:`project/gyroscope-bno055`
-* :doc:`project/motor-control-btn9960lv`
-* :doc:`project/servo-motor`
-* :doc:`project/sysfs-pwm`
+* :doc:`project/tasks/proximity-vl53l1x`
+* :doc:`project/tasks/gyroscope-bno055`
+* :doc:`project/tasks/motor-control-btn9960lv`
+* :doc:`project/tasks/servo-motor`
+* :doc:`project/tasks/sysfs-pwm`
 
 **What's to come?**
 
@@ -76,38 +76,29 @@ of components that are loosely coupled for several reasons:
 
 .. image:: architecture/architecture.svg
 
-Project Plan
-------------
+Project Tracking
+----------------
 
 .. toctree::
-   :maxdepth: 1
+   :hidden:
 
-   project/group
+   project/index
 
 .. ot-graph::
    :entries: crazycar
 
-Meetings, Hacking Sessions
---------------------------
-
-.. toctree::
-   :maxdepth: 1
-
-   2024-10-08/index
-   2024-10-23/index
-   2024-10-29/index
-   2024-11-05/index
-   2024-11-12/index
+:doc:`More about project management ... <project/index>`
 
 Further Information
 -------------------
 
-.. toctree::
-   :hidden:
-   :maxdepth: 1
-
-   queue
-
 * Crazy Car NG Schematics:
   :download:`Schematic_and_print_CrazyCar.pdf`
 * More material: :doc:`queue`
+
+.. toctree::
+   :maxdepth: 1
+
+   development
+   queue
+

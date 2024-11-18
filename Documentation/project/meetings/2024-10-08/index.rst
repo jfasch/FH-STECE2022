@@ -20,10 +20,10 @@ Project Kickoff: Hack Hardware In Groups
 Devices Overview
 ................
 
-* :doc:`../project/proximity-vl53l1x`
-* :doc:`../project/gyroscope-bno055`
-* :doc:`../project/motor-control-btn9960lv`
-* :doc:`../project/servo-motor`
+* :doc:`/project/tasks/proximity-vl53l1x`
+* :doc:`/project/tasks/gyroscope-bno055`
+* :doc:`/project/tasks/motor-control-btn9960lv`
+* :doc:`/project/tasks/servo-motor`
 
 .. _2024-10-08-linux-and-i2c:
 

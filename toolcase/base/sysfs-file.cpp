@@ -1,16 +1,16 @@
 #include "sysfs-file.h"
 
+#include <fstream>
 #include <fcntl.h>
 #include <unistd.h>
 #include <assert.h>
-#include <sstream>
 
 
-SysFSFile::SysFSFile(const std::filesystem::path& path)
+SysFS_File::SysFS_File(const std::filesystem::path& path)
 : _path(path)
 {}
 
-int64_t SysFSFile::read_int64()
+int64_t SysFS_File::read_int64()
 {
     int fd = open(_path.c_str(), O_RDONLY);
     assert(fd>=0);  // todo: error handling (what if path does not
@@ -28,7 +28,7 @@ int64_t SysFSFile::read_int64()
     return std::stoll(s_buffer);
 }
 
-void SysFSFile::write_int64(int64_t i)
+void SysFS_File::write_int64(int64_t i)
 {
     // todo: performance is not what sstream is known for
     std::ostringstream si;
@@ -46,7 +46,7 @@ void SysFSFile::write_int64(int64_t i)
     close(fd);
 }
 
-uint64_t SysFSFile::read_uint64()
+uint64_t SysFS_File::read_uint64()
 {
     int fd = open(_path.c_str(), O_RDONLY);
     assert(fd>=0);  // todo: error handling (what if path does not
@@ -64,7 +64,7 @@ uint64_t SysFSFile::read_uint64()
     return std::stoull(s_buffer);
 }
 
-void SysFSFile::write_uint64(uint64_t i)
+void SysFS_File::write_uint64(uint64_t i)
 {
     // todo: performance is not what sstream is known for
     std::ostringstream si;
@@ -82,7 +82,7 @@ void SysFSFile::write_uint64(uint64_t i)
     close(fd);
 }
 
-std::string SysFSFile::read_string()
+std::string SysFS_File::read_string()
 {
     int fd = open(_path.c_str(), O_RDONLY);
     assert(fd>=0);  // todo: error handling (what if path does not
@@ -104,7 +104,7 @@ std::string SysFSFile::read_string()
     return std::string(buffer, idx+1);
 }
 
-void SysFSFile::write_string(const std::string& s)
+void SysFS_File::write_string(const std::string& s)
 {
     int fd = open(_path.c_str(), O_WRONLY|O_TRUNC);
     if (fd == -1) {

@@ -50,9 +50,29 @@ Not yet started
 Notes
 -----
 
-Open source remote control implementations:
+Xbox
+....
 
-* https://pypi.org/project/xbox360controller/
+* Configuring XInput (Xbox Controller) Support for Linux:
+  https://help.wooting.io/article/93-configuring-xinput-support-for-linux
+* xbox360controller on PyPi:
+  https://pypi.org/project/xbox360controller/
+
+Open source remote control implementations
+..........................................
+
 * http://xwiimote.github.io/xwiimote/
 * https://www.baeldung.com/linux/android-remote-control
 * https://wiki.archlinux.org/title/Gamepad
+
+Linux Debug Notes
+.................
+
+.. code-block:: console
+
+   $ sudo dnf install jstest-gtk
+   $ jstest-gtk
+
+.. code-block:: console
+
+   $ libinput debug-events --verbose

@@ -72,6 +72,7 @@ bool VL53L1X::init(bool io_2v8)
   //   }
   // }
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
+  std::cout << "FIRMWARE__SYSTEM_STATUS: " << (int) readReg(FIRMWARE__SYSTEM_STATUS) << std::endl;
   // VL53L1_poll_for_boot_completion() end
 
   // VL53L1_software_reset() end
@@ -195,10 +196,10 @@ void VL53L1X::writeReg(uint16_t reg, uint8_t value)
   reg = (reg >> 8) | (reg << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "writeReg: uint16_t reg, uint8_t value: " << bus_fd << std::endl;
+  std::cout << "writeReg: uint16_t reg, uint8_t value: " << bits << std::endl;
   bits = 1;
   assert(bits == write(bus_fd,&value,bits));
-  std::cout << "writeReg: uint16_t reg, uint8_t value: " << bus_fd << std::endl;
+  std::cout << "writeReg: uint16_t reg, uint8_t value: " << bits << std::endl;
 }
 
 // // Write a 16-bit register
@@ -219,9 +220,9 @@ void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
   value = (value >> 8) | (value << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bus_fd << std::endl;
+  std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bits << std::endl;
   assert(bits == write(bus_fd,&value,2));
-  std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bus_fd << std::endl;
+  std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bits << std::endl;
 }
 
 // // Write a 32-bit register
@@ -238,17 +239,23 @@ void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
 //   last_status = bus->endTransmission();
 // }
 
+
 // Write a 32-bit register
 void VL53L1X::writeReg32Bit(uint16_t reg, uint32_t value)
 {
+  uint8_t write_array[4] = {0};
+  write_array[3] = ((uint8_t)(value >> 24)); // value highest byte
+  write_array[2] = ((uint8_t)(value >> 16));
+  write_array[1] = ((uint8_t)(value >>  8));
+  write_array[0] = ((uint8_t)(value));       // value lowest byte
   reg = (reg >> 8) | (reg << 8);
-  value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
+  //value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bus_fd << std::endl;
+  std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bits << std::endl;
   bits = 4;
-  assert(bits == write(bus_fd,&value,bits));
-  std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bus_fd << std::endl;
+  assert(bits == write(bus_fd,write_array,bits));
+  std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bits << std::endl;
 }
 
 // // Read an 8-bit register
@@ -275,10 +282,10 @@ uint8_t VL53L1X::readReg(regAddr reg)
   bit_reg = (bit_reg >> 8) | (bit_reg << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&bit_reg,bits));
-  std::cout << "readReg/writing: regAddr reg: " << bus_fd << std::endl;
+  std::cout << "readReg/writing: regAddr reg: " << bits << std::endl;
   bits = 1;
   assert(bits == read(bus_fd, &value, bits));
-  std::cout << "readReg: regAddr reg: " << bus_fd << std::endl;
+  std::cout << "readReg: regAddr reg: " << bits << std::endl;
 
   return value;
 }
@@ -304,14 +311,17 @@ uint8_t VL53L1X::readReg(regAddr reg)
 uint16_t VL53L1X::readReg16Bit(uint16_t reg)
 {
   uint16_t value;
+  uint8_t read_array[2] = {0};
 
   reg = (reg >> 8) | (reg << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "read16Reg/writing: uint16_t reg: " << bus_fd << std::endl;
-  assert(bits == read(bus_fd, &value, bits));
-  std::cout << "read16Reg: uint16_t reg: " << bus_fd << std::endl;
-  value = (value >> 8) | (value << 8);
+  std::cout << "read16Reg/writing: uint16_t reg: " << bits << std::endl;
+  assert(bits == read(bus_fd, read_array, bits));
+  std::cout << "read16Reg: uint16_t reg: " << bits << std::endl;
+  value  = (uint16_t)read_array[0] << 8; // high byte
+  value |=           read_array[1];      // low byte
+  //value = (value >> 8) | (value << 8);
   
   return value;
 }
@@ -339,16 +349,21 @@ uint16_t VL53L1X::readReg16Bit(uint16_t reg)
 uint32_t VL53L1X::readReg32Bit(uint16_t reg)
 {
   uint32_t value;
+  uint8_t read_array[4] = {0};
 
   reg = (reg >> 8) | (reg << 8);
   int bits = 2;
   assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "read32Reg/writing: uint16_t reg: " << bus_fd << std::endl;
+  std::cout << "read32Reg/writing: uint16_t reg: " << bits << std::endl;
   bits = 4;
-  assert(bits == read(bus_fd, &value, bits));
-  std::cout << "read32Reg: uint16_t reg: " << bus_fd << std::endl;
+  assert(bits == read(bus_fd, read_array, bits));
+  std::cout << "read32Reg: uint16_t reg: " << bits << std::endl;
 
-  value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
+  value  = (uint32_t)read_array[0] << 24; // value highest byte
+  value |= (uint32_t)read_array[1] << 16;
+  value |= (uint16_t)read_array[2] <<  8;
+  value |=           read_array[3];       // value lowest byte
+  //value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
   
 
   return value;
@@ -361,6 +376,7 @@ bool VL53L1X::setDistanceMode(DistanceMode mode)
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
   // save existing timing budget
   uint32_t budget_us = getMeasurementTimingBudget();
+  std::cout << "budget_us: " << budget_us << std::endl;
 
   switch (mode)
   {
@@ -607,11 +623,13 @@ uint8_t VL53L1X::getROICenter()
 // period in milliseconds determining how often the sensor takes a measurement.
 void VL53L1X::startContinuous(uint32_t period_ms)
 {
+  std::cout << "FIRMWARE__SYSTEM_STATUS: " << (int) readReg(FIRMWARE__SYSTEM_STATUS) << std::endl;
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
-  
+  std::cout << "period_ms * osc_calibrate_val: " << (period_ms * osc_calibrate_val) << std::endl;
   // from VL53L1_set_inter_measurement_period_ms()
   writeReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD, period_ms * osc_calibrate_val);
-  assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
+  std::cout << "FIRMWARE__SYSTEM_STATUS: " << (int) readReg(FIRMWARE__SYSTEM_STATUS) << std::endl;
+  //assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
   assert(readReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD) == period_ms * osc_calibrate_val);
   std::cout << "FIRMWARE__SYSTEM_STATUS" << std::endl;
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);

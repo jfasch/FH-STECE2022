@@ -1,4 +1,4 @@
-#include <ipc/vehicle-protocol.h>
+#include <ipc/crazy-car-protocol.h>
 
 #include <mqueue.h>
 #include <fcntl.h>
@@ -15,7 +15,7 @@ int main()
         return 1;
     }
     while (true) {
-        VehicleMessage cur_msg;
+        CrazyCarMessage cur_msg;
         unsigned int priority;
 
         ssize_t n_bytes_read = mq_receive(message_queue, (char*)&cur_msg, sizeof(cur_msg), &priority);

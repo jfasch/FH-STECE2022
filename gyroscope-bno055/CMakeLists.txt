@@ -1,4 +1,2 @@
-cmake_minimum_required(VERSION 3.0)
-project(bno055)
 
-add_executable(bno-prog getbno055.c i2c_bno055.c)
+add_executable(bno-prog bno055_class.cpp getbno055.h)

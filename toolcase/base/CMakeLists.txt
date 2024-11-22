@@ -11,6 +11,9 @@ add_library(toolcase-base
 
   sysfs-servo.h
   sysfs-servo.cpp
+
+  sysfs-motor.h
+  sysfs-motor.cpp
 )
 
 target_include_directories(

@@ -231,11 +231,11 @@ struct bnomag{
    double mdata_y;   // magnetometer data, Y-axis
    double mdata_z;   // magnetometer data, Z-axis
 };
-struct bnogyr{
+/*struct bnogyr{
    double gdata_x;   // gyroscope data, X-axis
    double gdata_y;   // gyroscope data, Y-axis
    double gdata_z;   // gyroscope data, Z-axis
-};
+};*/
 struct bnoeul{
    double eul_head;  // Euler heading data
    double eul_roll;  // Euler roll data

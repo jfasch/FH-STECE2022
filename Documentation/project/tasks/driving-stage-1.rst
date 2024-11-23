@@ -1,9 +1,10 @@
 .. ot-task:: crazycar.driving_stage_1
    :dependencies: crazycar.servo_motor,
-                  crazycar.motor_control_btn9960lv,
+		  crazycar.motor_control_btn9960lv,
 		  crazycar.commandline_driving,
 		  crazycar.crazy_car,
-		  crazycar.crazy_pi
+		  crazycar.crazy_pi,
+		  crazycar.hardware_init
 
 .. include:: <mmlalias.txt>
 

@@ -1,4 +1,4 @@
-#include <ipc/vehicle-protocol.h>
+#include <ipc/crazy-car-protocol.h>
 
 #include <mqueue.h>
 #include <cstdio>
@@ -8,7 +8,7 @@ int main()
 {
     struct mq_attr attr = {
         .mq_maxmsg = 10,
-        .mq_msgsize = sizeof(VehicleMessage)
+        .mq_msgsize = sizeof(CrazyCarMessage)
     };
     
     mqd_t message_queue = mq_open("/crazy-car", O_CREAT|O_EXCL|O_RDWR, 0666, &attr);

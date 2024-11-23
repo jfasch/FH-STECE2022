@@ -1,4 +1,4 @@
-#include <ipc/vehicle-protocol.h>
+#include <ipc/crazy-car-protocol.h>
 
 #include <mqueue.h>
 #include <fcntl.h>
@@ -21,7 +21,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    VehicleMessage msg = {
+    CrazyCarMessage msg = {
         .command = SERVO_SET_ANGLE,
         .value = angle
     };

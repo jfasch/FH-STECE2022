@@ -1,3 +1,7 @@
+
+#ifndef BNO055_CLASS
+#define BNO055_CLASS
+
 #include "getbno055.h"
 #include <iostream>
 #include <cstdio>
@@ -5,6 +9,8 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <fcntl.h>
+
+
 
 struct bnogyr{
    double gdata_x;   // gyroscope data, X-axis
@@ -81,7 +87,10 @@ class Bno055
             char data[2] = {0};
             data[0] = BNO055_OPR_MODE_ADDR;
             power_t oldmode = (power_t)(olddata & 0x0F);
-            if(oldmode == pwrmode) {if(_message == 1) printf("Debug: Sensor is already in this mode");} // if new mode is the same
+            if(oldmode == pwrmode) 
+            {
+                if(_message == 1) printf("Debug: Sensor is already in this mode"); // if new mode is the same
+            } 
             else if(oldmode > 0 && pwrmode > 0) // switch to "config" first
             {  
                 data[1] = 0x0;
@@ -125,7 +134,10 @@ class Bno055
             char data[2] = {0};
             data[0] = BNO055_OPR_MODE_ADDR;
             opmode_t oldmode = (opmode_t)(olddata & 0x0F);
-            if(oldmode == newmode) {if(_message == 1) printf("Debug: Sensor is already in this mode");} // if new mode is the same
+            if(oldmode == newmode) 
+            {
+                if(_message == 1) printf("Debug: Sensor is already in this mode"); // if new mode is the same
+            }
             else if(oldmode > 0 && newmode > 0) // switch to "config" first
             {  
                 data[1] = 0x0;
@@ -278,8 +290,4 @@ class Bno055
 
 };
 
-int main()
-{
-
-    exit(0);
-}
+#endif

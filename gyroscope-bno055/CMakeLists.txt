@@ -1,2 +1,2 @@
 
-add_executable(bno-prog bno055_class.cpp getbno055.h)
+add_executable(bno-prog bno055_class.h bno055_infmain.cpp)

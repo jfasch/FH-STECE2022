@@ -4,7 +4,6 @@
 
 #include "../toolcase/base/sysfs-servo.h"
 #include "../toolcase/base/sysfs-pwm-pin.h"
-//#include "../toolcase/base/sysfs-file.h"
 
 // Function to test the SysFS_Servo class
 void test_servo(SysFS_Servo& servo)
@@ -18,7 +17,7 @@ void test_servo(SysFS_Servo& servo)
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 
-    for (int position = servo_max; position >= servo_min; position -= 20)
+    for (int position = servo_max; position >= 0; position -= 20)
     {
         std::cout << "Setting position to: " << position << std::endl;
         servo.set_position(position);
@@ -34,7 +33,6 @@ int main()
     {
         // Specify the PWM pin directory
         std::filesystem::path pwm_pin_dir = "/sys/class/pwm/pwmchip0/pwm0";
-        //std::filesystem::path pwm_pin_dir = "/tmp/pwm/pwmchip0/pwm0";
 
         // Create a SysFS_PWM_Pin instance
         SysFS_PWM_Pin pwm_pin(pwm_pin_dir);

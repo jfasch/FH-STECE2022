@@ -231,11 +231,11 @@ struct bnomag{
    double mdata_y;   // magnetometer data, Y-axis
    double mdata_z;   // magnetometer data, Z-axis
 };
-struct bnogyr{
+/*struct bnogyr{
    double gdata_x;   // gyroscope data, X-axis
    double gdata_y;   // gyroscope data, Y-axis
    double gdata_z;   // gyroscope data, Z-axis
-};
+};*/
 struct bnoeul{
    double eul_head;  // Euler heading data
    double eul_roll;  // Euler roll data
@@ -317,7 +317,7 @@ extern int get_caloffset(struct bnocal*); // read calibration values
 extern int get_inf(struct bnoinf*);       // read sensor information
 extern int get_acc(struct bnoacc*);       // read accelerometer data
 extern int get_mag(struct bnomag*);       // read magnetometer data
-extern int get_gyr(struct bnogyr*);       // read gyroscope data
+//extern int get_gyr(struct bnogyr*);       // read gyroscope data
 extern int get_eul(struct bnoeul*);       // read euler orientation
 extern int get_qua(struct bnoqua*);       // read quaternation data
 extern int get_gra(struct bnogra*);       // read gravity data

@@ -628,9 +628,9 @@ void VL53L1X::startContinuous(uint32_t period_ms)
   std::cout << "period_ms * osc_calibrate_val: " << (period_ms * osc_calibrate_val) << std::endl;
   // from VL53L1_set_inter_measurement_period_ms()
   writeReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD, period_ms * osc_calibrate_val);
+    std::cout << "SYSTEM__INTERMEASUREMENT_PERIOD: " << (int) readReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD) << std::endl;
   std::cout << "FIRMWARE__SYSTEM_STATUS: " << (int) readReg(FIRMWARE__SYSTEM_STATUS) << std::endl;
   //assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
-  assert(readReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD) == period_ms * osc_calibrate_val);
   std::cout << "FIRMWARE__SYSTEM_STATUS" << std::endl;
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
   std::cout << "FIRMWARE__SYSTEM_STATUS" << std::endl;

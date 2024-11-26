@@ -31,6 +31,10 @@ Status
     sufficient?
   * Burnt the eval board
 
+* 2024-11-25
+
+  * GLIBCXX_3.4.26, Pi has 25
+
 Notes
 -----
 

@@ -4,26 +4,54 @@
 Project Management
 ==================
 
-Task Descriptions
+Current, 
 -----------------
 
 .. toctree::
    :maxdepth: 1
 
-   tasks/gyroscope-bno055
    tasks/motor-control-btn9960lv
+   tasks/servo-motor
+   tasks/gyroscope-bno055
    tasks/proximity-vl53l1x
+
+
+-----------------
+
+.. toctree::
+   :maxdepth: 1
+
+   tasks/crazy-car
+   tasks/commandline-driving
+
+
+-----------------
+
+.. toctree::
+   :maxdepth: 1
+
+   tasks/crazy-pi
+   tasks/hardware-init
+
+
+-----------------
+
+.. toctree::
+   :maxdepth: 1
+
+   tasks/driving-stage-1
+
+Future
+......
+
+.. toctree::
+   :maxdepth: 1
+
    tasks/remote-control
    tasks/sensor-csv
    tasks/sensor-mqtt
-   tasks/servo-motor
    tasks/sysfs-gpio
    tasks/sysfs-pwm
-   tasks/hardware-init
-   tasks/crazy-pi
-   tasks/crazy-car
-   tasks/driving-stage-1
-   tasks/commandline-driving
 
 Informal Ideas
 ..............

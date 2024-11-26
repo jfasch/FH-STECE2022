@@ -9,8 +9,8 @@
 
 int main()
 {
-    mqd_t message_queue = mq_open("/crazy-car", O_RDONLY);
-    if (message_queue == -1) {
+    mqd_t message_queue = mq_open("/crazy-car", O_RDONLY); 
+   if (message_queue == -1) {
         perror("mq_open");
         return 1;
     }

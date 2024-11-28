@@ -1,4 +1,5 @@
 .. ot-task:: crazycar.crazy_car
+   :dependencies: crazycar.hardware_init
 
 .. include:: <mmlalias.txt>
 

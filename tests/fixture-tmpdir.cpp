@@ -16,18 +16,30 @@ static void remove_directory_recursive(const std::string& dirname)
 
     for (;;) {
         dirent* entry = readdir(dir);
+        if (entry == nullptr)
+            break;
+        if (strcmp(entry->d_name, ".") == 0)
+            continue;
+        if (strcmp(entry->d_name, "..") == 0)
+            continue;
+
+        std::string fullname = dirname;
+        fullname += '/';
+        fullname += entry->d_name;
+
         switch (entry->d_type) {
             case DT_REG: {
-                int error = unlink(entry->d_name);
+                int error = unlink(fullname.c_str());
                 if (error)
                     perror("unlink");
                 break;
             }
-            case DT_DIR:
-                remove_directory_recursive(entry->d_name);
+            case DT_DIR: {
+                remove_directory_recursive(fullname.c_str());
                 break;
+            }
             default:
-                std::cerr << "Don't know how to remove entry " << entry->d_name << " of type " << entry->d_type << '\n';
+                std::cerr << "Don't know how to remove entry " << fullname << " of type " << entry->d_type << '\n';
                 break;
         }
     }
@@ -35,6 +47,10 @@ static void remove_directory_recursive(const std::string& dirname)
     int error = closedir(dir);
     if (error)
         perror("closedir");
+
+    error = rmdir(dirname.c_str());
+    if (error)
+        perror("rmdir");
 }
 
 

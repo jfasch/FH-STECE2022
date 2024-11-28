@@ -56,39 +56,61 @@ Development, Including ``sshfs``
 Project Status
 --------------
 
-Talk about current tasks
+Car Itself
+..........
 
-* Close :doc:`/Documentation/project/tasks/motor-control-btn9960lv`
-* Close :doc:`/Documentation/project/tasks/servo-motor`
-* Close :doc:`/Documentation/project/tasks/gyroscope-bno055`
-* Close :doc:`/Documentation/project/tasks/crazy-pi`
-* Status? :doc:`/Documentation/project/tasks/proximity-vl53l1x`
+* Will close tasks soon
 
-Start off (now really)
+  * :doc:`/project/tasks/motor-control-btn9960lv`
+  * :doc:`/project/tasks/servo-motor`
+  * :doc:`/project/tasks/crazy-pi`
 
-* :doc:`/Documentation/project/tasks/crazy-car`
-* :doc:`/Documentation/project/tasks/commandline-driving`
-* :doc:`/Documentation/project/tasks/hardware-init`
-* PWM
+* In favor of steering application
 
-  * internal PWM config at boot should definitely work. unless
-    somebody reconfigures along the way. can we find what's wrong?
-  * use pca as a workaround maybe
+  * :doc:`/project/tasks/commandline-driving`
+  * :doc:`/project/tasks/crazy-car`
 
-Future
+  |longrightarrow|
+  :doc:`trainings/material/soup/linux/sysprog/ipc-mqueue/topic`
+  
+* We will need a defined human/human interface between hardware and
+  software
 
-* log/debug/error marcos
-* move?
-* systemd?
-* config scheme, external file yaml, json. or compile hard. macros,
-  first.
+  * :doc:`/project/tasks/hardware-init`
 
-  question: where to define?
+Sensors
+.......
 
-  * -> next to prog, in /bin provocatively
-  * -> dependency injection
-  * parameterization done near main(), everything alse is stable code
-    -> metrics
+* :doc:`/project/tasks/gyroscope-bno055`
 
+  * Address conflict with the proximity sensor
+  * Close task in favor of ...
+  * :doc:`/project/tasks/sensor-csv`
 
+* :doc:`/project/tasks/proximity-vl53l1x`
 
+  * Still a problem with 32bit I2C writes
+
+    * The status register shows the value of 0 when default I2C bus
+      speed  is used
+    * Shows 1 when I2C bus speed matches that of Arduino (jjj what is
+      that?). Funny because this is a higher speed.
+
+  * Use a scope to compare both patterns
+
+Miscellaneous
+.............
+
+* PWM, as configured per ``config.txt``
+
+  * ... must be quiesced by a systemd unit that exports it. This
+    sounds wrong.
+  * ... goes mad again 10 seconds later when boot is near
+    complete. The boot takes so long because it's a desktop boot.
+  * |longrightarrow| What if we don't boot into desktop?
+
+  Alternative: use PCA chip on :doc:`Crazy-Pi
+  </project/tasks/crazy-pi>`.
+
+* Switch all to native Pi build (build on Pi locally) because
+  toolchain is crap.

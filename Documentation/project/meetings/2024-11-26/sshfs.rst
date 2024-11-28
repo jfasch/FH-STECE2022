@@ -6,7 +6,7 @@ Development Process
 
 .. sidebar:: See also
 
-   * :doc:`jfasch/trainings/material/soup/linux/ssh/sshfs`
+   * :doc:`jfasch:trainings/material/soup/linux/ssh/sshfs`
 
 
 Starting A Feature : Forking On Github
@@ -24,8 +24,8 @@ Via SSH (have to deploy SSH public key on your Github account)
 
 .. code-block:: console
 
-$ cd ~/My-Projects
-$ git clone git@github.com:FH-ECE22/FH-STECE2022.git
+   $ cd ~/My-Projects
+   $ git clone git@github.com:FH-ECE22/FH-STECE2022.git
 
 Development: *pc native*
 ------------------------
@@ -57,6 +57,8 @@ Development: *pc cross*
 
 Development: *target native*
 ----------------------------
+
+jjj todo
 
 When cross compilation fails, need to build on the target
 

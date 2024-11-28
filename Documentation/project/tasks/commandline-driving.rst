@@ -1,14 +1,14 @@
 .. ot-task:: crazycar.commandline_driving
+   :dependencies: crazycar.hardware_init
 
 .. include:: <mmlalias.txt>
 
 
-Commandline Driving
-===================
+(ACTIVE) Commandline Driving
+============================
 
 .. contents::
    :local:
-
 
 Use Case
 --------

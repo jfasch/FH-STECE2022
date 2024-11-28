@@ -4,8 +4,8 @@
 .. include:: <mmlalias.txt>
 
 
-ACTIVE: RC Servo Control
-========================
+(DONE) RC Servo Control
+=======================
 
 .. contents::
    :local:
@@ -32,6 +32,12 @@ Status
 ------
 
 * 2024-11-05: ongoing. Test written.
+
+* 2024-11-25
+
+  * Pi PWM goes mad. Tried with systemd servie, does not work. Maybe
+    use PCA on CrazyPi.
+  * Error handling
 
 Notes
 -----

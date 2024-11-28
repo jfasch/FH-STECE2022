@@ -3,8 +3,8 @@
 .. include:: <mmlalias.txt>
 
 
-Arduino/Pi Adapter PCB
-======================
+(DONE) Arduino/Pi Adapter PCB
+===============================
 
 .. contents::
    :local:

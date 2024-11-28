@@ -3,9 +3,9 @@
 #include <cassert>
 
 
-SysFS_GPIO_Pin::SysFS_GPIO_Pin(const std::filesystem::path& pindir)
-: _value_file(pindir / "value"),
-  _direction_file(pindir / "direction")
+SysFS_GPIO_Pin::SysFS_GPIO_Pin(const std::string& pindir)
+: _value_file(pindir + "/value"),
+  _direction_file(pindir + "/direction")
 {}
 
 SysFS_GPIO_Pin::Direction SysFS_GPIO_Pin::direction()

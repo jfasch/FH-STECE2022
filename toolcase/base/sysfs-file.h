@@ -1,13 +1,13 @@
 #pragma once
 
-#include <filesystem>
-#include <stdint.h>
+#include <string>
+#include <cstdint>
 
 
 class SysFS_File
 {
 public:
-    SysFS_File(const std::filesystem::path& path);
+    SysFS_File(const std::string& path);
 
     int64_t read_int64();
     void write_int64(int64_t);
@@ -19,5 +19,5 @@ public:
     void write_string(const std::string&);
 
 private:
-    std::filesystem::path _path;
+    std::string _path;
 };

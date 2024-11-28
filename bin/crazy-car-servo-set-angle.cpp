@@ -1,3 +1,5 @@
+#include "crazy-car-config.h"
+
 #include <ipc/crazy-car-protocol.h>
 
 #include <mqueue.h>
@@ -15,7 +17,7 @@ int main(int argc, char** argv)
     }
     int angle = std::stoi(argv[1]);
 
-    mqd_t message_queue = mq_open("/crazy-car", O_WRONLY);
+    mqd_t message_queue = mq_open(CRAZY_CAR_MQ_NAME, O_WRONLY);
     if (message_queue == -1) {
         perror("mq_open");
         return 1;

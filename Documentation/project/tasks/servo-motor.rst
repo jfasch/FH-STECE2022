@@ -4,8 +4,8 @@
 .. include:: <mmlalias.txt>
 
 
-ACTIVE: RC Servo Control
-========================
+(DONE) RC Servo Control
+=======================
 
 .. contents::
    :local:

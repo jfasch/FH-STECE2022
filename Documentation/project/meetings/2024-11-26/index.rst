@@ -71,7 +71,7 @@ Car Itself
   * :doc:`/project/tasks/crazy-car`
 
   |longrightarrow|
-  :doc:`trainings/material/soup/linux/sysprog/ipc-mqueue/topic`
+  :doc:`jfasch:trainings/material/soup/linux/sysprog/ipc-mqueue/topic`
   
 * We will need a defined human/human interface between hardware and
   software
@@ -92,7 +92,7 @@ Sensors
   * Still a problem with 32bit I2C writes
 
     * The status register shows the value of 0 when default I2C bus
-      speed  is used
+      speed is used
     * Shows 1 when I2C bus speed matches that of Arduino (jjj what is
       that?). Funny because this is a higher speed.
 

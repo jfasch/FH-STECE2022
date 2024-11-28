@@ -3,8 +3,8 @@
 .. include:: <mmlalias.txt>
 
 
-ACTIVE: Gyroscope (BNO055)
-==========================
+(ACTIVE) Gyroscope (BNO055)
+===========================
 
 .. contents::
    :local:

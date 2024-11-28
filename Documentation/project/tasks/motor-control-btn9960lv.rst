@@ -4,8 +4,8 @@
 .. include:: <mmlalias.txt>
 
 
-ACTIVE: Motor Control: BTN9960LV
-================================
+(DONE) Motor Control: BTN9960LV
+===============================
 
 .. contents::
    :local:

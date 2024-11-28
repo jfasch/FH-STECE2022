@@ -1,9 +1,53 @@
 #include "fixture-tmpdir.h"
 
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
+#include <dirent.h>
+
+static void remove_directory_recursive(const std::string& dirname)
+{
+    DIR* dir = opendir(dirname.c_str());
+    if (dir == nullptr) {
+        std::cerr << "Cannot open directory " << dirname << '\n';
+        perror("opendir");
+        return;
+    }
+
+    for (;;) {
+        dirent* entry = readdir(dir);
+        switch (entry->d_type) {
+            case DT_REG: {
+                int error = unlink(entry->d_name);
+                if (error)
+                    perror("unlink");
+                break;
+            }
+            case DT_DIR:
+                remove_directory_recursive(entry->d_name);
+                break;
+            default:
+                std::cerr << "Don't know how to remove entry " << entry->d_name << " of type " << entry->d_type << '\n';
+                break;
+        }
+    }
+
+    int error = closedir(dir);
+    if (error)
+        perror("closedir");
+}
+
+
 tmpdir_fixture::tmpdir_fixture()
 {
-    auto tmpdir = std::filesystem::temp_directory_path();
-    std::string tmpdir_template = tmpdir / "jfasch-suite-XXXXXX";
+    std::string tmpdir;
+    const char* tmpdir_c = getenv("TMPDIR");
+    if (tmpdir_c == nullptr)
+        tmpdir = "/tmp";
+    else
+        tmpdir = tmpdir_c;
+
+    std::string tmpdir_template = tmpdir + "/jfasch-suite-XXXXXX";
     char* tmpdir_template_c = new char[tmpdir_template.size()+1];
     strcpy(tmpdir_template_c, tmpdir_template.c_str());
 
@@ -19,5 +63,5 @@ tmpdir_fixture::tmpdir_fixture()
 
 tmpdir_fixture::~tmpdir_fixture()
 {
-    std::filesystem::remove_all(dirname);
+    remove_directory_recursive(dirname.c_str());
 }

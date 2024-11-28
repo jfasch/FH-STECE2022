@@ -12,9 +12,9 @@ struct motor_suite : public tmpdir_fixture
     motor_suite()
     : forward(""), backward(""), speed(""), motor(forward, backward, speed)
     {
-        std::filesystem::path speed_path = dirname / "speed";
-        std::filesystem::path forward_path = dirname / "forward";
-        std::filesystem::path backward_path = dirname / "backward";
+        std::string speed_path = dirname + "/speed";
+        std::string forward_path = dirname + "/forward";
+        std::string backward_path = dirname + "/backward";
 
         int error;
         error = mkdir(speed_path.c_str(), 0700);
@@ -24,14 +24,14 @@ struct motor_suite : public tmpdir_fixture
         error = mkdir(backward_path.c_str(), 0700);
         assert(error == 0);
 
-        std::ofstream(speed_path / "period", std::ios::out) << 10*1000*1000 << '\n';
-        std::ofstream(speed_path / "duty_cycle", std::ios::out) << 0 << '\n';
+        std::ofstream(speed_path + "/period", std::ios::out) << 10*1000*1000 << '\n';
+        std::ofstream(speed_path + "/duty_cycle", std::ios::out) << 0 << '\n';
 
-        std::ofstream(forward_path / "value", std::ios::out) << 0 << '\n';
-        std::ofstream(forward_path / "direction", std::ios::out) << "out" << '\n';
+        std::ofstream(forward_path + "/value", std::ios::out) << 0 << '\n';
+        std::ofstream(forward_path + "/direction", std::ios::out) << "out" << '\n';
 
-        std::ofstream(backward_path / "value", std::ios::out) << 0 << '\n';
-        std::ofstream(backward_path / "direction", std::ios::out) << "out" << '\n';
+        std::ofstream(backward_path + "/value", std::ios::out) << 0 << '\n';
+        std::ofstream(backward_path + "/direction", std::ios::out) << "out" << '\n';
 
         forward = SysFS_GPIO_Pin(forward_path);
         backward = SysFS_GPIO_Pin(backward_path);

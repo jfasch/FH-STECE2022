@@ -20,16 +20,16 @@ struct sweet_servo_suite : tmpdir_fixture
     SysFS_Servo best_servo;
 
     sweet_servo_suite()
-    : period_file(dirname / "period"),
-      duty_cycle_file(dirname / "duty_cycle"),
+    : period_file(dirname + "/period"),
+      duty_cycle_file(dirname + "/duty_cycle"),
       pin(dirname),
       duty_cycle_mid(1.4*1000*1000),
       duty_cycle_min(1.1*1000*1000),
       duty_cycle_max(1.7*1000*1000),
       best_servo(pin, duty_cycle_mid, duty_cycle_min, duty_cycle_max)
     {
-        std::ofstream(dirname / "period", std::ios::out) << PERIOD_NS_INIT << '\n';
-        std::ofstream(dirname / "duty_cycle", std::ios::out) << 0 << '\n';
+        std::ofstream(dirname + "/period", std::ios::out) << PERIOD_NS_INIT << '\n';
+        std::ofstream(dirname + "/duty_cycle", std::ios::out) << 0 << '\n';
     }
 };
 

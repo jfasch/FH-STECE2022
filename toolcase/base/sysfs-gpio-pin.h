@@ -2,8 +2,6 @@
 
 #include "sysfs-file.h"
 
-#include <filesystem>
-
 
 class SysFS_GPIO_Pin
 {
@@ -15,7 +13,7 @@ public:
     };
 
 public:
-    SysFS_GPIO_Pin(const std::filesystem::path& pindir);
+    SysFS_GPIO_Pin(const std::string& pindir);
 
     Direction direction();
     bool state();

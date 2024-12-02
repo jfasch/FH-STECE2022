@@ -40,28 +40,16 @@ In search for something to play with in Embedded Computing 2, we
 decided to have fun with the car and a `Raspberry Pi
 <https://www.raspberrypi.org/>`__.
 
-Project Goal: Create Toolcase
------------------------------
+Goal: Create Toolcase
+.....................
 
 Create Linux implementations for the hardware devices that are found
 on a car. These implementations should be usable from many possible
 architectures, including the reference architecture below, but also
 from more static architectures.
 
-* :doc:`project/tasks/proximity-vl53l1x`
-* :doc:`project/tasks/gyroscope-bno055`
-* :doc:`project/tasks/motor-control-btn9960lv`
-* :doc:`project/tasks/servo-motor`
-* :doc:`project/tasks/sysfs-pwm`
-
-**What's to come?**
-
-* Device calibration
-* Acceleration ramps on top of motor control
-* More such assets on top of the bare hardware
-
-Project Goal: Create Reference Architecture
--------------------------------------------
+Goal: Create Reference Architecture
+...................................
 
 Given a working toolcase that we can use code out of, a reference
 architecture can be implemented. This architecture should be comprised
@@ -79,15 +67,17 @@ of components that are loosely coupled for several reasons:
 Project Tracking
 ----------------
 
+.. sidebar::
+
+   More about project management :doc:`here ... <project/index>`
+
+* :doc:`project/tasks/group`
+* :doc:`project/meetings/index`
+
 .. toctree::
    :hidden:
 
    project/index
-
-.. ot-graph::
-   :entries: crazycar
-
-:doc:`More about project management ... <project/index>`
 
 Further Information
 -------------------

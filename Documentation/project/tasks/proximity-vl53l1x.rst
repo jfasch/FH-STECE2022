@@ -3,8 +3,8 @@
 .. include:: <mmlalias.txt>
 
 
-ACTIVE: Proximity Sensor: VL53L1X
-=================================
+(ACTIVE) Proximity Sensor: VL53L1X
+==================================
 
 .. contents::
    :local:
@@ -21,6 +21,12 @@ Status
 
 * 2024-11-05: ongoing. Reading sensor data yields an all-zeroes block
   (?).
+* 2024-11-25. stops working at setcontinuous, which is the first 32bit
+  write.
+
+  * try lowering i2c frequency. what does original arduino
+    implementation use?
+  * check with a scope (comparing arduino and pi)
 
 Notes
 -----

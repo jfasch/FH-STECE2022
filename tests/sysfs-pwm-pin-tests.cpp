@@ -19,11 +19,11 @@ struct sysfs_pwm_pin_suite : tmpdir_fixture
     SysFS_File duty_cycle_file;
 
     sysfs_pwm_pin_suite()
-    : period_file(dirname / "period"),
-      duty_cycle_file(dirname / "duty_cycle")
+    : period_file(dirname + "/period"),
+      duty_cycle_file(dirname + "/duty_cycle")
     {
-        std::ofstream(dirname / "period", std::ios::out) << PERIOD_NS_INIT << '\n';
-        std::ofstream(dirname / "duty_cycle", std::ios::out) << 0 << '\n';
+        std::ofstream(dirname + "/period", std::ios::out) << PERIOD_NS_INIT << '\n';
+        std::ofstream(dirname + "/duty_cycle", std::ios::out) << 0 << '\n';
     }
 };
 
@@ -60,7 +60,7 @@ TEST_F(sysfs_pwm_pin_suite, duty_cycle_bigger_period)
 TEST_F(sysfs_pwm_pin_suite, unsigned_vs_signed_clarification)
 {
     // disregard fixture, and pull up period as maximum uint64_t.
-    std::ofstream(dirname / "period") << "18446744073709551615\n";
+    std::ofstream(dirname + "/period") << "18446744073709551615\n";
 
     SysFS_PWM_Pin pin(dirname);
 

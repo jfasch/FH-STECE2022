@@ -28,5 +28,8 @@ add_subdirectory(googletest)     # upstream submodule
 
 # stuff from summer; instructional purposes only. to be removed, or at
 # least pushed down into some "attic".
-add_subdirectory(livecoding)
-add_subdirectory(exercises)
+
+# jfasch: removed from build because it uses std::filesystem
+
+# add_subdirectory(livecoding)
+# add_subdirectory(exercises)

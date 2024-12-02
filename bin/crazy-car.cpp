@@ -1,3 +1,5 @@
+#include "crazy-car-config.h"
+
 #include <ipc/crazy-car-protocol.h>
 
 #include <mqueue.h>
@@ -9,7 +11,7 @@
 
 int main()
 {
-    mqd_t message_queue = mq_open("/crazy-car", O_RDONLY);
+    mqd_t message_queue = mq_open(CRAZY_CAR_MQ_NAME, O_RDONLY); 
     if (message_queue == -1) {
         perror("mq_open");
         return 1;

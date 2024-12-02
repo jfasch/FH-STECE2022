@@ -3,8 +3,8 @@
 .. include:: <mmlalias.txt>
 
 
-DONE: GPIO Abstraction On Top Of ``/sys/class/gpio/``
-=====================================================
+(DONE) GPIO Abstraction On Top Of ``/sys/class/gpio/``
+======================================================
 
 .. contents::
    :local:

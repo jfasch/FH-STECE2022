@@ -1,5 +1,4 @@
 #include "crazy-car-config.h"
-
 #include <ipc/crazy-car-protocol.h>
 
 #include <mqueue.h>
@@ -8,6 +7,8 @@
 #include <cassert>
 #include <iostream>
 
+//TODO: Include bin/crazy-car-init.cpp
+//TODO: Uncomment the two lines in the switch statement
 
 int main()
 {
@@ -30,9 +31,11 @@ int main()
         switch (cur_msg.command) {
             case MOTOR_SET_RPM:
                 std::cout << "Motor: set rpm to " << cur_msg.value << std::endl;
+                //motor.set_speed(cur_msg.value);
                 break;
             case SERVO_SET_ANGLE:
                 std::cout << "Servo: set angle to " << cur_msg.value << std::endl;
+                //servo.set_position(cur_msg.value);
                 break;
             default:
                 assert("bad command");

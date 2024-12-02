@@ -1,3 +1,15 @@
+/*************************************************
+Original Library by Pololu
+**************************************************
+Modified for Raspi using Linux File IO by:
+Fabian Eingang and Thomas Kotschnig
+**************************************************
+**************************************************
+**************************************************
+with much efford, sweat, tears and hours of crying
+**************************************************
+**************************************************/
+
 // Most of the functionality of this library is based on the VL53L1X API
 // provided by ST (STSW-IMG007), and some of the explanatory comments are quoted
 // or paraphrased from the API source code, API user manual (UM2356), and
@@ -12,8 +24,9 @@
 
 // Constructors ////////////////////////////////////////////////////////////////
 
-VL53L1X::VL53L1X(int fd)
-  : bus_fd(fd)
+VL53L1X::VL53L1X(uint8_t i2c_address)
+  : i2c_address(i2c_address)
+  , bus_fd(-1)
   , address(AddressDefault)
   , io_timeout(0) // no timeout
   , did_timeout(false)
@@ -22,6 +35,20 @@ VL53L1X::VL53L1X(int fd)
   , saved_vhv_timeout(0)
   , distance_mode(Unknown)
 {
+    bus_fd = open("/dev/i2c-1", O_RDWR);
+    if (bus_fd < 0) {
+        throw std::runtime_error("Failed to open the I2C bus: /dev/i2c-1 // Attention: Hardcoded Path");
+    }
+    if (ioctl(bus_fd, I2C_SLAVE, i2c_address) < 0) {
+        throw std::runtime_error("Failed to set I2C address: " + std::to_string(i2c_address));
+    }
+}
+
+// Destructor
+VL53L1X::~VL53L1X() {
+    if (bus_fd >= 0) {
+        close(bus_fd);
+    }
 }
 
 // Public Methods //////////////////////////////////////////////////////////////
@@ -498,6 +525,18 @@ uint8_t VL53L1X::getROICenter()
 // period in milliseconds determining how often the sensor takes a measurement.
 void VL53L1X::startContinuous(uint32_t period_ms)
 {
+  //////////////////////////////// INITIALIZATION ////////////////////////////////
+    setTimeout(500);
+    if (!init())
+    {
+        std::cout << "Failed to detect and initialize sensor!"<< std::endl;
+        while (1);
+    }
+
+    setDistanceMode(VL53L1X::Long);
+    setMeasurementTimingBudget(50000);
+
+  ///////////////////////////// END OF INITIALIZATION ////////////////////////////
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
 
   writeReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD, period_ms * osc_calibrate_val);

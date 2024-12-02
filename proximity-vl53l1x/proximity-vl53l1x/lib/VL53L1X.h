@@ -1278,11 +1278,8 @@ class VL53L1X
 
     uint8_t last_status = 0; // status of last I2C transmission
 
-    VL53L1X(int fd);
-
-    //void setBus(TwoWire * bus) { this->bus = bus; }
-    //TwoWire * getBus() { return bus; }
-
+    VL53L1X(uint8_t i2c_address);
+    ~VL53L1X();
 
     void setAddress(uint8_t new_addr);
     uint8_t getAddress() { return address; }
@@ -1368,6 +1365,7 @@ class VL53L1X
     ResultBuffer results;
 
     int bus_fd;
+    uint8_t i2c_address;
     uint8_t address;
 
     uint16_t io_timeout;

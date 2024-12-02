@@ -193,13 +193,23 @@ unsigned long VL53L1X::millis() {
 // Write an 8-bit register
 void VL53L1X::writeReg(uint16_t reg, uint8_t value)
 {
-  reg = (reg >> 8) | (reg << 8);
-  int bits = 2;
-  assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "writeReg: uint16_t reg, uint8_t value: " << bits << std::endl;
-  bits = 1;
-  assert(bits == write(bus_fd,&value,bits));
-  std::cout << "writeReg: uint16_t reg, uint8_t value: " << bits << std::endl;
+  // reg = (reg >> 8) | (reg << 8);
+  // int bits = 2;
+  // assert(bits == write(bus_fd,&reg,bits));
+  // std::cout << "writeReg: uint16_t reg, uint8_t value: " << bits << std::endl;
+  // bits = 1;
+  // assert(bits == write(bus_fd,&value,bits));
+  // std::cout << "writeReg: uint16_t reg, uint8_t value: " << bits << std::endl;
+
+    uint8_t buffer[3] = {
+      static_cast<uint8_t>(reg >> 8),
+      static_cast<uint8_t>(reg), 
+      value
+    };
+
+    if (write(bus_fd, buffer, 3) != 3) {
+        throw std::runtime_error("Failed to write to I2C device");
+    }
 }
 
 // // Write a 16-bit register
@@ -216,13 +226,23 @@ void VL53L1X::writeReg(uint16_t reg, uint8_t value)
 // Write a 16-bit register
 void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
 {
-  reg = (reg >> 8) | (reg << 8);
-  value = (value >> 8) | (value << 8);
-  int bits = 2;
-  assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bits << std::endl;
-  assert(bits == write(bus_fd,&value,2));
-  std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bits << std::endl;
+  // reg = (reg >> 8) | (reg << 8);
+  // value = (value >> 8) | (value << 8);
+  // int bits = 2;
+  // assert(bits == write(bus_fd,&reg,bits));
+  // std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bits << std::endl;
+  // assert(bits == write(bus_fd,&value,2));
+  // std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bits << std::endl;
+
+    uint8_t buffer[4] = {
+      static_cast<uint8_t>(reg >> 8),
+      static_cast<uint8_t>(reg),
+      static_cast<uint8_t>(value >> 8),
+      static_cast<uint8_t>(value)
+    };
+    if (write(bus_fd, buffer, 4) != 4) {
+        throw std::runtime_error("Failed to write to I2C device");
+    }
 }
 
 // // Write a 32-bit register
@@ -243,19 +263,31 @@ void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
 // Write a 32-bit register
 void VL53L1X::writeReg32Bit(uint16_t reg, uint32_t value)
 {
-  uint8_t write_array[4] = {0};
-  write_array[3] = ((uint8_t)(value >> 24)); // value highest byte
-  write_array[2] = ((uint8_t)(value >> 16));
-  write_array[1] = ((uint8_t)(value >>  8));
-  write_array[0] = ((uint8_t)(value));       // value lowest byte
-  reg = (reg >> 8) | (reg << 8);
-  //value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
-  int bits = 2;
-  assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bits << std::endl;
-  bits = 4;
-  assert(bits == write(bus_fd,write_array,bits));
-  std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bits << std::endl;
+  // uint8_t write_array[4] = {0};
+  // write_array[3] = ((uint8_t)(value >> 24)); // value highest byte
+  // write_array[2] = ((uint8_t)(value >> 16));
+  // write_array[1] = ((uint8_t)(value >>  8));
+  // write_array[0] = ((uint8_t)(value));       // value lowest byte
+  // reg = (reg >> 8) | (reg << 8);
+  // //value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
+  // int bits = 2;
+  // assert(bits == write(bus_fd,&reg,bits));
+  // std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bits << std::endl;
+  // bits = 4;
+  // assert(bits == write(bus_fd,write_array,bits));
+  // std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bits << std::endl;
+
+  uint8_t buffer[6] = {
+    static_cast<uint8_t>(reg >> 8),
+    static_cast<uint8_t>(reg),
+    static_cast<uint8_t>(value >> 24),
+    static_cast<uint8_t>(value >> 16),
+    static_cast<uint8_t>(value >> 8),
+    static_cast<uint8_t>(value)
+    };
+    if (write(bus_fd, buffer, 6) != 6) {
+        throw std::runtime_error("Failed to write to I2C device");
+    }
 }
 
 // // Read an 8-bit register
@@ -628,12 +660,9 @@ void VL53L1X::startContinuous(uint32_t period_ms)
   std::cout << "period_ms * osc_calibrate_val: " << (period_ms * osc_calibrate_val) << std::endl;
   // from VL53L1_set_inter_measurement_period_ms()
   writeReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD, period_ms * osc_calibrate_val);
-    std::cout << "SYSTEM__INTERMEASUREMENT_PERIOD: " << (int) readReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD) << std::endl;
+  std::cout << "SYSTEM__INTERMEASUREMENT_PERIOD: " << (int) readReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD) << std::endl;
   std::cout << "FIRMWARE__SYSTEM_STATUS: " << (int) readReg(FIRMWARE__SYSTEM_STATUS) << std::endl;
-  //assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
-  std::cout << "FIRMWARE__SYSTEM_STATUS" << std::endl;
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
-  std::cout << "FIRMWARE__SYSTEM_STATUS" << std::endl;
   writeReg(SYSTEM__INTERRUPT_CLEAR, 0x01); // sys_interrupt_clear_range
   writeReg(SYSTEM__MODE_START, 0x40); // mode_range__timed
 }
@@ -671,18 +700,18 @@ void VL53L1X::stopContinuous()
 // measurement)
 uint16_t VL53L1X::read_sensor(bool blocking)
 {
-  // if (blocking)
-  // {
-  //   startTimeout();
-  //   while (!dataReady())
-  //   {
-  //     if (checkTimeoutExpired())
-  //     {
-  //       did_timeout = true;
-  //       return 0;
-  //     }
-  //   }
-  // }
+  if (blocking)
+  {
+    startTimeout();
+    while (!dataReady())
+    {
+      if (checkTimeoutExpired())
+      {
+        did_timeout = true;
+        return 0;
+      }
+    }
+  }
 
   readResults();
 
@@ -1026,7 +1055,8 @@ void VL53L1X::getRangingData()
 
   std::cout << "results.final_crosstalk_corrected_range_mm_sd0  "<< results.final_crosstalk_corrected_range_mm_sd0 << std::endl;
   std::cout << "ranging_data.range_mm  "<< ranging_data.range_mm << std::endl;
-  usleep(5000000);
+  std::cout << "results.range_status  "<< (int) results.range_status << std::endl;
+  
 }
 
 // Decode sequence step timeout in MCLKs from register value

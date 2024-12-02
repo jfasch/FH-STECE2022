@@ -46,9 +46,8 @@ int main() {
     while(true)
     {
         std::cout << sensor.read_sensor() << std::endl;
-        std::cout << ' ' << std::endl;
      if (sensor.timeoutOccurred()) { std::cout << " TIMEOUT" << "\n" << std::endl; }
-     usleep(5000000);
+     usleep(1000000);
     }
 
     close(file);

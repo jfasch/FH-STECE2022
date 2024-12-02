@@ -40,9 +40,7 @@ void VL53L1X::setAddress(uint8_t new_addr)
 bool VL53L1X::init(bool io_2v8)
 {
   // check model ID and module type registers (values specified in datasheet)
-  if (readReg16Bit(IDENTIFICATION__MODEL_ID) != 0xEACC) { 
-    //60108 = 0xEACC
-    std::cout << "Erster Falsch Return"<< std::endl; //Funktioniert
+  if (readReg16Bit(IDENTIFICATION__MODEL_ID) != 0xEACC) {  //60108 = 0xEACC
     return false; }
 
   // VL53L1_software_reset() begin
@@ -59,25 +57,7 @@ bool VL53L1X::init(bool io_2v8)
 
   startTimeout();
 
-  // check last_status in case we still get a NACK to try to deal with it correctly
-  // while ((readReg(FIRMWARE__SYSTEM_STATUS) & 0x01) == 0 || last_status != 0) //last_status wird nicht verwendet
-  // {
-  //   std::cout << "laststatus Zeile 63 im cpp: " << last_status << std::endl;
-  //   std::cout << "Endlosschleife"<< std::endl;
-  //   if (checkTimeoutExpired())
-  //   {
-  //     did_timeout = true;
-  //     std::cout << "Zweiter Falsch Return"<< std::endl;
-  //     return false;
-  //   }
-  // }
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
-  std::cout << "FIRMWARE__SYSTEM_STATUS: " << (int) readReg(FIRMWARE__SYSTEM_STATUS) << std::endl;
-  // VL53L1_poll_for_boot_completion() end
-
-  // VL53L1_software_reset() end
-
-  // VL53L1_DataInit() begin
 
   // sensor uses 1V8 mode for I/O by default; switch to 2V8 mode if necessary
   if (io_2v8)
@@ -90,22 +70,11 @@ bool VL53L1X::init(bool io_2v8)
   fast_osc_frequency = readReg16Bit(OSC_MEASURED__FAST_OSC__FREQUENCY);   //48414 BD1E
   osc_calibrate_val = readReg16Bit(RESULT__OSC_CALIBRATE_VAL); //37 0025
 
-  std::cout << "osc_calibrate_val "<< osc_calibrate_val << std::endl;
-
-  // VL53L1_DataInit() end
-
-  // VL53L1_StaticInit() begin
-
   // Note that the API does not actually apply the configuration settings below
   // when VL53L1_StaticInit() is called: it keeps a copy of the sensor's
   // register contents in memory and doesn't actually write them until a
   // measurement is started. Writing the configuration here means we don't have
   // to keep it all in memory and avoids a lot of redundant writes later.
-
-  // the API sets the preset mode to LOWPOWER_AUTONOMOUS here:
-  // VL53L1_set_preset_mode() begin
-
-  // VL53L1_preset_mode_standard_ranging() begin
 
   // values labeled "tuning parm default" are from vl53l1_tuning_parm_defaults.h
   // (API uses these in VL53L1_init_tuning_parm_storage_struct())
@@ -139,8 +108,6 @@ bool VL53L1X::init(bool io_2v8)
   writeReg(SYSTEM__GROUPED_PARAMETER_HOLD_1, 0x01);
   writeReg(SD_CONFIG__QUANTIFIER, 2); // tuning parm default
 
-  // VL53L1_preset_mode_standard_ranging() end
-
   // from VL53L1_preset_mode_timed_ranging_*
   // GPH is 0 after reset, but writing GPH0 and GPH1 above seem to set GPH to 1,
   // and things don't seem to work if we don't set GPH back to 0 (which the API
@@ -153,14 +120,10 @@ bool VL53L1X::init(bool io_2v8)
   writeReg16Bit(DSS_CONFIG__MANUAL_EFFECTIVE_SPADS_SELECT, 200 << 8);
   writeReg(DSS_CONFIG__ROI_MODE_CONTROL, 2); // REQUESTED_EFFFECTIVE_SPADS
 
-  // VL53L1_set_preset_mode() end
-
   // default to long range, 50 ms timing budget
   // note that this is different than what the API defaults to
   setDistanceMode(Long);
   setMeasurementTimingBudget(50000);
-
-  // VL53L1_StaticInit() end
 
   // the API triggers this change in VL53L1_init_and_start_range() once a
   // measurement is started; assumes MM1 and MM2 are disabled
@@ -173,230 +136,111 @@ bool VL53L1X::init(bool io_2v8)
 unsigned long VL53L1X::millis() {
     struct timeval tv;
     assert(0 == gettimeofday(&tv, NULL));
-    std::cout << "tv.tv_sec: " << (tv.tv_sec) << 1731400000 << std::endl;
-    std::cout << "tv.tv_sec: " << ((tv.tv_sec - 1731400000) * 1000) << std::endl;
-    std::cout << "tv.tv_usec: " << (tv.tv_usec / 1000) << std::endl;
     return ((tv.tv_sec - 1731400000) * 1000) + (tv.tv_usec / 1000);
 }
-
-
-// // Write an 8-bit register
-// void VL53L1X::writeReg(uint16_t reg, uint8_t value)
-// {
-//   bus->beginTransmission(address);
-//   bus->write((uint8_t)(reg >> 8)); // reg high byte
-//   bus->write((uint8_t)(reg));      // reg low byte
-//   bus->write(value);
-//   last_status = bus->endTransmission();
-// }
 
 // Write an 8-bit register
 void VL53L1X::writeReg(uint16_t reg, uint8_t value)
 {
-  // reg = (reg >> 8) | (reg << 8);
-  // int bits = 2;
-  // assert(bits == write(bus_fd,&reg,bits));
-  // std::cout << "writeReg: uint16_t reg, uint8_t value: " << bits << std::endl;
-  // bits = 1;
-  // assert(bits == write(bus_fd,&value,bits));
-  // std::cout << "writeReg: uint16_t reg, uint8_t value: " << bits << std::endl;
-
     uint8_t buffer[3] = {
-      static_cast<uint8_t>(reg >> 8),
-      static_cast<uint8_t>(reg), 
+      (uint8_t)(reg >> 8),
+      (uint8_t)(reg), 
       value
     };
 
     if (write(bus_fd, buffer, 3) != 3) {
-        throw std::runtime_error("Failed to write to I2C device");
+        throw std::runtime_error("Failed to write 1 Byte to I2C device");
     }
 }
-
-// // Write a 16-bit register
-// void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
-// {
-//   bus->beginTransmission(address);
-//   bus->write((uint8_t)(reg >> 8)); // reg high byte
-//   bus->write((uint8_t)(reg));      // reg low byte
-//   bus->write((uint8_t)(value >> 8)); // value high byte
-//   bus->write((uint8_t)(value));      // value low byte
-//   last_status = bus->endTransmission();
-// }
 
 // Write a 16-bit register
 void VL53L1X::writeReg16Bit(uint16_t reg, uint16_t value)
 {
-  // reg = (reg >> 8) | (reg << 8);
-  // value = (value >> 8) | (value << 8);
-  // int bits = 2;
-  // assert(bits == write(bus_fd,&reg,bits));
-  // std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bits << std::endl;
-  // assert(bits == write(bus_fd,&value,2));
-  // std::cout << "writeReg16Bit: uint16_t reg, uint16_t value: " << bits << std::endl;
-
     uint8_t buffer[4] = {
-      static_cast<uint8_t>(reg >> 8),
-      static_cast<uint8_t>(reg),
-      static_cast<uint8_t>(value >> 8),
-      static_cast<uint8_t>(value)
+      (uint8_t)(reg >> 8),
+      (uint8_t)(reg),
+      (uint8_t)(value >> 8),
+      (uint8_t)(value)
     };
     if (write(bus_fd, buffer, 4) != 4) {
-        throw std::runtime_error("Failed to write to I2C device");
+        throw std::runtime_error("Failed to write 2 Byte to I2C device");
     }
 }
-
-// // Write a 32-bit register
-// void VL53L1X::writeReg32Bit(uint16_t reg, uint32_t value)
-// {
-//   bus->beginTransmission(address);
-//   bus->write((uint8_t)(reg >> 8)); // reg high byte
-//   bus->write((uint8_t)(reg));      // reg low byte
-  
-//   bus->write((uint8_t)(value >> 24)); // value highest byte
-//   bus->write((uint8_t)(value >> 16));
-//   bus->write((uint8_t)(value >>  8));
-//   bus->write((uint8_t)(value));       // value lowest byte
-//   last_status = bus->endTransmission();
-// }
-
 
 // Write a 32-bit register
 void VL53L1X::writeReg32Bit(uint16_t reg, uint32_t value)
 {
-  // uint8_t write_array[4] = {0};
-  // write_array[3] = ((uint8_t)(value >> 24)); // value highest byte
-  // write_array[2] = ((uint8_t)(value >> 16));
-  // write_array[1] = ((uint8_t)(value >>  8));
-  // write_array[0] = ((uint8_t)(value));       // value lowest byte
-  // reg = (reg >> 8) | (reg << 8);
-  // //value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
-  // int bits = 2;
-  // assert(bits == write(bus_fd,&reg,bits));
-  // std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bits << std::endl;
-  // bits = 4;
-  // assert(bits == write(bus_fd,write_array,bits));
-  // std::cout << "writeReg32Bit: uint16_t reg, uint32_t value: " << bits << std::endl;
-
   uint8_t buffer[6] = {
-    static_cast<uint8_t>(reg >> 8),
-    static_cast<uint8_t>(reg),
-    static_cast<uint8_t>(value >> 24),
-    static_cast<uint8_t>(value >> 16),
-    static_cast<uint8_t>(value >> 8),
-    static_cast<uint8_t>(value)
+    (uint8_t)(reg >> 8),
+    (uint8_t)(reg),
+    (uint8_t)(value >> 24),
+    (uint8_t)(value >> 16),
+    (uint8_t)(value >> 8),
+    (uint8_t)(value)
     };
     if (write(bus_fd, buffer, 6) != 6) {
-        throw std::runtime_error("Failed to write to I2C device");
+        throw std::runtime_error("Failed to write 4 Byte to I2C device");
     }
 }
-
-// // Read an 8-bit register
-// uint8_t VL53L1X::readReg(regAddr reg)
-// {
-//   uint8_t value;
-
-//   bus->beginTransmission(address);
-//   bus->write((uint8_t)(reg >> 8)); // reg high byte
-//   bus->write((uint8_t)(reg));      // reg low byte
-//   last_status = bus->endTransmission();
-
-//   bus->requestFrom(address, (uint8_t)1);
-//   value = bus->read();
-
-//   return value;
-// }
-
 // Read an 8-bit register
 uint8_t VL53L1X::readReg(regAddr reg)
 {
+  uint8_t buffer[2] = {
+    (uint8_t)(reg >> 8),
+    (uint8_t)(reg)
+  };
+  if (write(bus_fd, buffer, 2) != 2) {
+      throw std::runtime_error("Failed to set I2C register address");
+  }
   uint8_t value;
-  uint16_t bit_reg = reg;
-  bit_reg = (bit_reg >> 8) | (bit_reg << 8);
-  int bits = 2;
-  assert(bits == write(bus_fd,&bit_reg,bits));
-  std::cout << "readReg/writing: regAddr reg: " << bits << std::endl;
-  bits = 1;
-  assert(bits == read(bus_fd, &value, bits));
-  std::cout << "readReg: regAddr reg: " << bits << std::endl;
+  if (read(bus_fd, &value, 1) != 1) {
+      throw std::runtime_error("Failed to read from I2C device");
+  }
 
   return value;
 }
-
-// // Read a 16-bit register
-// uint16_t VL53L1X::readReg16Bit(uint16_t reg)
-// {
-//   uint16_t value;
-
-//   bus->beginTransmission(address);
-//   bus->write((uint8_t)(reg >> 8)); // reg high byte
-//   bus->write((uint8_t)(reg));      // reg low byte
-//   last_status = bus->endTransmission();
-
-//   bus->requestFrom(address, (uint8_t)2);
-//   value  = (uint16_t)bus->read() << 8; // value high byte
-//   value |=           bus->read();      // value low byte
-
-//   return value;
-// }
 
 // Read a 16-bit register
 uint16_t VL53L1X::readReg16Bit(uint16_t reg)
 {
   uint16_t value;
-  uint8_t read_array[2] = {0};
+  uint8_t buffer[2] = {
+    static_cast<uint8_t>(reg >> 8), 
+    static_cast<uint8_t>(reg)
+  };
+  if (write(bus_fd, buffer, 2) != 2) {
+      throw std::runtime_error("Failed to set I2C register address");
+  }
+  uint8_t data[2];
+  if (read(bus_fd, data, 2) != 2) {
+      throw std::runtime_error("Failed to read from I2C device");
+  }
 
-  reg = (reg >> 8) | (reg << 8);
-  int bits = 2;
-  assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "read16Reg/writing: uint16_t reg: " << bits << std::endl;
-  assert(bits == read(bus_fd, read_array, bits));
-  std::cout << "read16Reg: uint16_t reg: " << bits << std::endl;
-  value  = (uint16_t)read_array[0] << 8; // high byte
-  value |=           read_array[1];      // low byte
-  //value = (value >> 8) | (value << 8);
-  
+  value  = (uint16_t)data[0] << 8; // high byte
+  value |=           data[1];      // low byte
+
   return value;
 }
-
-// // Read a 32-bit register
-// uint32_t VL53L1X::readReg32Bit(uint16_t reg)
-// {
-//   uint32_t value;
-
-//   bus->beginTransmission(address);
-//   bus->write((uint8_t)(reg >> 8)); // reg high byte
-//   bus->write((uint8_t)(reg));      // reg low byte
-//   last_status = bus->endTransmission();
-
-//   bus->requestFrom(address, (uint8_t)4);
-//   value  = (uint32_t)bus->read() << 24; // value highest byte
-//   value |= (uint32_t)bus->read() << 16;
-//   value |= (uint16_t)bus->read() <<  8;
-//   value |=           bus->read();       // value lowest byte
-
-//   return value;
-// }
 
 // Read a 32-bit register
 uint32_t VL53L1X::readReg32Bit(uint16_t reg)
 {
   uint32_t value;
-  uint8_t read_array[4] = {0};
-
-  reg = (reg >> 8) | (reg << 8);
-  int bits = 2;
-  assert(bits == write(bus_fd,&reg,bits));
-  std::cout << "read32Reg/writing: uint16_t reg: " << bits << std::endl;
-  bits = 4;
-  assert(bits == read(bus_fd, read_array, bits));
-  std::cout << "read32Reg: uint16_t reg: " << bits << std::endl;
-
-  value  = (uint32_t)read_array[0] << 24; // value highest byte
-  value |= (uint32_t)read_array[1] << 16;
-  value |= (uint16_t)read_array[2] <<  8;
-  value |=           read_array[3];       // value lowest byte
-  //value = (value >> 24) | ((0x00FF0000 & value) >> 8) | ((0x0000FF00 & value) << 8) | ((0x000000FF & value) << 24);
-  
+  uint8_t buffer[2] = {
+    static_cast<uint8_t>(reg >> 8), 
+    static_cast<uint8_t>(reg)
+  };
+  if (write(bus_fd, buffer, 2) != 2) {
+      throw std::runtime_error("Failed to set I2C register address");
+  }
+  uint8_t data[4];
+  if (read(bus_fd, data, 4) != 4) {
+      throw std::runtime_error("Failed to read from I2C device");
+  }
+  value  = (uint32_t)data[0] << 24; // value highest byte
+  value |= (uint32_t)data[1] << 16;
+  value |= (uint16_t)data[2] <<  8;
+  value |=           data[3];       // value lowest byte
 
   return value;
 }
@@ -408,7 +252,6 @@ bool VL53L1X::setDistanceMode(DistanceMode mode)
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
   // save existing timing budget
   uint32_t budget_us = getMeasurementTimingBudget();
-  std::cout << "budget_us: " << budget_us << std::endl;
 
   switch (mode)
   {
@@ -655,14 +498,10 @@ uint8_t VL53L1X::getROICenter()
 // period in milliseconds determining how often the sensor takes a measurement.
 void VL53L1X::startContinuous(uint32_t period_ms)
 {
-  std::cout << "FIRMWARE__SYSTEM_STATUS: " << (int) readReg(FIRMWARE__SYSTEM_STATUS) << std::endl;
   assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
-  std::cout << "period_ms * osc_calibrate_val: " << (period_ms * osc_calibrate_val) << std::endl;
-  // from VL53L1_set_inter_measurement_period_ms()
+
   writeReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD, period_ms * osc_calibrate_val);
-  std::cout << "SYSTEM__INTERMEASUREMENT_PERIOD: " << (int) readReg32Bit(SYSTEM__INTERMEASUREMENT_PERIOD) << std::endl;
-  std::cout << "FIRMWARE__SYSTEM_STATUS: " << (int) readReg(FIRMWARE__SYSTEM_STATUS) << std::endl;
-  assert(readReg(FIRMWARE__SYSTEM_STATUS) & 0x01);
+
   writeReg(SYSTEM__INTERRUPT_CLEAR, 0x01); // sys_interrupt_clear_range
   writeReg(SYSTEM__MODE_START, 0x40); // mode_range__timed
 }
@@ -872,9 +711,7 @@ void VL53L1X::setupManualCalibration()
 void VL53L1X::readResults()
 {
   uint16_t reg = RESULT__RANGE_STATUS;
-  std::cout << "Reg befor shift : " << reg << std::endl;
   reg = (reg >> 8) | (reg << 8);
-  std::cout << "Reg after shift : " << reg << std::endl;
   uint16_t unikat = 0;
   unikat = write(bus_fd, &reg ,2);
 
@@ -885,18 +722,9 @@ void VL53L1X::readResults()
   // std::cout << "Unikat: " << unikat << std::endl;
   // std::cout << "Register: " << new_reg << std::endl;
   uint8_t read_array[17] = {0};
-  std::cout << "Unikat: " << unikat << std::endl;
   unikat = read(bus_fd,read_array,17);
-  std::cout << "Unikat: " << unikat << std::endl;
-
-  
 
   results.range_status = read_array[0];
-
-  for(int i = 0; i < 17; i++)
-  {
-    std::cout << "read_array[" << i << "] " << (int) read_array[i] << std::endl;
-  }
   
   //bus->read(); // report_status: not used
 
@@ -1052,10 +880,6 @@ void VL53L1X::getRangingData()
     countRateFixedToFloat(results.peak_signal_count_rate_crosstalk_corrected_mcps_sd0);
   ranging_data.ambient_count_rate_MCPS =
     countRateFixedToFloat(results.ambient_count_rate_mcps_sd0);
-
-  std::cout << "results.final_crosstalk_corrected_range_mm_sd0  "<< results.final_crosstalk_corrected_range_mm_sd0 << std::endl;
-  std::cout << "ranging_data.range_mm  "<< ranging_data.range_mm << std::endl;
-  std::cout << "results.range_status  "<< (int) results.range_status << std::endl;
   
 }
 

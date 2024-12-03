@@ -26,6 +26,7 @@ with much efford, sweat, tears and hours of crying
 
 VL53L1X::VL53L1X(uint8_t i2c_address)
   : i2c_address(i2c_address)
+  
   , bus_fd(-1)
   , address(AddressDefault)
   , io_timeout(0) // no timeout
@@ -708,60 +709,22 @@ void VL53L1X::setupManualCalibration()
   writeReg(CAL_CONFIG__VCSEL_START, readReg(PHASECAL_RESULT__VCSEL_START));
 }
 
-// // read measurement results into buffer
-// void VL53L1X::readResults()
-// {
-//   bus->beginTransmission(address);
-//   bus->write((uint8_t)(RESULT__RANGE_STATUS >> 8)); // reg high byte
-//   bus->write((uint8_t)(RESULT__RANGE_STATUS));      // reg low byte
-//   last_status = bus->endTransmission();
-
-//   bus->requestFrom(address, (uint8_t)17);
-
-//   results.range_status = bus->read();
-
-//   bus->read(); // report_status: not used
-
-//   results.stream_count = bus->read();
-
-//   results.dss_actual_effective_spads_sd0  = (uint16_t)bus->read() << 8; // high byte
-//   results.dss_actual_effective_spads_sd0 |=           bus->read();      // low byte
-
-//   bus->read(); // peak_signal_count_rate_mcps_sd0: not used
-//   bus->read();
-
-//   results.ambient_count_rate_mcps_sd0  = (uint16_t)bus->read() << 8; // high byte
-//   results.ambient_count_rate_mcps_sd0 |=           bus->read();      // low byte
-
-//   bus->read(); // sigma_sd0: not used
-//   bus->read();
-
-//   bus->read(); // phase_sd0: not used
-//   bus->read();
-
-//   results.final_crosstalk_corrected_range_mm_sd0  = (uint16_t)bus->read() << 8; // high byte
-//   results.final_crosstalk_corrected_range_mm_sd0 |=           bus->read();      // low byte
-
-//   results.peak_signal_count_rate_crosstalk_corrected_mcps_sd0  = (uint16_t)bus->read() << 8; // high byte
-//   results.peak_signal_count_rate_crosstalk_corrected_mcps_sd0 |=           bus->read();      // low byte
-// }
-
 // read measurement results into buffer
 void VL53L1X::readResults()
 {
   uint16_t reg = RESULT__RANGE_STATUS;
-  reg = (reg >> 8) | (reg << 8);
-  uint16_t unikat = 0;
-  unikat = write(bus_fd, &reg ,2);
+  uint8_t buffer[2] = {
+    static_cast<uint8_t>(reg >> 8), 
+    static_cast<uint8_t>(reg)
+  };
+  if (write(bus_fd, buffer, 2) != 2) {
+      throw std::runtime_error("Failed to set I2C register address");
+  }
 
-  //bus->requestFrom(address, (uint8_t)17);
-  
-  // uint16_t new_reg = 0;
-  // unikat = read(bus_fd, &new_reg,2);
-  // std::cout << "Unikat: " << unikat << std::endl;
-  // std::cout << "Register: " << new_reg << std::endl;
   uint8_t read_array[17] = {0};
-  unikat = read(bus_fd,read_array,17);
+  if (read(bus_fd,read_array,17) != 17) {
+    throw std::runtime_error("Failed to read 17 Bytes from I2C device");
+  }
 
   results.range_status = read_array[0];
   

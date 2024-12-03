@@ -1364,8 +1364,9 @@ class VL53L1X
     // I2C buses)
     ResultBuffer results;
 
-    int bus_fd;
     uint8_t i2c_address;
+    int bus_fd;
+    
     uint8_t address;
 
     uint16_t io_timeout;

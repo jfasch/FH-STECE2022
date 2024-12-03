@@ -26,3 +26,6 @@ add_executable(rt-test rt-test.cpp)
 
 add_executable(motor-hw-test motor-hw-test.cpp)
 target_link_libraries(motor-hw-test toolcase-base)
+
+add_executable(proximity-vl53l1x-test proximity-vl53l1x-test.cpp)
+target_link_libraries(proximity-vl53l1x-test toolcase-base)

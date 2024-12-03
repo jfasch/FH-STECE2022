@@ -9,7 +9,6 @@ endif()
 
 # preliminary working directories for groups. use these until we are
 # familiar with git workflows.
-add_subdirectory(proximity-vl53l1x)
 add_subdirectory(gyroscope-bno055)
 add_subdirectory(motor-control-btn9960lv)
 add_subdirectory(servo-ppm)
@@ -19,7 +18,7 @@ add_subdirectory(servo-ppm)
 add_subdirectory(toolcase)
 
 # "firmware". this is where production exeutables are.
-add_subdirectory(bin)
+# add_subdirectory(bin)
 
 # tests
 enable_testing()

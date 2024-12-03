@@ -29,3 +29,9 @@ target_link_libraries(motor-hw-test toolcase-base)
 
 add_executable(proximity-vl53l1x-test proximity-vl53l1x-test.cpp)
 target_link_libraries(proximity-vl53l1x-test toolcase-base)
+
+
+# MQTT
+
+# add_executable(sensor-into-cloud sensor-into-cloud.cpp)
+# target_link_libraries(sensor-into-cloud toolcase-base Mosquitto::Mosquitto)

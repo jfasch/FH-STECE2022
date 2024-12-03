@@ -6,6 +6,10 @@ if (${CMAKE_COMPILER_IS_GNUCC})
    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g3 -Wall -Werror")
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -O0 -g3 -Wall -Werror")
 endif()
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
+
+# determine if libmosquitto is installed
+find_package(Mosquitto)
 
 # preliminary working directories for groups. use these until we are
 # familiar with git workflows.
@@ -23,12 +27,5 @@ add_subdirectory(toolcase)
 # tests
 enable_testing()
 add_subdirectory(tests)
+
 add_subdirectory(googletest)     # upstream submodule
-
-# stuff from summer; instructional purposes only. to be removed, or at
-# least pushed down into some "attic".
-
-# jfasch: removed from build because it uses std::filesystem
-
-# add_subdirectory(livecoding)
-# add_subdirectory(exercises)

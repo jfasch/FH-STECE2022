@@ -14,6 +14,9 @@ add_library(toolcase-base
 
   sysfs-motor.h
   sysfs-motor.cpp
+
+  vl53l1x.h
+  vl53l1x.cpp
 )
 
 target_include_directories(

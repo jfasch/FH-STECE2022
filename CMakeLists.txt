@@ -21,7 +21,7 @@ add_subdirectory(servo-ppm)
 add_subdirectory(toolcase)
 
 # "firmware". this is where production exeutables are.
-# add_subdirectory(bin)
+add_subdirectory(bin)
 
 # tests
 enable_testing()

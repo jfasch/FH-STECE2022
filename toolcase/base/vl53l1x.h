@@ -1,7 +1,5 @@
 #pragma once
 
-//#include <Arduino.h>
-//#include <Wire.h>
 #include <stdint.h>
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
@@ -1276,13 +1274,10 @@ class VL53L1X
 
     RangingData ranging_data;
 
-    uint8_t last_status; // status of last I2C transmission
+    uint8_t last_status = 0; // status of last I2C transmission
 
-    VL53L1X(int fd);
-
-    //void setBus(TwoWire * bus) { this->bus = bus; }
-    //TwoWire * getBus() { return bus; }
-
+    VL53L1X(uint8_t i2c_address);
+    ~VL53L1X();
 
     void setAddress(uint8_t new_addr);
     uint8_t getAddress() { return address; }
@@ -1309,8 +1304,8 @@ class VL53L1X
 
     void startContinuous(uint32_t period_ms);
     void stopContinuous();
-    uint16_t read(bool blocking = true);
-    uint16_t readRangeContinuousMillimeters(bool blocking = true) { return read(blocking); } // alias of read()
+    uint16_t read_sensor(bool blocking = true);
+    uint16_t readRangeContinuousMillimeters(bool blocking = true) { return read_sensor(blocking); } // alias of read()
     uint16_t readSingle(bool blocking = true);
     uint16_t readRangeSingleMillimeters(bool blocking = true) { return readSingle(blocking); } // alias of readSingle()
 
@@ -1367,7 +1362,9 @@ class VL53L1X
     // I2C buses)
     ResultBuffer results;
 
+    uint8_t i2c_address;
     int bus_fd;
+    
     uint8_t address;
 
     uint16_t io_timeout;

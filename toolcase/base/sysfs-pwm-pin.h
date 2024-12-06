@@ -1,15 +1,14 @@
 #pragma once
 
 #include "sysfs-file.h"
-#include <filesystem>
 
 
 class SysFS_PWM_Pin
 {
 public:
-    SysFS_PWM_Pin(const std::filesystem::path& pindir)
-    : _period_file(pindir / "period"),
-      _duty_cycle_file(pindir / "duty_cycle")
+    SysFS_PWM_Pin(const std::string& pindir)
+    : _period_file(pindir + "/period"),
+      _duty_cycle_file(pindir + "/duty_cycle")
     {}
 
     uint64_t period() { return _period_file.read_uint64(); }

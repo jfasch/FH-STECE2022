@@ -1,14 +1,14 @@
 .. ot-task:: crazycar.commandline_driving
+   :dependencies: crazycar.hardware_init
 
 .. include:: <mmlalias.txt>
 
 
-Commandline Driving
-===================
+(ACTIVE) Commandline Driving
+============================
 
 .. contents::
    :local:
-
 
 Use Case
 --------
@@ -19,12 +19,12 @@ as described below.
 Plan
 ----
 
-Write one program that reads commands from ``stdin`` (``std::cin``) in
-a loop. For example like this,
+Write a program (say, ``bin/crazy-car-shell``) that reads commands
+from ``stdin`` (``std::cin``) in a loop. For example like this,
 
 .. code-block:: console
 
-   $ ./bin/crazy-car-drive
+   $ ./bin/crazy-car-shell
    d 30
    s -10
    s 10
@@ -46,7 +46,6 @@ Implementation
 
 See `bin/crazy-car-motor-set-rpm.cpp
 <https://github.com/jfasch/FH-STECE2022/blob/main/bin/crazy-car-motor-set-rpm.cpp>`__. That
-program reads values from ``stdin``, and writes motor commands
-(forward and backward speeds) into the ``/crazy-car`` message queue. 
-
-Rename the commands from 
+program takes one value from the commandline (``argv[1]``), composes a
+message (``CrazyCarMessage``) and puts it into the message queue
+(``/crazy-car``).

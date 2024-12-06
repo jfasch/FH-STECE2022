@@ -13,11 +13,11 @@ struct sysfs_gpio_suite : tmpdir_fixture
     SysFS_File value_file;
 
     sysfs_gpio_suite()
-    : direction_file(dirname / "direction"),
-      value_file(dirname / "value")
+    : direction_file(dirname + "/direction"),
+      value_file(dirname + "/value")
     {
-        std::ofstream(dirname / "direction", std::ios::out) << "out\n";
-        std::ofstream(dirname / "value", std::ios::out) << 0 << '\n';
+        std::ofstream(dirname + "/direction", std::ios::out) << "out\n";
+        std::ofstream(dirname + "/value", std::ios::out) << 0 << '\n';
     }
 };
 
@@ -30,6 +30,6 @@ TEST_F(sysfs_gpio_suite, basic)
 
     gpio.set_state(true);
 
-    SysFS_File value_file(dirname / "value");
+    SysFS_File value_file(dirname + "/value");
     ASSERT_EQ(value_file.read_uint64(), 1);
 }

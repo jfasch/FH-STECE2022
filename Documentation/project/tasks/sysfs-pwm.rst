@@ -3,8 +3,8 @@
 .. include:: <mmlalias.txt>
 
 
-DONE: PMW Abstraction On Top Of ``/sys/class/pwm/``
-===================================================
+(DONE) PMW Abstraction On Top Of ``/sys/class/pwm/``
+====================================================
 
 .. contents::
    :local:

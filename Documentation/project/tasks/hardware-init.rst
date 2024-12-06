@@ -3,8 +3,8 @@
 .. include:: <mmlalias.txt>
 
 
-Hardware Initialization
-=======================
+(ACTIVE) Hardware Initialization
+================================
 
 .. contents::
    :local:

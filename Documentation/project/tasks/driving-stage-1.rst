@@ -9,8 +9,8 @@
 .. include:: <mmlalias.txt>
 
 
-Integration: Driving, Stage 1
-=============================
+(ACTIVE) Integration: Driving, Stage 1
+======================================
 
 .. contents::
    :local:
@@ -18,16 +18,22 @@ Integration: Driving, Stage 1
 Plan
 ----
 
+See if hard- and software go together well.
+
 Hardware
 ........
 
 * Integrate a Pi via the :doc:`CrazyPi PCB <crazy-pi>`
-
-  * Plug :doc:`motor control <motor-control-btn9960lv>`
-  * Plug :doc:`servo control <servo-motor>`
+* Plug :doc:`motor control <motor-control-btn9960lv>`
+* Plug :doc:`servo control <servo-motor>`
+* Plug battery
 
 Software
 ........
 
-* Initialize all necessary hardware after boot; :doc:`driving-stage-1`
+* Initialize all necessary hardware after boot: :doc:`hardware-init`
+* Add motor and servo software to :doc:`crazy-car`
 * Drive, :doc:`commandline-driving`
+
+.. ot-graph::
+   :entries: crazycar.driving_stage_1

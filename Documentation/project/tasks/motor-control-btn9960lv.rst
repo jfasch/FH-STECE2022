@@ -4,8 +4,8 @@
 .. include:: <mmlalias.txt>
 
 
-ACTIVE: Motor Control: BTN9960LV
-================================
+(DONE) Motor Control: BTN9960LV
+===============================
 
 .. contents::
    :local:
@@ -30,6 +30,10 @@ Status
   * Still unclear: do we need to operate two PWM channels, or is one
     sufficient?
   * Burnt the eval board
+
+* 2024-11-25
+
+  * GLIBCXX_3.4.26, Pi has 25
 
 Notes
 -----

@@ -6,12 +6,14 @@ if (${CMAKE_COMPILER_IS_GNUCC})
    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g3 -Wall -Werror")
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -O0 -g3 -Wall -Werror")
 endif()
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
+
+# determine if libmosquitto is installed
+find_package(Mosquitto)
 
 # preliminary working directories for groups. use these until we are
 # familiar with git workflows.
-add_subdirectory(proximity-vl53l1x)
 add_subdirectory(gyroscope-bno055)
-add_subdirectory(motor-control-btn9960lv)
 add_subdirectory(servo-ppm)
 
 # upcoming tools library where we will cram thing into once we
@@ -24,9 +26,5 @@ add_subdirectory(bin)
 # tests
 enable_testing()
 add_subdirectory(tests)
-add_subdirectory(googletest)     # upstream submodule
 
-# stuff from summer; instructional purposes only. to be removed, or at
-# least pushed down into some "attic".
-add_subdirectory(livecoding)
-add_subdirectory(exercises)
+add_subdirectory(googletest)     # upstream submodule

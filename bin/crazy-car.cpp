@@ -44,12 +44,12 @@ int main()
         assert(n_bytes_read == sizeof(cur_msg));
         
         switch (cur_msg.command) {
-            case MOTOR_SET_RPM:
-                std::cout << "Motor: set power in % " << cur_msg.value << std::endl;
+            case MOTOR_SET_FRACTION_SPEED_PERCENT:
+                std::cout << "Motor: set speed as a fraction of max speed in percent " << cur_msg.value << std::endl;
                 motor.set_speed(cur_msg.value);
                 break;
-            case SERVO_SET_ANGLE:
-                std::cout << "Servo: set angle to " << cur_msg.value << std::endl;
+            case SERVO_SET_ANGLE_PERCENT:
+                std::cout << "Servo: set angle in percent from -100 to 100 " << cur_msg.value << std::endl;
                 servo.set_position(cur_msg.value);
                 break;
             default:

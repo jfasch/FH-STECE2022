@@ -45,11 +45,11 @@ int main()
         
         switch (cur_msg.command) {
             case MOTOR_SET_FRACTION_SPEED_PERCENT:
-                std::cout << "Motor: set speed as a fraction of max speed in percent " << cur_msg.value << std::endl;
+                std::cout << "Motor: set speed as a fraction of max speed in percent (-100 to 100%) " << cur_msg.value << std::endl;
                 motor.set_speed(cur_msg.value);
                 break;
             case SERVO_SET_ANGLE_PERCENT:
-                std::cout << "Servo: set angle in percent from -100 to 100 " << cur_msg.value << std::endl;
+                std::cout << "Servo: set angle in percent from -100 to 100% " << cur_msg.value << std::endl;
                 servo.set_position(cur_msg.value);
                 break;
             default:

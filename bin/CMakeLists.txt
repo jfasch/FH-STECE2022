@@ -7,7 +7,9 @@ add_executable(crazy-car crazy-car.cpp)
 target_link_libraries(crazy-car toolcase-ipc)
 
 # commandline client programs: post messages in crazy-car message
-# queue
+# Queue
+add_executable(crazy-car-shell crazy-car-shell.cpp)
+target_link_libraries(crazy-car-shell toolcase-ipc)
 add_executable(crazy-car-motor-set-rpm crazy-car-motor-set-rpm.cpp)
 target_link_libraries(crazy-car-motor-set-rpm toolcase-ipc)
 

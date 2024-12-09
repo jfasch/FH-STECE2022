@@ -8,7 +8,6 @@
 #include <cassert>
 #include <iostream>
 
-
 int main(int argc, char** argv)
 {
     if (argc != 2) {
@@ -27,6 +26,7 @@ int main(int argc, char** argv)
         .command = MOTOR_SET_RPM,
         .value = rpm
     };
+
     unsigned int priority = 0;
 
     ssize_t n_bytes_written = mq_send(message_queue, (char*)&msg, sizeof(msg), priority);

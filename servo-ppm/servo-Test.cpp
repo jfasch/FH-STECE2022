@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <filesystem>
 
 #include "../toolcase/base/sysfs-servo.h"
 #include "../toolcase/base/sysfs-pwm-pin.h"

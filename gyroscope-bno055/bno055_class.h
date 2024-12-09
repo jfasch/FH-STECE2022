@@ -12,10 +12,10 @@
 
 
 
-struct bnogyr{
-   double gdata_x;   // gyroscope data, X-axis
-   double gdata_y;   // gyroscope data, Y-axis
-   double gdata_z;   // gyroscope data, Z-axis
+struct bno{
+   double data_x;   // gyroscope data, X-axis
+   double data_y;   // gyroscope data, Y-axis
+   double data_z;   // gyroscope data, Z-axis
 };
 
 class Bno055
@@ -31,7 +31,7 @@ class Bno055
         Bno055(char i2cbus[256], char i2caddr[256])
         {
             get_i2cbus(i2cbus, i2caddr);
-            opmode_t newmode = gyronly;
+            opmode_t newmode = imu;
             set_mode(newmode);
                     
         }
@@ -163,11 +163,6 @@ class Bno055
             }
         }
 
-        void sensor_cal_gyr()
-        {
-
-        }
-
         void reset()
         {
             char data[2];
@@ -251,9 +246,9 @@ class Bno055
             usleep(50 * 1000);
         }
 
-        bnogyr get_sensor_data_gyr()
+        bno get_sensor_data_gyr()
         {
-            bnogyr sensordata;
+            bno sensordata;
 
             char reg = BNO055_GYRO_DATA_X_LSB_ADDR;
             if(write(_i2cfd, &reg, 1) != 1) {
@@ -269,25 +264,95 @@ class Bno055
 
             int16_t buf = ((int16_t)data[1] << 8) | data[0];
             if(_message == 1) printf("Debug: Gyroscope Data X: LSB [0x%02X] MSB [0x%02X] INT16 [%d]\n", data[0], data[1],buf);
-            sensordata.gdata_x = (double) buf / 16.0;
+            sensordata.data_x = (double) buf / 16.0;
 
             buf = ((int16_t)data[3] << 8) | data[2];
             if(_message == 1) printf("Debug: Gyrosscope Data Y: LSB [0x%02X] MSB [0x%02X] INT16 [%d]\n", data[2], data[3],buf);
-            sensordata.gdata_y = (double) buf / 16.0;
+            sensordata.data_y = (double) buf / 16.0;
 
             buf = ((int16_t)data[5] << 8) | data[4];
             if(_message == 1) printf("Debug: Gyroscope Data Z: LSB [0x%02X] MSB [0x%02X] INT16 [%d]\n", data[4], data[5],buf);
-            sensordata.gdata_z = (double) buf / 16.0;
+            sensordata.data_z = (double) buf / 16.0;
+
+            return sensordata;
+        }
+        
+        bno get_sensor_data_eul()
+        {
+            bno sensordata;
+
+            char reg = BNO055_EULER_H_LSB_ADDR;
+            if(write(_i2cfd, &reg, 1) != 1) {
+                printf("Error: I2C write failure for register 0x%02X\n", reg);
+                exit(-1);
+            }
+
+            char data[6] = {0};
+            if(read(_i2cfd, data, 6) != 6) {
+                printf("Error: I2C read failure for register data 0x%02X\n", reg);
+                exit(-1);
+            }
+
+            int16_t buf = ((int16_t)data[1] << 8) | data[0];
+            if(_message == 1) printf("Debug: Gyroscope Data X: LSB [0x%02X] MSB [0x%02X] INT16 [%d]\n", data[0], data[1],buf);
+            sensordata.data_x = (double) buf / 16.0;
+
+            buf = ((int16_t)data[3] << 8) | data[2];
+            if(_message == 1) printf("Debug: Gyrosscope Data Y: LSB [0x%02X] MSB [0x%02X] INT16 [%d]\n", data[2], data[3],buf);
+            sensordata.data_y = (double) buf / 16.0;
+
+            buf = ((int16_t)data[5] << 8) | data[4];
+            if(_message == 1) printf("Debug: Gyroscope Data Z: LSB [0x%02X] MSB [0x%02X] INT16 [%d]\n", data[4], data[5],buf);
+            sensordata.data_z = (double) buf / 16.0;
+
+            return sensordata;
+        }
+        
+        bno get_sensor_data_acc()
+        {
+            bno sensordata;
+
+            char reg = BNO055_GYRO_DATA_X_LSB_ADDR;
+            if(write(_i2cfd, &reg, 1) != 1) {
+                printf("Error: I2C write failure for register 0x%02X\n", reg);
+                exit(-1);
+            }
+
+            char data[6] = {0};
+            if(read(_i2cfd, data, 6) != 6) {
+                printf("Error: I2C read failure for register data 0x%02X\n", reg);
+                exit(-1);
+            }
+
+            int16_t buf = ((int16_t)data[1] << 8) | data[0];
+            if(_message == 1) printf("Debug: Gyroscope Data X: LSB [0x%02X] MSB [0x%02X] INT16 [%d]\n", data[0], data[1],buf);
+            sensordata.data_x = (double) buf;
+
+            buf = ((int16_t)data[3] << 8) | data[2];
+            if(_message == 1) printf("Debug: Gyrosscope Data Y: LSB [0x%02X] MSB [0x%02X] INT16 [%d]\n", data[2], data[3],buf);
+            sensordata.data_y = (double) buf;
+
+            buf = ((int16_t)data[5] << 8) | data[4];
+            if(_message == 1) printf("Debug: Gyroscope Data Z: LSB [0x%02X] MSB [0x%02X] INT16 [%d]\n", data[4], data[5],buf);
+            sensordata.data_z = (double) buf;
 
             return sensordata;
         }
 
         void print_sensor_data_gyr()
         {
-            bnogyr sensorprint =  get_sensor_data_gyr();
-            printf("GYR %3.2f %3.2f %3.2f\n", sensorprint.gdata_x, sensorprint.gdata_y, sensorprint.gdata_z);
+            bno sensorprint =  get_sensor_data_gyr();
+            printf("GYR: X:%3.2f Y:%3.2f Z:%3.2f\n", sensorprint.data_x, sensorprint.data_y, sensorprint.data_z);
+        }
+        
+        void print_sensor_data_acc()
+        {
+            bno sensorprint =  get_sensor_data_acc();
+            printf("ACC: X:%3.2f Y:%3.2f Z:%3.2f\n", sensorprint.data_x, sensorprint.data_y, sensorprint.data_z);
         }
 
 };
 
-#endif
+
+
+#endif //CLASS_H

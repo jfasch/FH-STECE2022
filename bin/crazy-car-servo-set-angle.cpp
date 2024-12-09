@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     }
 
     CrazyCarMessage msg = {
-        .command = SERVO_SET_ANGLE,
+        .command = SERVO_SET_ANGLE_PERCENT,
         .value = angle
     };
     unsigned int priority = 0;

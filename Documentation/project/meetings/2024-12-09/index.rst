@@ -34,3 +34,19 @@
     * to be implemented in bin/crazy-car-init
 
   * bigger caps for servo
+
+  * i2c race condition in read calls -> don't use write/read
+    non-atomically, but rather the dedicated ioctl(I2C_RDWR)
+
+    struct i2c_rdwr_ioctl_data {
+        struct i2c_msg *msgs;   /* pointers to i2c_msgs */
+        __u32 nmsgs;            /* number of i2c_msgs */
+    };
+
+  * VL53L1X::read_sensor() polls heavily (while (!dataReady())). use
+    interrupts instead
+
+* todo
+
+  * kotschnig sagen wegen race condition und time intervall abhaengig
+    von genauigkeit

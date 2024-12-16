@@ -21,30 +21,10 @@
 
 * open issues
 
-  * VL53L1X address config and boot behavior
-
-    * gyro is at 0x28 by default                                                                          
-    * VL53L1X is at 0x29 by default BUT WE HAVE THREE OF THEM
-    * order 3 VL53L1X breakouts with *six* pins (including XSHUT
-      (hardware suspend)). jjj krenn which?
-    * connect XSHUT to dedicated GPIOS
-    * hold all in hardware suspend                                                                                        
-    * release one after the other, configuring addresses in software
-      as we go
-    * to be implemented in bin/crazy-car-init
-
-  * bigger caps for servo
-
-  * i2c race condition in read calls -> don't use write/read
-    non-atomically, but rather the dedicated ioctl(I2C_RDWR)
-
-    struct i2c_rdwr_ioctl_data {
-        struct i2c_msg *msgs;   /* pointers to i2c_msgs */
-        __u32 nmsgs;            /* number of i2c_msgs */
-    };
-
-  * VL53L1X::read_sensor() polls heavily (while (!dataReady())). use
-    interrupts instead
+  * :ref:`open-issues-vl53l1x-address-coordination`
+  * :ref:`open-issues-vl53l1x-heavy-polling`
+  * :ref:`open-issues-vl53l1x-race-condition`
+  * :ref:`open-issues-crazy-pi-servo-voltage-glitch`
 
 * todo
 

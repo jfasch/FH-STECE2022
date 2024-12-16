@@ -21,4 +21,4 @@ so that it actually does something.
 
 I.e., dispatch incoming commands to servo and motor.
 
-.. image:: ../../architecture/architecture.svg
+.. image:: /development/architecture/architecture.svg

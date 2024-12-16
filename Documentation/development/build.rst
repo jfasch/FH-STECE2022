@@ -1,8 +1,15 @@
-Development Docs
-================
+Getting And Building
+====================
 
 .. contents::
    :local:
+
+Project Metadata
+----------------
+
+* Github project: https://github.com/jfasch/FH-STECE2022
+* Github workflow (forks, and pull requests):
+  :doc:`jfasch:about/site/work-in-progress/fh-joanneum/2021/git/git`
 
 Documentation
 -------------

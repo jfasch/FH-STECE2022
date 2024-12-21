@@ -161,11 +161,11 @@ bool VL53L1X::init(bool io_2v8)
   return true;
 }
 
-unsigned long VL53L1X::millis() {
-    struct timeval tv;
-    assert(0 == gettimeofday(&tv, NULL));
-    return ((tv.tv_sec - 1731400000) * 1000) + (tv.tv_usec / 1000);
-}
+// unsigned long VL53L1X::millis() {
+//     struct timeval tv;
+//     assert(0 == gettimeofday(&tv, NULL));
+//     return ((tv.tv_sec - 1731400000) * 1000) + (tv.tv_usec / 1000);
+// }
 
 // Write an 8-bit register
 void VL53L1X::writeReg(uint16_t reg, uint8_t value)

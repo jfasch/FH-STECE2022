@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <sys/time.h>
 
+#include <base/millis.h>
+
 class VL53L1X
 {
   public:
@@ -1369,9 +1371,9 @@ class VL53L1X
     
     uint8_t address;
 
-    uint16_t io_timeout;
+    uint64_t io_timeout;
     bool did_timeout;
-    uint16_t timeout_start_ms;
+    uint64_t timeout_start_ms;
 
     uint16_t fast_osc_frequency;
     uint16_t osc_calibrate_val;
@@ -1382,13 +1384,13 @@ class VL53L1X
 
     DistanceMode distance_mode;
 
-    unsigned long millis();
+    // unsigned long millis();
 
     // Record the current time to check an upcoming timeout against
     void startTimeout() { timeout_start_ms = millis(); }
 
     // Check if timeout is enabled (set to nonzero value) and has expired
-    bool checkTimeoutExpired() {return (io_timeout > 0) && ((uint16_t)(millis() - timeout_start_ms) > io_timeout); }
+    bool checkTimeoutExpired() {return (io_timeout > 0) && ((millis() - timeout_start_ms) > io_timeout); }
 
     void setupManualCalibration();
     void readResults();

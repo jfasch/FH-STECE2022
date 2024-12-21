@@ -14,6 +14,9 @@ add_library(toolcase-base
 
   sysfs-motor.h
   sysfs-motor.cpp
+
+  millis.h
+  millis.cpp
 )
 
 target_include_directories(

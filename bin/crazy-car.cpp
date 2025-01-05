@@ -14,12 +14,17 @@
 #include <base/sysfs-servo.h>
 
 //This initialization should be done in the motor init program
-SysFS_GPIO_Pin forward_pin("/sys/class/gpio/gpio7"); //I`m not sure if this path is correct   
-SysFS_GPIO_Pin backward_pin("/sys/class/gpio/gpio8"); //I`m not sure if this path is correct 
-SysFS_PWM_Pin motor_pwm_pin("/sys/class/pwm/pwmchip0/pwm2"); //I`m not sure if this path is correct
+//For the guy who does the init program please note that the pins must me exported before so that paths exist 
+// e.g. echo 7 > /sys/class/gpio/export
+// e.g. echo out > /sys/class/gpio/gpio7/direction
+
+//e.g. echo 2 > /sys/class/pwm/pwmchip0/export
+SysFS_GPIO_Pin forward_pin("/sys/class/gpio/gpio7"); 
+SysFS_GPIO_Pin backward_pin("/sys/class/gpio/gpio8");  
+SysFS_PWM_Pin motor_pwm_pin("/sys/class/pwm/pwmchip0/pwm2"); 
 SysFS_Motor motor(forward_pin, backward_pin, motor_pwm_pin);
 
-SysFS_PWM_Pin servo_pwm_pin("/sys/class/pwm/pwmchip0/pwm1"); // I`m not sure if this path is correct 
+SysFS_PWM_Pin servo_pwm_pin("/sys/class/pwm/pwmchip0/pwm1"); 
 uint64_t duty_cycle_mid = 1.4 * 1000 * 1000;
 uint64_t duty_cycle_min = 1.1 * 1000 * 1000;
 uint64_t duty_cycle_max = 1.7 * 1000 * 1000;

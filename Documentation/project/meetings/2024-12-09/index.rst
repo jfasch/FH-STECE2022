@@ -21,16 +21,12 @@
 
 * open issues
 
-  * VL53L1X address config and boot behavior
+  * :ref:`open-issues-vl53l1x-address-coordination`
+  * :ref:`open-issues-vl53l1x-heavy-polling`
+  * :ref:`open-issues-vl53l1x-race-condition`
+  * :ref:`open-issues-crazy-pi-servo-voltage-glitch`
 
-    * gyro is at 0x28 by default                                                                          
-    * VL53L1X is at 0x29 by default BUT WE HAVE THREE OF THEM
-    * order 3 VL53L1X breakouts with *six* pins (including XSHUT
-      (hardware suspend)). jjj krenn which?
-    * connect XSHUT to dedicated GPIOS
-    * hold all in hardware suspend                                                                                        
-    * release one after the other, configuring addresses in software
-      as we go
-    * to be implemented in bin/crazy-car-init
+* todo
 
-  * bigger caps for servo
+  * kotschnig sagen wegen race condition und time intervall abhaengig
+    von genauigkeit

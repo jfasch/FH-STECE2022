@@ -7,11 +7,7 @@ Crazy Car NG, Running Linux
 .. contents::
    :local:
 
-.. sidebar::
-
-   * Github project: https://github.com/jfasch/FH-STECE2022
-   * Github workflow (forks, and pull requests):
-     :doc:`jfasch:about/site/work-in-progress/fh-joanneum/2021/git/git`
+.. image:: /development/architecture/car-surgery.jpg
 
 The Mission
 -----------
@@ -62,7 +58,7 @@ of components that are loosely coupled for several reasons:
    having the hardware sensors available
 #. Testability
 
-.. image:: architecture/architecture.svg
+.. image:: /development/architecture/architecture.svg
 
 Project Tracking
 ----------------
@@ -89,6 +85,6 @@ Further Information
 .. toctree::
    :maxdepth: 1
 
-   development
+   development/index
    queue
 

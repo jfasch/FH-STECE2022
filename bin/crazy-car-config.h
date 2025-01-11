@@ -2,19 +2,75 @@
 
 #define CRAZY_CAR_MQ_NAME "/crazy-car"
 
-// depends on /boot/config.txt
-// #define CRAZY_CAR_MOTOR_SPEED_PWM_DIR "/sys/class/pwm/pwmchip{0,1}/pwm2"
-// #define CRAZY_CAR_MOTOR_FORWARD_PIN "/sys/class/gpio/gpio8"
-// ...
+struct pwm_config
+{
+    int chip;
+    int pin;
+    int gpio; // from pi pinout
+    int period;
+
+};
+
+struct gpio_config
+{
+    int gpio;   // from pi pinout
+};
 
 
-// sensor address conflict
-// - gyro is at 0x28 by default
-// - tof is at 0x29 by default BUT WE HAVE THREE OF THEM
 
-// - crazy-car-init: time-of-flight sensor address config
+// ---------- PWM Configuration - external PWM device (PCA9685) ----------
+pwm_config servo_pwm_config = {  // -> /sys/class/pwm/pwmchip0/pwm3
+    .chip = 0, 
+    .pin = 3,
+    .gpio = 18,
+    .period = 20000000,
+};
+pwm_config motor_pwm_config = { // -> /sys/class/pwm/pwmchip0/pwm2
+    .chip = 0, 
+    .pin = 2,
+    .gpio = 19,
+    .period = 20000000,
+};
 
-//      - order 3 breakouts with *six* pins (including XSHUT (hardware suspend))
-//      - connect XSHUT to dedicated GPIOS
-//      - hold all in hardware suspend
-//      - release one after the other, configuring addresses in software as we go
+
+// ---------- GPIO Configuration ----------
+gpio_config motor_forward = {
+    .gpio = 8,
+};
+
+gpio_config motor_backward = {
+    .gpio = 7,
+};
+
+gpio_config button_start = {
+    .gpio = 5,
+};
+
+gpio_config button_stop = {
+    .gpio = 6,
+};
+
+gpio_config TOF_int01 = {
+    .gpio = 23,
+};
+
+gpio_config TOF_int02 = {
+    .gpio = 24,
+};
+
+gpio_config TOF_int03 = {
+    .gpio = 25,
+};
+
+gpio_config ADS7128_int = {
+    .gpio = 17,
+};
+
+gpio_config BNO055_rst = {
+    .gpio = 27,
+};
+
+gpio_config VBAT_s_on = {
+    .gpio = 22,
+};
+

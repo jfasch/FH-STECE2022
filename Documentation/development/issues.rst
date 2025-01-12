@@ -1,8 +1,6 @@
 Open Issues
 ===========
 
-.. .. jjjj toplevel refer directly to docs?
-
 * :ref:`open-issues-vl53l1x`
 
   * :ref:`open-issues-vl53l1x-address-coordination`
@@ -11,4 +9,3 @@ Open Issues
 * :ref:`open-issues-crazy-pi`
 
   * :ref:`open-issues-crazy-pi-servo-voltage-glitch`
-

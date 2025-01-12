@@ -58,8 +58,6 @@ Development: *pc cross*
 Development: *target native*
 ----------------------------
 
-jjj todo
-
 When cross compilation fails, need to build on the target
 
 * build on pi (native pi)
@@ -115,12 +113,11 @@ When cross compilation fails, need to build on the target
   
     show interactive login
   
-  * you can mount, e.g the target home directory jjj link syntax
-    :doc:scp
+  * you can mount, e.g the target home directory.
   
     show mount
   
-  * umount :doc:umount
+  * umount
   
     * fusermount
     * umount as user

@@ -16,6 +16,7 @@ int main()
     while(1)
     {
         sensor.csv_bno055_create(csvfile, newfile);
+        usleep(100000);
     }
 
 }

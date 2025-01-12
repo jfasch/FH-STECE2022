@@ -13,6 +13,7 @@ struct bno{
    double data_x;   //data, X-axis
    double data_y;   //data, Y-axis
    double data_z;   //data, Z-axis
+   uint64_t millis; //unix time
 };
 
 class Bno055
@@ -34,6 +35,8 @@ class Bno055
         bno get_sensor_data_gyr();        
         bno get_sensor_data_eul();       
         bno get_sensor_data_acc();
+        bno millis();
+        void csv_bno055_create(char csvfile[256], bool newfile);
 
 };
 

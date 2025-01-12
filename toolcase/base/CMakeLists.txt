@@ -19,8 +19,9 @@ add_library(toolcase-base
   vl53l1x.cpp
 
   bno055.h
-  bno055_class.h
-  bno055_class.cpp
+  bno055-class.h
+  bno055-class.cpp
+
 )
 
 target_include_directories(

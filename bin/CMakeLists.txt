@@ -30,6 +30,12 @@ target_link_libraries(motor-hw-test toolcase-base)
 add_executable(proximity-vl53l1x-test proximity-vl53l1x-test.cpp)
 target_link_libraries(proximity-vl53l1x-test toolcase-base)
 
+add_executable(bno055-test bno055-test.cpp)
+target_link_libraries(bno055-test toolcase-base)
+
+add_executable(bno055-csv-test bno055-csv-test.cpp)
+target_link_libraries(bno055-csv-test toolcase-base)
+
 
 # MQTT
 

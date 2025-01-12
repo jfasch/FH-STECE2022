@@ -45,10 +45,3 @@ Homework
 * Someone to implement signed/unsigned? |longrightarrow|
   `std::stoull()
   <https://en.cppreference.com/w/cpp/string/basic_string/stoul>`__
-
-Future
-------
-
-jjj
-
-* task: init (export pwm, gpio, and whatnot)

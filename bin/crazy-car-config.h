@@ -2,75 +2,52 @@
 
 #define CRAZY_CAR_MQ_NAME "/crazy-car"
 
-struct pwm_config
-{
+#include <base/sysfs-pwm-pin.h>
+#include <base/sysfs-motor.h>
+#include <base/sysfs-servo.h>
+
+#include <mqueue.h>
+#include <fcntl.h>
+#include <cstdio>
+#include <cassert>
+#include <iostream>
+
+// Define pwm_config structure
+struct pwm_config {
     int chip;
     int pin;
     int gpio; // from pi pinout
     int period;
-
 };
 
-struct gpio_config
-{
+// Define gpio_config structure
+struct gpio_config {
     int gpio;   // from pi pinout
 };
 
+// Declare the PWM configurations as extern
+extern pwm_config servo_pwm_config;
+extern pwm_config motor_pwm_config;
 
+// Declare motor and servo as extern
+extern SysFS_Motor motor;
+extern SysFS_Servo servo;
 
-// ---------- PWM Configuration - external PWM device (PCA9685) ----------
-pwm_config servo_pwm_config = {  // -> /sys/class/pwm/pwmchip0/pwm3
-    .chip = 0, 
-    .pin = 3,
-    .gpio = 18,
-    .period = 20000000,
-};
-pwm_config motor_pwm_config = { // -> /sys/class/pwm/pwmchip0/pwm2
-    .chip = 0, 
-    .pin = 2,
-    .gpio = 19,
-    .period = 20000000,
-};
+// Declare GPIO configurations as extern
+extern gpio_config motor_forward;
+extern gpio_config motor_backward;
+extern gpio_config button_start;
+extern gpio_config button_stop;
+extern gpio_config TOF_int01;
+extern gpio_config TOF_int02;
+extern gpio_config TOF_int03;
+extern gpio_config ADS7128_int;
+extern gpio_config BNO055_rst;
+extern gpio_config VBAT_s_on;
 
+// Function declarations from crazy-car-init.cpp
+//int GPIO_Init();
+void initialize_pwm(int chip, int pin, uint64_t period);
+void initialize_gpio(int gpio, const std::string& direction);
 
-// ---------- GPIO Configuration ----------
-gpio_config motor_forward = {
-    .gpio = 8,
-};
-
-gpio_config motor_backward = {
-    .gpio = 7,
-};
-
-gpio_config button_start = {
-    .gpio = 5,
-};
-
-gpio_config button_stop = {
-    .gpio = 6,
-};
-
-gpio_config TOF_int01 = {
-    .gpio = 23,
-};
-
-gpio_config TOF_int02 = {
-    .gpio = 24,
-};
-
-gpio_config TOF_int03 = {
-    .gpio = 25,
-};
-
-gpio_config ADS7128_int = {
-    .gpio = 17,
-};
-
-gpio_config BNO055_rst = {
-    .gpio = 27,
-};
-
-gpio_config VBAT_s_on = {
-    .gpio = 22,
-};
 

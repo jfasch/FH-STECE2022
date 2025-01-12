@@ -1,6 +1,6 @@
 #include "crazy-car-config.h"
 #include <base/sysfs-gpio-pin.h> // maybe not needed?? it's included in the sysfs-motor.h
-
+#include <base/sysfs-file.h>
 #include <base/sysfs-pwm-pin.h>
 #include <base/sysfs-motor.h>
 #include <base/sysfs-servo.h>
@@ -10,8 +10,7 @@
 #include <mqueue.h>
 #include <cstdio>
 #include <iostream>
-
-
+#include <string>
 
 int main()
 {
@@ -27,79 +26,45 @@ int main()
     }
 
     // ---------- PWM Configuration ----------
-    // Motor Control - PWM Pin
-    SysFS_File pwm_export(printf("/sys/class/pwm/pwmchip%d/export", motor_pwm_config.chip));
-    pwm_export.write_uint64(motor_pwm_config.pin);
-
-    SysFS_File pwm_enable(printf("/sys/class/pwm/pwmchip%d/pwm%d/enable ", motor_pwm_config.chip, motor_pwm_config.pin));
-    pwm_enable.write_string("1");
-
-    SysFS_File pwm_period(printf("/sys/class/pwm/pwmchip%d/pwm%d/period", motor_pwm_config.chip, motor_pwm_config.pin));
-    pwm_period.write_uint64(motor_pwm_config.period);
-
-    SysFS_File pwm_duty_cycle(printf("/sys/class/pwm/pwmchip%d/pwm%d/duty_cycle", motor_pwm_config.chip, motor_pwm_config.pin));
-    pwm_duty_cycle.write_uint64(0); 
-
-
-    // Servo Control - PWM Pin
-    SysFS_File pwm_export(printf("/sys/class/pwm/pwmchip%d/export", servo_pwm_config.chip));
-    pwm_export.write_uint64(servo_pwm_config.pin);
-    
-    SysFS_File pwm_enable(printf("/sys/class/pwm/pwmchip%d/pwm%d/enable ", servo_pwm_config.chip, servo_pwm_config.pin));
-    pwm_enable.write_string("1");
-
-    SysFS_File pwm_period(printf("/sys/class/pwm/pwmchip%d/pwm%d/period", servo_pwm_config.chip, servo_pwm_config.pin));
-    pwm_period.write_uint64(servo_pwm_config.period);
-
-    SysFS_File pwm_duty_cycle(printf("/sys/class/pwm/pwmchip%d/pwm%d/duty_cycle", servo_pwm_config.chip, servo_pwm_config.pin));
-    pwm_duty_cycle.write_uint64(0); 
-
-    
-
+    initialize_pwm(motor_pwm_config.chip, motor_pwm_config.pin, motor_pwm_config.period);
+    initialize_pwm(servo_pwm_config.chip, servo_pwm_config.pin, servo_pwm_config.period);
 
 
     // ---------- GPIO Configuration ----------
-    // Motor Control - Forward Pin
-    SysFS_File gpio_export("/sys/class/gpio/export ");
-    gpio_export.write_uint64(motor_forward.gpio);
-
-    SysFS_File gpio_direction(printf("/sys/class/gpio/gpio%d/direction ", motor_forward.gpio));
-    gpio_direction.write_string("out");
-
-    SysFS_File gpio_value(printf("/sys/class/gpio/gpio%d/value ", motor_forward.gpio));
-    gpio_value.write_string("0"); 
-
-
-    // Motor Control - Backward Pin
-    SysFS_File gpio_export("/sys/class/gpio/export ");
-    gpio_export.write_uint64(motor_backward.gpio);
-
-    SysFS_File gpio_direction(printf("/sys/class/gpio/gpio%d/direction ", motor_backward.gpio));
-    gpio_direction.write_string("out");
-
-    SysFS_File gpio_value(printf("/sys/class/gpio/gpio%d/value ", motor_backward.gpio));
-    gpio_value.write_string("0"); 
-
-
-
-
-
-
-    // ---------- Create Elements for further use ----------
-    //Create Paths for each Pin that is used
-    SysFS_GPIO_Pin forward_pin("/sys/class/gpio/gpio%d", motor_forward.gpio); 
-    SysFS_GPIO_Pin backward_pin("/sys/class/gpio/gpio%d", motor_backward.gpio); 
-    SysFS_PWM_Pin motor_pwm_pin("/sys/class/pwm/pwmchip%d/pwm%d", motor_pwm_config.chip, motor_pwm_config.pin); 
-
-    SysFS_Motor motor(forward_pin, backward_pin, motor_pwm_pin);
-
-    SysFS_PWM_Pin servo_pwm_pin("/sys/class/pwm/pwmchip%d/pwm%d", servo_pwm_config.chip, servo_pwm_config.pin); 
-
+    initialize_gpio(motor_forward.gpio, "out");
+    initialize_gpio(motor_backward.gpio, "out");
 
 
 
     // Clean-up
     mq_close(message_queue);
     return 0;
+}
+
+
+void initialize_pwm(int chip, int pin, uint64_t period) {
+
+    SysFS_File pwm_export("/sys/class/pwm/pwmchip" + std::to_string(chip) + "/export");
+    pwm_export.write_uint64(pin);
+
+    SysFS_File pwm_enable("/sys/class/pwm/pwmchip" + std::to_string(chip) + "/pwm" + std::to_string(pin) + "/enable");
+    pwm_enable.write_string("1");
+
+    SysFS_File pwm_period("/sys/class/pwm/pwmchip" + std::to_string(chip) + "/pwm" + std::to_string(pin) + "/period");
+    pwm_period.write_uint64(period);
+
+    SysFS_File pwm_duty_cycle("/sys/class/pwm/pwmchip" + std::to_string(chip) + "/pwm" + std::to_string(pin) + "/duty_cycle");
+    pwm_duty_cycle.write_uint64(0); 
+}
+
+void initialize_gpio(int gpio, const std::string& direction) {
+    SysFS_File gpio_export("/sys/class/gpio/export ");
+    gpio_export.write_uint64(gpio);
+
+    SysFS_File gpio_direction("/sys/class/gpio/gpio" + std::to_string(gpio) + "/direction ");
+    gpio_direction.write_string(direction);
+
+    SysFS_File gpio_value("/sys/class/gpio/gpio" + std::to_string(gpio) + "/value ");
+    gpio_value.write_string("0"); 
 }
 

@@ -4,7 +4,7 @@ target_link_libraries(crazy-car-init toolcase-ipc)
 
 # main program
 add_executable(crazy-car crazy-car.cpp)
-target_link_libraries(crazy-car toolcase-ipc)
+target_link_libraries(crazy-car toolcase-ipc toolcase-base)
 
 # commandline client programs: post messages in crazy-car message
 # Queue

@@ -10,9 +10,6 @@
 Org
 ---
 
-* readthedocs -> dev documentation (jjj todo screenplay of steps, draw
-  on whiteboard)
-* Project task list restructured, jjj link and explain
 * 80 20 regel
 
   * nun bei den restlichen 80 angekommen, plus ein paar features und
@@ -36,7 +33,7 @@ Github and Git: Project Management
     * whats a remote
     * pulling from there (upstream)
 
-* switch hat to me (link me@gh jjj)
+* switch hat to me
 
   * execute pull request
   * show what gh says on pr page, explain with a shetch
@@ -93,8 +90,8 @@ Sensors
 
     * The status register shows the value of 0 when default I2C bus
       speed is used
-    * Shows 1 when I2C bus speed matches that of Arduino (jjj what is
-      that?). Funny because this is a higher speed.
+    * Shows 1 when I2C bus speed matches that of Arduino (what speed
+      is that?). Funny because this is a higher speed.
 
   * Use a scope to compare both patterns
 

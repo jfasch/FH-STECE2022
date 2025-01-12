@@ -30,7 +30,7 @@ Via SSH (have to deploy SSH public key on your Github account)
 Development: *pc native*
 ------------------------
 
-Follow :doc:`/development` for how to get to a *pc native* build
+Follow :doc:`/development/build` for how to get to a *pc native* build
 
 * Build on PC
 
@@ -57,8 +57,6 @@ Development: *pc cross*
 
 Development: *target native*
 ----------------------------
-
-jjj todo
 
 When cross compilation fails, need to build on the target
 
@@ -115,12 +113,11 @@ When cross compilation fails, need to build on the target
   
     show interactive login
   
-  * you can mount, e.g the target home directory jjj link syntax
-    :doc:scp
+  * you can mount, e.g the target home directory.
   
     show mount
   
-  * umount :doc:umount
+  * umount
   
     * fusermount
     * umount as user

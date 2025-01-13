@@ -7,6 +7,9 @@ if (${CMAKE_COMPILER_IS_GNUCC})
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -O0 -g3 -Wall -Werror")
 endif()
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
+find_package(Mosquitto)
+
 # preliminary working directories for groups. use these until we are
 # familiar with git workflows.
 add_subdirectory(proximity-vl53l1x)

@@ -1,4 +1,5 @@
 #include "bno055-class.h"
+#include "millis.h"
 #include <iostream>
 #include <cstdio>
 #include <linux/i2c-dev.h>
@@ -297,22 +298,8 @@ bno Bno055::get_sensor_data_acc()
     return sensordata;
 }
 
-bno Bno055::millis()
-{
-
-  bno sensordata;
-
-  struct timeval tv;
-  assert(0 == gettimeofday(&tv, NULL));
-
-  sensordata.millis = ((tv.tv_sec) * 1000) + (tv.tv_usec / 1000);
-
-  return sensordata;
-}
-
 void Bno055::csv_bno055_create(char csvfile[256], bool newfile)
 {
-    bno SensorData;
 
     std::ifstream ifcsv;
     ifcsv.open(csvfile);
@@ -326,8 +313,7 @@ void Bno055::csv_bno055_create(char csvfile[256], bool newfile)
     std::ofstream csv;
     csv.open(csvfile, std::ofstream::app);
 
-    SensorData = millis();
-    csv << SensorData.millis << ",";
+    csv << millis() << ",";
     SensorData = get_sensor_data_eul();
     csv << SensorData.data_x << ",";
     SensorData = get_sensor_data_gyr();

@@ -1,9 +1,9 @@
 # initializes the system: create message queue, export pwms and gpios
-add_executable(crazy-car-init crazy-car-init.cpp)
-target_link_libraries(crazy-car-init toolcase-ipc)
+add_executable(crazy-car-init crazy-car-init.cpp crazy-car-config.cpp)
+target_link_libraries(crazy-car-init toolcase-ipc toolcase-base)
 
 # main program
-add_executable(crazy-car crazy-car.cpp)
+add_executable(crazy-car crazy-car.cpp crazy-car-config.cpp)
 target_link_libraries(crazy-car toolcase-ipc toolcase-base)
 
 # commandline client programs: post messages in crazy-car message

@@ -1,4 +1,6 @@
 #include "crazy-car-config.h"
+#include <base/sysfs-motor.h>
+#include <base/sysfs-servo.h>
 #include <ipc/crazy-car-protocol.h>
 
 #include <mqueue.h>
@@ -15,6 +17,18 @@ int main()
         perror("mq_open");
         return 1;
     }
+
+    SysFS_GPIO_Pin forward_pin("/sys/class/gpio/gpio"+ std::to_string(motor_forward.gpio)); 
+    SysFS_GPIO_Pin backward_pin("/sys/class/gpio/gpio"+ std::to_string(motor_backward.gpio)); 
+    SysFS_PWM_Pin motor_pwm_pin("/sys/class/pwm/pwmchip" + std::to_string(motor_pwm_config.chip) +
+                                "/pwm" + std::to_string(motor_pwm_config.pin)); 
+
+    SysFS_Motor motor(forward_pin, backward_pin, motor_pwm_pin);
+
+    SysFS_PWM_Pin servo_pwm_pin("/sys/class/pwm/pwmchip" + std::to_string(servo_pwm_config.chip) +
+                                "/pwm"+ std::to_string(servo_pwm_config.pin)); 
+    SysFS_Servo servo(servo_pwm_pin, duty_cycle_min, duty_cycle_mid, duty_cycle_max);
+
     while (true) {
         CrazyCarMessage cur_msg;
         unsigned int priority;

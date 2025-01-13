@@ -32,19 +32,3 @@ gpio_config ADS7128_int = { .gpio = 17 };
 gpio_config BNO055_rst = { .gpio = 27 };
 gpio_config VBAT_s_on = { .gpio = 22 };
 
-// Define and initialize the motor
-SysFS_GPIO_Pin forward_pin("/sys/class/gpio/gpio"+ std::to_string(motor_forward.gpio)); 
-SysFS_GPIO_Pin backward_pin("/sys/class/gpio/gpio"+ std::to_string(motor_backward.gpio)); 
-SysFS_PWM_Pin motor_pwm_pin("/sys/class/pwm/pwmchip" + std::to_string(motor_pwm_config.chip) + "/pwm" + std::to_string(motor_pwm_config.pin)); 
-
-SysFS_Motor motor(forward_pin, backward_pin, motor_pwm_pin);
-
-
-// Define and initialize the servo
-uint64_t duty_cycle_mid = 1.4 * 1000 * 1000;
-uint64_t duty_cycle_min = 1.1 * 1000 * 1000;
-uint64_t duty_cycle_max = 1.7 * 1000 * 1000;
-
-SysFS_PWM_Pin servo_pwm_pin("/sys/class/pwm/pwmchip" + std::to_string(servo_pwm_config.chip) + "/pwm"+ std::to_string(servo_pwm_config.pin)); 
-SysFS_Servo servo(servo_pwm_pin, duty_cycle_min, duty_cycle_mid, duty_cycle_max);
-

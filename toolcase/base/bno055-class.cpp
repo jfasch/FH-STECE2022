@@ -301,6 +301,8 @@ bno Bno055::get_sensor_data_acc()
 void Bno055::csv_bno055_create(char csvfile[256], bool newfile)
 {
 
+    bno SensorData;
+
     std::ifstream ifcsv;
     ifcsv.open(csvfile);
     if (!ifcsv || newfile) 

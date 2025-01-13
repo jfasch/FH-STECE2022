@@ -12,8 +12,26 @@
 #include <iostream>
 #include <string>
 
-int main()
+int main(int argc, char** argv)
 {
+    const std::string simu_arg = "simulation";
+    bool simulation_mode;
+    if (argc == 1)
+        simulation_mode = false;
+    else if (argc == 2) {
+        if (simu_arg == argv[1])
+            simulation_mode = true;
+        else {
+            std::cerr << "Usage: " << argv[0] << " [simulation]\n";
+            return 1;
+        }
+    }
+    else {
+        std::cerr << "Usage: " << argv[0] << " [simulation]\n";
+        return 1;
+    }
+
+
     struct mq_attr attr = {
         .mq_maxmsg = 10,
         .mq_msgsize = sizeof(CrazyCarMessage)
@@ -21,23 +39,25 @@ int main()
     
     mqd_t message_queue = mq_open(CRAZY_CAR_MQ_NAME, O_CREAT|O_EXCL|O_RDWR, 0666, &attr);
     if (message_queue == -1) {
-        perror("mq_open");
+        if (errno == EEXIST)
+            std::cerr << CRAZY_CAR_MQ_NAME << " already exists; rm /dev/mqueue" << CRAZY_CAR_MQ_NAME << " to fix\n";
+        else
+            perror("mq_open");
         return 1;
     }
-
-    // ---------- PWM Configuration ----------
-    initialize_pwm(motor_pwm_config.chip, motor_pwm_config.pin, motor_pwm_config.period);
-    initialize_pwm(servo_pwm_config.chip, servo_pwm_config.pin, servo_pwm_config.period);
-
-
-    // ---------- GPIO Configuration ----------
-    initialize_gpio(motor_forward.gpio, "out");
-    initialize_gpio(motor_backward.gpio, "out");
-
-
-
-    // Clean-up
     mq_close(message_queue);
+
+    if (! simulation_mode) {
+
+        // ---------- PWM Configuration ----------
+        initialize_pwm(motor_pwm_config.chip, motor_pwm_config.pin, motor_pwm_config.period);
+        initialize_pwm(servo_pwm_config.chip, servo_pwm_config.pin, servo_pwm_config.period);
+
+
+        // ---------- GPIO Configuration ----------
+        initialize_gpio(motor_forward.gpio, "out");
+        initialize_gpio(motor_backward.gpio, "out");
+    }
     return 0;
 }
 

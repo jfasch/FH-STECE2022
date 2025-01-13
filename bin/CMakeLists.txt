@@ -6,6 +6,14 @@ target_link_libraries(crazy-car-init toolcase-ipc toolcase-base)
 add_executable(crazy-car crazy-car.cpp crazy-car-config.cpp)
 target_link_libraries(crazy-car toolcase-ipc toolcase-base)
 
+# commandline client programs: post messages in crazy-car message
+# Queue
+add_executable(crazy-car-shell crazy-car-shell.cpp)
+target_link_libraries(crazy-car-shell toolcase-ipc)
+
+add_executable(mq-test-readout mq-test-readout.cpp)
+target_link_libraries(mq-test-readout toolcase-ipc)
+
 # hardware test programs
 add_executable(servo-hw-test servo-hw-test.cpp)
 target_link_libraries(servo-hw-test toolcase-base)

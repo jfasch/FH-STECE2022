@@ -12,7 +12,6 @@ find_package(Mosquitto)
 
 # preliminary working directories for groups. use these until we are
 # familiar with git workflows.
-add_subdirectory(proximity-vl53l1x)
 add_subdirectory(gyroscope-bno055)
 add_subdirectory(motor-control-btn9960lv)
 add_subdirectory(servo-ppm)

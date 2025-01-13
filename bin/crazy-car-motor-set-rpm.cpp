@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     }
 
     CrazyCarMessage msg = {
-        .command = MOTOR_SET_FRACTION_SPEED_PERCENT,
+        .command = MOTOR_SET_RPM,
         .value = rpm
     };
     unsigned int priority = 0;

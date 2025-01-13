@@ -15,13 +15,8 @@ add_library(toolcase-base
   sysfs-motor.h
   sysfs-motor.cpp
 
-<<<<<<< HEAD
   millis.h
   millis.cpp
-=======
-  vl53l1x.h
-  vl53l1x.cpp
->>>>>>> upstream/main
 )
 
 target_include_directories(

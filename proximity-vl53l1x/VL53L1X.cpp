@@ -15,7 +15,7 @@ with much efford, sweat, tears and hours of crying
 // or paraphrased from the API source code, API user manual (UM2356), and
 // VL53L1X datasheet.
 
-#include "vl53l1x.h"
+#include "VL53L1X.h"
 #include <ostream>
 #include <unistd.h>
 #include <iostream>

@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <iostream>
 
+<<<<<<<< HEAD:proximity-vl53l1x/proximity-vl53l1x-prog.cpp
+#include "VL53L1X.h"
+========
 #include <base/vl53l1x.h>
-
+>>>>>>>> upstream/main:bin/proximity-vl53l1x-test.cpp
 
 int main() {
 

@@ -25,6 +25,9 @@ int main(int argc, char** argv)
     std::cout << "Hello and welcome to the crazy car control programm!" << std::endl;
     while(true)
     {
+        int priority = 1;
+        CrazyCarMessage msg;
+
         std::cout << "Enter command: ";
         std::getline(std::cin, input);
 
@@ -38,9 +41,6 @@ int main(int argc, char** argv)
             std::cout << "ERROR: Invalid input." << std::endl;
             continue;
         }
-
-        int priority = 1;
-        CrazyCarMessage msg;
 
         if(command == 's')
         {

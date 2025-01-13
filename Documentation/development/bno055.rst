@@ -1,0 +1,9 @@
+.. include:: <mmlalias.txt>
+
+
+BNO055: Combined Accelerometer/Gyroscope/Geomagnetic Sensor ("IMU")
+===================================================================
+
+See the :doc:`task description </project/tasks/gyroscope-bno055>` for
+additional info.
+

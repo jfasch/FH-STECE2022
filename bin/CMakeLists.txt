@@ -4,7 +4,7 @@ target_link_libraries(crazy-car-init toolcase-ipc)
 
 # main program
 add_executable(crazy-car crazy-car.cpp)
-target_link_libraries(crazy-car toolcase-ipc)
+target_link_libraries(crazy-car toolcase-ipc toolcase-base)
 
 # commandline client programs: post messages in crazy-car message
 # queue
@@ -26,3 +26,12 @@ add_executable(rt-test rt-test.cpp)
 
 add_executable(motor-hw-test motor-hw-test.cpp)
 target_link_libraries(motor-hw-test toolcase-base)
+
+add_executable(proximity-vl53l1x-test proximity-vl53l1x-test.cpp)
+target_link_libraries(proximity-vl53l1x-test toolcase-base)
+
+
+# MQTT
+
+# add_executable(sensor-into-cloud sensor-into-cloud.cpp)
+# target_link_libraries(sensor-into-cloud toolcase-base Mosquitto::Mosquitto)

@@ -1,5 +1,7 @@
 .. ot-task:: crazycar.crazy_car
-   :dependencies: crazycar.hardware_init
+   :dependencies: crazycar.hardware_init, 
+		  crazycar.motor_control_btn9960lv, 
+		  crazycar.servo_motor
 
 .. include:: <mmlalias.txt>
 
@@ -19,4 +21,4 @@ so that it actually does something.
 
 I.e., dispatch incoming commands to servo and motor.
 
-.. image:: ../../architecture/architecture.svg
+.. image:: /development/architecture/architecture.svg

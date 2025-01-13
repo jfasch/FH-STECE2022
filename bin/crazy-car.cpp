@@ -1,6 +1,7 @@
 #include "crazy-car-config.h"
-#include <base/sysfs-motor.h>
+
 #include <base/sysfs-servo.h>
+#include <base/sysfs-motor.h>
 #include <ipc/crazy-car-protocol.h>
 
 #include <mqueue.h>
@@ -11,8 +12,25 @@
 #include <memory>
 
 
-int main()
+int main(int argc, char** argv)
 {
+    const std::string simu_arg = "simulation";
+    bool simulation_mode;
+    if (argc == 1)
+        simulation_mode = false;
+    else if (argc == 2) {
+        if (simu_arg == argv[1])
+            simulation_mode = true;
+        else {
+            std::cerr << "Usage: " << argv[0] << " [simulation]\n";
+            return 1;
+        }
+    }
+    else {
+        std::cerr << "Usage: " << argv[0] << " [simulation]\n";
+        return 1;
+    }
+
     mqd_t message_queue = mq_open(CRAZY_CAR_MQ_NAME, O_RDONLY); 
     if (message_queue == -1) {
         perror("mq_open");
@@ -22,7 +40,7 @@ int main()
     std::unique_ptr<SysFS_Motor> motor;
     std::unique_ptr<SysFS_Servo> servo;
 
-    if (true) {
+    if (! simulation_mode) {
         SysFS_GPIO_Pin forward_pin("/sys/class/gpio/gpio"+ std::to_string(motor_forward.gpio)); 
         SysFS_GPIO_Pin backward_pin("/sys/class/gpio/gpio"+ std::to_string(motor_backward.gpio)); 
         SysFS_PWM_Pin motor_pwm_pin("/sys/class/pwm/pwmchip" + std::to_string(motor_pwm_config.chip) +
@@ -49,11 +67,13 @@ int main()
         switch (cur_msg.command) {
             case MOTOR_SET_FRACTION_SPEED_PERCENT:
                 std::cout << "Motor: set power in % " << cur_msg.value << std::endl;
-                motor->set_speed(cur_msg.value);
+                if (motor)
+                    motor->set_speed(cur_msg.value);
                 break;
             case SERVO_SET_ANGLE_PERCENT:
                 std::cout << "Servo: set angle to " << cur_msg.value << std::endl;
-                servo->set_position(cur_msg.value);
+                if (servo)
+                    servo->set_position(cur_msg.value);
                 break;
             default:
                 assert("bad command");

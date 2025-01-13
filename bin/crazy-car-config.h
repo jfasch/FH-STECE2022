@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <cstdio>
 #include <cassert>
+#include <cstdint>
 #include <iostream>
 
 // Define and initialize the servo

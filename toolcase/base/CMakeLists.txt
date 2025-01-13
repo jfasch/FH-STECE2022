@@ -15,8 +15,15 @@ add_library(toolcase-base
   sysfs-motor.h
   sysfs-motor.cpp
 
-  vl53l1x.h
-  vl53l1x.cpp
+  millis.h
+  millis.cpp
+
+#   vl53l1x.h
+#   vl53l1x.cpp
+
+  bno055.h
+  bno055-class.h
+  bno055-class.cpp
 )
 
 target_include_directories(

@@ -2,15 +2,16 @@
 
 #define CRAZY_CAR_MQ_NAME "/crazy-car"
 
-#include <base/sysfs-pwm-pin.h>
-#include <base/sysfs-motor.h>
-#include <base/sysfs-servo.h>
-
 #include <mqueue.h>
 #include <fcntl.h>
 #include <cstdio>
 #include <cassert>
 #include <iostream>
+
+// Define and initialize the servo
+static const uint64_t duty_cycle_mid = 1.4 * 1000 * 1000;
+static const uint64_t duty_cycle_min = 1.1 * 1000 * 1000;
+static const uint64_t duty_cycle_max = 1.7 * 1000 * 1000;
 
 // Define pwm_config structure
 struct pwm_config {
@@ -28,10 +29,6 @@ struct gpio_config {
 // Declare the PWM configurations as extern
 extern pwm_config servo_pwm_config;
 extern pwm_config motor_pwm_config;
-
-// Declare motor and servo as extern
-extern SysFS_Motor motor;
-extern SysFS_Servo servo;
 
 // Declare GPIO configurations as extern
 extern gpio_config motor_forward;

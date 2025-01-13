@@ -1,5 +1,5 @@
 #include "crazy-car-config.h"
-#include "../toolcase/ipc/crazy-car-protocol.h"
+#include <ipc/crazy-car-protocol.h>
 
 #include <mqueue.h>
 #include <fcntl.h>

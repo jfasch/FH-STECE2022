@@ -319,7 +319,7 @@ void Bno055::csv_bno055_create(char csvfile[256], bool newfile)
     if (!ifcsv || newfile) 
     {
         std::ofstream csv(csvfile);
-        csv << "Time,Oriantation,GyrX,GyrY,GyrZ,AccX,AccY,AccZ" << std::endl;
+        csv << "Time,Orientation,GyrX,GyrY,GyrZ,AccX,AccY,AccZ" << std::endl;
         csv.close();
         newfile = 0;
     }

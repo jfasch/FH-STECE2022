@@ -67,24 +67,24 @@ void initialize_pwm(int chip, int pin, uint64_t period) {
     SysFS_File pwm_export("/sys/class/pwm/pwmchip" + std::to_string(chip) + "/export");
     pwm_export.write_uint64(pin);
 
-    SysFS_File pwm_enable("/sys/class/pwm/pwmchip" + std::to_string(chip) + "/pwm" + std::to_string(pin) + "/enable");
-    pwm_enable.write_string("1");
-
     SysFS_File pwm_period("/sys/class/pwm/pwmchip" + std::to_string(chip) + "/pwm" + std::to_string(pin) + "/period");
     pwm_period.write_uint64(period);
+
+    SysFS_File pwm_enable("/sys/class/pwm/pwmchip" + std::to_string(chip) + "/pwm" + std::to_string(pin) + "/enable");
+    pwm_enable.write_uint64(1);
 
     SysFS_File pwm_duty_cycle("/sys/class/pwm/pwmchip" + std::to_string(chip) + "/pwm" + std::to_string(pin) + "/duty_cycle");
     pwm_duty_cycle.write_uint64(0); 
 }
 
 void initialize_gpio(int gpio, const std::string& direction) {
-    SysFS_File gpio_export("/sys/class/gpio/export ");
+    SysFS_File gpio_export("/sys/class/gpio/export");
     gpio_export.write_uint64(gpio);
 
-    SysFS_File gpio_direction("/sys/class/gpio/gpio" + std::to_string(gpio) + "/direction ");
+    SysFS_File gpio_direction("/sys/class/gpio/gpio" + std::to_string(gpio) + "/direction");
     gpio_direction.write_string(direction);
 
-    SysFS_File gpio_value("/sys/class/gpio/gpio" + std::to_string(gpio) + "/value ");
-    gpio_value.write_string("0"); 
+    SysFS_File gpio_value("/sys/class/gpio/gpio" + std::to_string(gpio) + "/value");
+    gpio_value.write_uint64(0);
 }
 

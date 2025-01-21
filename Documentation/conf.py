@@ -57,6 +57,13 @@ extensions = [
     'opentraining',
 ]
 
+# invoke doxygen if we are on readthedocs. I told them (via
+# ../.readthedocs.yaml) to build in Documentation/; verify that.
+if os.environ.get('READTHEDOCS') == 'True':
+    import subprocess, os
+    assert os.path.basename(os.getcwd()) == 'Documentation'
+    subprocess.call('doxygen', shell=True)
+
 breathe_projects = {"crazycar": "./xml"}
 breathe_default_project = "crazycar"
 

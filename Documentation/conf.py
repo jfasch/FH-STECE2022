@@ -57,8 +57,9 @@ extensions = [
     'opentraining',
 ]
 
-# invoke doxygen if we are on readthedocs. I told them (via
-# ../.readthedocs.yaml) to build in Documentation/; verify that.
+# readthedocs.io sets the READTHEDOCS environment variable if they
+# build the project. invoke doxygen if this is the case. I told them
+# (via ../.readthedocs.yaml) to build in Documentation/; verify that.
 if os.environ.get('READTHEDOCS') == 'True':
     import subprocess, os
     assert os.path.basename(os.getcwd()) == 'Documentation'

@@ -42,6 +42,8 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.intersphinx',
 
+    'breathe',
+
 #     'nbsphinx',
 #     'jupyter_sphinx',
 
@@ -54,6 +56,9 @@ extensions = [
 
     'opentraining',
 ]
+
+breathe_projects = {"crazycar": "./xml"}
+breathe_default_project = "crazycar"
 
 intersphinx_mapping = {
     'jfasch': ('https://www.faschingbauer.me/', None),

@@ -12,6 +12,7 @@ build:
     python: "3.12"
   apt_packages:
     - graphviz
+    - doxygen
 
 # Build documentation in the "Documentation/" directory with Sphinx
 sphinx:

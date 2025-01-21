@@ -10,8 +10,6 @@ Crazy Car NG, Running Linux
 .. sidebar::
 
    * Github project: https://github.com/jfasch/FH-STECE2022
-   * Github workflow (forks, and pull requests):
-     :doc:`jfasch:about/site/work-in-progress/fh-joanneum/2021/git/git`
 
 The Mission
 -----------
@@ -43,6 +41,15 @@ decided to have fun with the car and a `Raspberry Pi
 Goal: Create Toolcase
 .....................
 
+.. toctree::
+   :hidden:
+
+   toolcase/index
+
+.. sidebar:: More information
+
+   * :doc:`toolcase/index`
+
 Create Linux implementations for the hardware devices that are found
 on a car. These implementations should be usable from many possible
 architectures, including the reference architecture below, but also
@@ -51,21 +58,25 @@ from more static architectures.
 Goal: Create Reference Architecture
 ...................................
 
-Given a working toolcase that we can use code out of, a reference
-architecture can be implemented. This architecture should be comprised
-of components that are loosely coupled for several reasons:
+.. toctree::
+   :hidden:
 
-#. Mix languages. For example, use Python for non-realtime
-   responsibilities like cloud communication (MQTT)
-#. Provide different setups. For example, optionally replay recorded
-   sensor inputs into an unmodified steering component - without
-   having the hardware sensors available
-#. Testability
+   architecture/index
 
-.. image:: architecture/architecture.svg
+.. sidebar:: More information
+
+   * :doc:`architecture/index`
+
+Given a working toolcase that we can use code out of, a
+:doc:`reference architecture <architecture/index>` is implemented.
 
 Project Tracking
 ----------------
+
+.. toctree::
+   :hidden:
+
+   project/index
 
 .. sidebar::
 
@@ -74,21 +85,17 @@ Project Tracking
 * :doc:`project/tasks/group`
 * :doc:`project/meetings/index`
 
-.. toctree::
-   :hidden:
-
-   project/index
 
 Further Information
 -------------------
 
-* Crazy Car NG Schematics:
-  :download:`Schematic_and_print_CrazyCar.pdf`
-* More material: :doc:`queue`
-
 .. toctree::
-   :maxdepth: 1
+   :hidden:
 
    development
    queue
+
+* Crazy Car NG Schematics:
+  :download:`Schematic_and_print_CrazyCar.pdf`
+* More material: :doc:`queue`
 

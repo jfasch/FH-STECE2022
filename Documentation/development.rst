@@ -4,6 +4,12 @@ Development Docs
 .. contents::
    :local:
 
+.. sidebar::
+
+   * Github project: https://github.com/jfasch/FH-STECE2022
+   * Github workflow (forks, and pull requests):
+     :doc:`jfasch:about/site/work-in-progress/fh-joanneum/2021/git/git`
+
 Documentation
 -------------
 
@@ -21,6 +27,8 @@ Checkout and Initialization
    $ cd ~/FH-STECE2022
    $ git submodule init
    $ git submodule update
+
+.. _firmware-build:
 
 Build
 -----
@@ -137,8 +145,25 @@ Test
 Building Documentation Locally
 ------------------------------
 
-* ``requirements.txt`` contains a lot, it's probably best to use a
-  virtual environment
+Back from :ref:`firmware build <firmware-build>`, lets move to
+something inevitable. It can be fun. Documentation.
+
+.. code-block:: console
+
+   $ cd ~/My-Projects/FH-STECE2022/
+   $ ls -l Documentation/
+
+``Documentation/`` contains what is built in to a static
+website. `Sphinx <https://www.sphinx-doc.org/>`__ is used to build the
+website, with ``Documentation/index.rst`` as the entry point.
+
+Sphinx is written in Python; it has an extension system that users
+like us can pick from.
+
+* `` ~/My-Projects/FH-STECE2022/requirements.txt`` contains python
+  packages used (many being Sphinx extensions), directly and
+  transitively. It's a lot, so it's probably best to use a virtual
+  environment
 
   .. code-block:: console
 

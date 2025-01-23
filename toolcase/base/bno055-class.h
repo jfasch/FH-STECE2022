@@ -26,7 +26,7 @@ class Bno055
 
     public:
 
-        Bno055(char i2cbus[256], char i2caddr[256]);
+        Bno055(const char* i2cbus, const char* i2caddr);
         void debug_message();
         void power_mode(power_t pwrmode);       
         void set_mode(opmode_t newmode);
@@ -35,7 +35,7 @@ class Bno055
         bno get_sensor_data_gyr();        
         bno get_sensor_data_eul();       
         bno get_sensor_data_acc();
-        void csv_bno055_create(char csvfile[256], bool newfile);
+        void csv_bno055_create(const char* csvfile, bool newfile);
 
 };
 

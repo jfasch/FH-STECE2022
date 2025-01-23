@@ -36,26 +36,19 @@ html_theme = 'sphinx_rtd_theme'
 extensions = [
     'sphinx_rtd_theme',
 
+    'sphinx.ext.todo',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.graphviz',
     'sphinx.ext.intersphinx',
 
-    'breathe',
-
-#     'nbsphinx',
-#     'jupyter_sphinx',
-
-#     'IPython.sphinxext.ipython_directive',    
-#     # .../notebook.ipynb:: WARNING: Could not lex literal_block as "ipython3". Highlighting skipped.    
-#     'IPython.sphinxext.ipython_console_highlighting',
-
-#     'sphinxcontrib.programoutput',
     'sphinxemoji.sphinxemoji',
-
     'opentraining',
+    'breathe',
 ]
+
+todo_include_todos = True
 
 # readthedocs.io sets the READTHEDOCS environment variable if they
 # build the project. invoke doxygen if this is the case. I told them
@@ -65,7 +58,7 @@ if os.environ.get('READTHEDOCS') == 'True':
     assert os.path.basename(os.getcwd()) == 'Documentation'
     subprocess.call('doxygen', shell=True)
 
-breathe_projects = {"crazycar": "./xml"}
+breathe_projects = {"crazycar": "./xml"}   # "." is Documentation/
 breathe_default_project = "crazycar"
 
 intersphinx_mapping = {

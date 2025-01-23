@@ -9,6 +9,15 @@ endif()
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 find_package(Mosquitto)
+find_package(Sphinx)   # see Documentation/CMakeLists.txt
+find_package(Doxygen)   # see Documentation/CMakeLists.txt
+
+if (SPHINX_FOUND)
+  if (NOT DOXYGEN_FOUND)
+    message(WARNING "sphinx found, but doxygen not")
+  endif()
+  add_subdirectory(Documentation)
+endif()
 
 # preliminary working directories for groups. use these until we are
 # familiar with git workflows.

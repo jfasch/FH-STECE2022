@@ -6,3 +6,4 @@ OS Abstractions
   
 .. doxygenclass:: SysFS_File
    :project: crazycar
+   :members:

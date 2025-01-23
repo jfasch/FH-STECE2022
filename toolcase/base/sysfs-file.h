@@ -22,9 +22,7 @@ public:
     */
     SysFS_File(const std::string& path);
 
-    /** Read file contents as `int64_t`
-
-     */
+    /** Read file contents as `int64_t` */
     int64_t read_int64();
     /** Write `int64_t` */
     void write_int64(int64_t value);

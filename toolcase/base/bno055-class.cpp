@@ -14,7 +14,7 @@
 #include <string>
 #include <sstream>
 
-Bno055::Bno055(char i2cbus[256], char i2caddr[256])
+Bno055::Bno055(const char* i2cbus, const char* i2caddr)
 {
     if((_i2cfd = open(i2cbus, O_RDWR)) < 0) {
         std::string i2cbus_string = i2cbus;
@@ -298,7 +298,7 @@ bno Bno055::get_sensor_data_acc()
     return sensordata;
 }
 
-void Bno055::csv_bno055_create(char csvfile[256], bool newfile)
+void Bno055::csv_bno055_create(const char* csvfile, bool newfile)
 {
 
     bno SensorData;

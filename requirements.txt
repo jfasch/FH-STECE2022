@@ -2,6 +2,7 @@ alabaster==1.0.0
 autocommand==2.2.2
 babel==2.16.0
 backports.tarfile==1.2.0
+breathe==4.35.0
 certifi==2024.8.30
 charset-normalizer==3.4.0
 docutils==0.21.2
@@ -42,4 +43,5 @@ typeguard==4.3.0
 typing_extensions==4.12.2
 urllib3==2.2.3
 wheel==0.43.0
+xbox360controller==1.1.2
 zipp==3.19.2

@@ -11,7 +11,7 @@
 
 int main(int argc, char** argv)
 {
-    mqd_t message_queue = mq_open(CRAZY_CAR_MQ_NAME, O_WRONLY);
+    mqd_t message_queue = mq_open(CRAZY_CAR_MQ_NAME, O_WRONLY|O_NONBLOCK);
 
     if (message_queue == -1) {
         perror("mq_open");

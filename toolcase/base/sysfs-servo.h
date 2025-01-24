@@ -27,7 +27,8 @@ public:
 
     /** Set position
 
-        explain unit of position
+        explain unit of position, and its relation to duty_*
+        properties given in the constructor
 
         @param position blah blah blah blah blah blah
 

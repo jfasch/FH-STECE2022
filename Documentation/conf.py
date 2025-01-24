@@ -51,14 +51,25 @@ extensions = [
 todo_include_todos = True
 
 # readthedocs.io sets the READTHEDOCS environment variable if they
-# build the project. invoke doxygen if this is the case. I told them
-# (via ../.readthedocs.yaml) to build in Documentation/; verify that.
+# build the project. invoke doxygen if this is the case and we run on
+# readthedocs.
 if os.environ.get('READTHEDOCS') == 'True':
-    import subprocess, os
+    # I told them (via ../.readthedocs.yaml) to build in
+    # Documentation/; verify that:
     assert os.path.basename(os.getcwd()) == 'Documentation'
-    subprocess.call('doxygen', shell=True)
 
-breathe_projects = {"crazycar": "./xml"}   # "." is Documentation/
+    import subprocess, shutil
+
+    shutil.copyfile('Doxyfile.in', 'RTDDoxyfile')
+    with open('RTDDoxyfile', 'a') as f:
+        f.writelines(('GENERATE_XML = YES\n',
+                      'INPUT = ../toolcase/\n',
+                      'OUTPUT_DIRECTORY = .\n',
+                      ))
+    subprocess.call(('doxygen', 'RTDDoxyfile'), shell=False)
+
+    breathe_projects = {"crazycar": "./xml"}   # "." is Documentation/
+
 breathe_default_project = "crazycar"
 
 intersphinx_mapping = {

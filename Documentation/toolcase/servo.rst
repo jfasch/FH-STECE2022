@@ -24,5 +24,4 @@ Class Description
 -----------------
 
 .. doxygenclass:: SysFS_Servo
-   :project: crazycar
    :members:

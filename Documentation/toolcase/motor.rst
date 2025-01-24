@@ -42,7 +42,6 @@ Class Description
    params.
 
 .. doxygenclass:: SysFS_Motor
-   :project: crazycar
    :members:
 
 .. _motor-future:

@@ -14,5 +14,4 @@ GPIO
    <https://libgpiod.readthedocs.io/>`__).
 
 .. doxygenclass:: SysFS_GPIO_Pin
-   :project: crazycar
    :members:

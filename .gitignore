@@ -1,1 +1,6 @@
 *~
+/Documentation/RTDDoxyfile
+/Documentation/_build/
+/Documentation/html/
+/Documentation/latex/
+/Documentation/xml/

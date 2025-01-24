@@ -99,7 +99,16 @@ Further Information
   :download:`Schematic_and_print_CrazyCar.pdf`
 * More material: :doc:`queue`
 
-Documentation: ToDo List
-------------------------
+Documentation
+-------------
+
+How to write and build documentation
+
+.. toctree::
+   
+   howto
+
+Todo List
+.........
 
 .. todolist::

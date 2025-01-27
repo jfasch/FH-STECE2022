@@ -1,14 +1,6 @@
 Writing Documentation (Sphinx, Doxygen)
 =======================================
 
-
-.. todo:: **Sphinx, Doxygen**
-
-   * template: rst, doxy
-   * venv
-   * sphinx, rst
-   * doxygen, markdown
-
 .. contents::
    :local:
 
@@ -122,3 +114,18 @@ The root HTML file (the "homepage", if you want) is then available in
    If not, you'd have to find yourself a way to point the Windows
    browser into the WSL/Ubuntu root filesystem. See
    :doc:`jfasch:trainings/material/soup/linux/basics/intro/wsl`.
+
+Build Instabilities
+...................
+
+Shinx integration into the CMake is not airtight. Sometimes errors
+won't go away. For example if you renamed one ``.rst`` file then the
+build system will complain that the old file is not there anymore.
+
+In this case it is advisable to simple remove the ``Documentation/`` build directory,
+
+.. code-block:: console
+
+   $ rm -r /home/jfasch/My-Builds/FH-STECE2022-x86_64/Documentation/
+
+Note that markup errors won't go away so easily :-)

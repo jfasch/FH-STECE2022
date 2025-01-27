@@ -10,3 +10,4 @@ Toolcase
    servo
    motor
    sensor-bno055
+   sensor-vl53l1x

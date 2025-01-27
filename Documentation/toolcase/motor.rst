@@ -1,6 +1,9 @@
 Motor
 =====
 
+.. contents::
+   :local:
+
 .. sidebar:: 
 
    * Task that led to current status: :doc:`/project/tasks/motor-control-btn9960lv`
@@ -11,8 +14,8 @@ Motor
 
 .. _motor-concept-descr:
 
-Conceptual Description: PWM and GPIO Usage
-------------------------------------------
+Background: PWM and GPIO Usage
+------------------------------
      
 .. image:: motor-control-btn9960lv-one-pwm-two-gpio.jpg
 
@@ -36,7 +39,7 @@ Class Description
    ``set_speed(percentage_of_max_speed)``.
 
    Depending on the parameter's value, IOs and PWM are tuned
-   accordingly. Give examples (here, not in code/doxygen) so the user
+   accordingly. Give examples (here in Sphinx/RST, not in code/doxygen) so the user
    can understand how ``set_speed()`` is implemented in terms of
    ``SysFS_Motor``'s ``forward``, ``backward`` and ``speed`` ctor
    params.
@@ -55,4 +58,5 @@ Future
 
    * How about pulling the brake? How would that work? What's the
      difference between a hard brake and ``set_speed(0)``?
-   * Overcurrent detection?
+   * Overcurrent detection? How would one make use of an ADC to
+     implement this?

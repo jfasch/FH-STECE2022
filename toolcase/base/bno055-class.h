@@ -16,6 +16,13 @@ struct bno{
    double data_z;   //data, Z-axis
 };
 
+/** Blah title blah
+
+    blah text blah blah text blah blah text blah blah text blah blah
+    text blah blah text blah blah text blah blah text blah blah text
+    blah blah text blah blah text blah blah text blah blah text blah
+    blah text blah blah text blah
+ */
 class Bno055
 {
 
@@ -26,15 +33,46 @@ class Bno055
 
     public:
 
+        /** Blah ctor title blah
+
+            @param i2cbus     blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
+            @param i2caddr    blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
+
+        */
         Bno055(const char* i2cbus, const char* i2caddr);
         void debug_message();
         void power_mode(power_t pwrmode);       
         void set_mode(opmode_t newmode);
         void reset();
         void dump();
+        /** Blah title
+
+            blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah
+         */
         bno get_sensor_data_gyr();        
+        /** Blah title
+
+            blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah
+         */
         bno get_sensor_data_eul();       
+        /** Blah title
+
+            blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah
+         */
         bno get_sensor_data_acc();
+
+        /** Blah title
+
+            blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah blah
+            blah blah blah blah blah blah blah blah blah blah
+         */
         void csv_bno055_create(const char* csvfile, bool newfile);
 
 };

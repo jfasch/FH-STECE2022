@@ -1,27 +1,36 @@
 Servo
 =====
 
+.. contents::
+   :local:
+
 .. sidebar:: 
 
    Task that led to current status: :doc:`/project/tasks/servo-motor`
 
 .. _servo-pwm-ppm:
 
-PWM vs. PPM, And Servos In General
-----------------------------------
+Background: PWM vs. PPM, And Servos
+-----------------------------------
 
 .. todo:: **Servo**
 
-   :ref:`servo-pwm-ppm`
+   * Link to this document: :ref:`servo-pwm-ppm`
+   * Explain how PPM and PWM relate (in Sphinx/RST): the servo
+     interprets its input as PPM, but the servo class generates PWM
+     output. Or so.
+   * Give links
+   * Link to servo datasheet
 
-   Explain how PPM and PWM relate. The servo interprets its input as
-   PPM, but the servo class generates PWM output.
-
-   Give links (Sphinx link syntax: `servo blah blah
-   <https://en.wikipedia.org/wiki/Servo_control>`__)
+.. _servo-class-descr:
 
 Class Description
 -----------------
+
+.. todo:: **Gyroscope**
+
+   * Link to this document: :ref:`servo-class-descr`
+   * Write doxygen in header file
 
 .. doxygenclass:: SysFS_Servo
    :members:

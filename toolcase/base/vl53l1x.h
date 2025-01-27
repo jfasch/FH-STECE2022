@@ -13,6 +13,13 @@
 
 #include "millis.h"
 
+/** Blah title blah
+
+    blah text blah blah text blah blah text blah blah text blah blah
+    text blah blah text blah blah text blah blah text blah blah text
+    blah blah text blah blah text blah blah text blah blah text blah
+    blah text blah blah text blah
+ */
 class VL53L1X
 {
   public:
@@ -1280,19 +1287,72 @@ class VL53L1X
 
     uint8_t last_status = 0; // status of last I2C transmission
 
+    /** Blah ctor title blah
+
+        @param i2c_address     blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
+
+    */
     VL53L1X(uint8_t i2c_address);
     ~VL53L1X();
 
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     void setAddress(uint8_t new_addr);
     uint8_t getAddress() { return address; }
 
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     bool init(bool io_2v8 = true);
 
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     void writeReg(uint16_t reg, uint8_t value);
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     void writeReg16Bit(uint16_t reg, uint16_t value);
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     void writeReg32Bit(uint16_t reg, uint32_t value);
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     uint8_t readReg(regAddr reg);
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     uint16_t readReg16Bit(uint16_t reg);
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     uint32_t readReg32Bit(uint16_t reg);
 
     bool setDistanceMode(DistanceMode mode);
@@ -1306,8 +1366,20 @@ class VL53L1X
     void setROICenter(uint8_t spadNum);
     uint8_t getROICenter();
 
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     void startContinuous(uint32_t period_ms);
     void stopContinuous();
+    /** Blah title
+
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah blah blah blah blah blah
+    */
     uint16_t read_sensor(bool blocking = true);
     uint16_t readRangeContinuousMillimeters(bool blocking = true) { return read_sensor(blocking); } // alias of read()
     uint16_t readSingle(bool blocking = true);

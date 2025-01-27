@@ -18,8 +18,8 @@ within one process (spoiler: *whole process* is more manageable).
 
 Some responsibilites our firmware has ...
 
-* *Motor/servo control* is probably most important. It only reacts
-  on behalf of somebody commanding, and is not running otherwise.
+* *Motor/servo control* is probably most important. It only reacts on
+  behalf of somebody commanding, and is not running otherwise.
 * *Emergency off* is next. Posts "emergency off" into motor control,
   which overtakes any commands that are already enqueued.
 * *MQTT* and/or *CSV* logging are relatively unimportant; running them

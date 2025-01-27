@@ -9,4 +9,4 @@ Toolcase
    pwm
    servo
    motor
-   proximity-bno055
+   sensor-bno055

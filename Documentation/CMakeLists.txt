@@ -20,6 +20,8 @@ add_custom_command(
   OUTPUT ${DOXYGEN_OUTPUT_DIR}/html/index.html
   DEPENDS ${DOXYGEN_HEADER_FILES} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
   COMMENT "Running doxygen"
+
+  BYPRODUCTS ${DOXYGEN_OUTPUT_DIR}/doxygen
 )
 add_custom_target(
   doxygen 
@@ -54,6 +56,8 @@ add_custom_command(
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/conf.py  ${DOXYGEN_OUTPUT_DIR}/html/index.html ${DOXYGEN_HEADER_FILES} ${RST_FILES}
   COMMENT "Generating documentation with Sphinx"
+
+  BYPRODUCTS ${DOXYGEN_OUTPUT_DIR}/sphinx
 )
 add_custom_target(
   docs

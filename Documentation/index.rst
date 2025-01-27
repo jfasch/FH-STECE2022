@@ -93,11 +93,9 @@ Further Information
    :hidden:
 
    development
-   queue
 
 * Crazy Car NG Schematics:
   :download:`Schematic_and_print_CrazyCar.pdf`
-* More material: :doc:`queue`
 
 Documentation
 -------------

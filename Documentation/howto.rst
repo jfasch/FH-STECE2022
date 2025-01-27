@@ -17,27 +17,28 @@ Overview
 
 Crazy car documentation is twofold,
 
-* **Doxygen** (https://www.doxygen.nl/). Directly in the header files,
-  right next to the class or function that is documented. Doxygen is
-  used to extract this information.
+* **Source comments** are written in Doxygen style
+  (https://www.doxygen.nl/). Directly in the header files, right next
+  to the class or function that is documented.
 
   This documentation is straight up to point, and is supposed to cover
   the API of one class only. It is written in Doxygen's own `Markdown
   flavor <https://www.doxygen.nl/manual/markdown.html>`__.
 
-* **Sphinx** (https://www.sphinx-doc.org/) documentation files. Unlike
-  Doxygen documentation, Sphinx is a real documentation system with
-  many features like cross references, inline images, etc.. You
-  describe concepts there, like how several classes play together.
+* **Readable prose** is written in Sphinx's
+  (https://www.sphinx-doc.org/) ``*.rst`` files. Unlike Doxygen
+  documentation, Sphinx is a real documentation system with many
+  features like cross references, inline images, etc.. You describe
+  concepts there, like how several classes play together.
 
   Unlike Doxygen documentation, Sphinx files are written in
   `RestructuredText
   <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`__. Similar
   to markdown, but different.
 
-* **Breathe** (https://breathe.readthedocs.io/) acts as the bridge
-  between both tools, and allows us to embed Doxygen documentation in
-  the Sphinx-massaged main documentation system.
+Breathe (https://breathe.readthedocs.io/), a Sphinx extension, acts as
+the bridge between both tools, and allows us to embed Doxygen
+documentation in the Sphinx-massaged main documentation system.
    
 Sphinx Installation
 -------------------
@@ -85,8 +86,12 @@ Doxygen Installation
 Building (And Viewing) Documentation Locally
 --------------------------------------------
 
-The project's ``Documentation/`` subdirectory contains CMake code to
-invoke Sphinx (if installed) as part of the build.
+Documentation is built automatically, as a sideeffect of the software
+build. The project's ``Documentation/`` subdirectory contains CMake
+code to invoke Sphinx (if installed) as part of the build. All you
+need to do is to install Spinx and Doxygen in a virtual environment,
+as shown above, and to have that environment activated during the
+:doc:`software build <development>`.
 
 .. note::
 
@@ -101,7 +106,7 @@ invoke Sphinx (if installed) as part of the build.
    (FH-STECE2022) $ make
    ... roedel ...
 
-The root HTML file (the homepage if you want) is then available in
+The root HTML file (the "homepage", if you want) is then available in
 ``/home/jfasch/My-Builds/FH-STECE2022-x86_64/Documentation/sphinx/html/index.html``.
 
 .. code-block:: console

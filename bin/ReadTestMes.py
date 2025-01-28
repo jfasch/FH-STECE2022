@@ -8,7 +8,7 @@ import paho.mqtt.client as mqtt
 matplotlib.use("TkAgg")
 
 # MQTT-Konfiguration
-MQTT_BROKER = "localhost"
+MQTT_BROKER = "172.30.60.112" #--> IP Thomas "localhost"
 MQTT_PORT = 1883
 MQTT_TOPIC = "DistanceData"
 

@@ -5,7 +5,7 @@ from datetime import datetime
 import paho.mqtt.client as mqtt
 
 # MQTT-Konfiguration
-BROKER_ADDRESS = "172.30.60.112" #-->IP Thomas "localhost"  # Adresse des MQTT-Brokers
+BROKER_ADDRESS = "localhost" #-->IP Thomas "172.30.60.112"  "localhost" # Adresse des MQTT-Brokers
 BROKER_PORT = 1883  # Standard-MQTT-Port
 TOPIC = "DistanceData"
 

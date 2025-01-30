@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 
         SysFS_PWM_Pin servo_pwm_pin("/sys/class/pwm/pwmchip" + std::to_string(servo_pwm_config.chip) +
                                     "/pwm"+ std::to_string(servo_pwm_config.pin)); 
-        servo = std::make_unique<SysFS_Servo>(servo_pwm_pin, duty_cycle_min, duty_cycle_mid, duty_cycle_max);
+        servo = std::make_unique<SysFS_Servo>(servo_pwm_pin, duty_cycle_mid, duty_cycle_min, duty_cycle_max);
     }
 
     while (true) {

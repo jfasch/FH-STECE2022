@@ -2,12 +2,11 @@
 
 #define CRAZY_CAR_MQ_NAME "/crazy-car"
 
-#include <base/sysfs-pwm-pin.h>
-
 #include <mqueue.h>
 #include <fcntl.h>
 #include <cstdio>
 #include <cassert>
+#include <cstdint>
 #include <iostream>
 
 // Define and initialize the servo

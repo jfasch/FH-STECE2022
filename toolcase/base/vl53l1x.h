@@ -1,7 +1,5 @@
 #pragma once
 
-//#include <Arduino.h>
-//#include <Wire.h>
 #include <stdint.h>
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
@@ -13,12 +11,15 @@
 
 #include "millis.h"
 
-/** Blah title blah
+/** @brief VL53L1X Time-of-Flight (ToF) Sensor Driver
 
-    blah text blah blah text blah blah text blah blah text blah blah
-    text blah blah text blah blah text blah blah text blah blah text
-    blah blah text blah blah text blah blah text blah blah text blah
-    blah text blah blah text blah
+    This class provides an interface for the VL53L1X ToF sensor, enabling 
+    distance measurements using I2C communication. It supports different 
+    distance modes, continuous and single-shot ranging, and error handling. 
+
+    The class includes functions for sensor initialization, configuration, 
+    reading sensor data, and managing timeouts. It also provides utilities 
+    for setting the I2C address and retrieving measurement status.
  */
 class VL53L1X
 {
@@ -1287,71 +1288,65 @@ class VL53L1X
 
     uint8_t last_status = 0; // status of last I2C transmission
 
-    /** Blah ctor title blah
+    /** @brief Constructs a VL53L1X sensor instance.
 
-        @param i2c_address     blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
+          @param i2c_address  The I2C address of the sensor.
 
     */
     VL53L1X(uint8_t i2c_address);
     ~VL53L1X();
 
-    /** Blah title
-
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+    /** @brief Changes the I2C address of the sensor.
+    
+        @param new_addr  The new I2C address to assign to the sensor.
     */
     void setAddress(uint8_t new_addr);
     uint8_t getAddress() { return address; }
 
-    /** Blah title
+    /** @brief Initializes the sensor with default settings.
 
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+        This function verifies the sensor model ID, performs a soft reset, 
+        and applies default configuration settings.
+
+        @param io_2v8  If true, sets the I/O voltage mode to 2.8V (default: 1.8V).
+        @return True if initialization is successful, false otherwise.
     */
     bool init(bool io_2v8 = true);
 
-    /** Blah title
+    /** @brief Writes a single byte to the specified register over I2C.
 
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+        @param reg   Register address.
+        @param value Byte value to write.
     */
     void writeReg(uint16_t reg, uint8_t value);
-    /** Blah title
+    /** @brief Writes a 16-bit value to the specified register over I2C.
 
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+        @param reg   Register address.
+        @param value 16-bit value to write.
     */
     void writeReg16Bit(uint16_t reg, uint16_t value);
-    /** Blah title
+    /** @brief Writes a 32-bit value to the specified register over I2C.
 
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+        @param reg   Register address.
+        @param value 32-bit value to write.
     */
     void writeReg32Bit(uint16_t reg, uint32_t value);
-    /** Blah title
+    /** @brief Reads a single byte from the specified register.
 
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+        @param reg Register address.
+        @return The read byte value.
     */
     uint8_t readReg(regAddr reg);
-    /** Blah title
+    /** @brief Reads a 16-bit value from the specified register.
 
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+        @param reg Register address.
+        @return The read 16-bit value.
     */
     uint16_t readReg16Bit(uint16_t reg);
-    /** Blah title
+    /** @brief Reads a 32-bit value from the specified register.
 
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+        @param reg Register address.
+        @return The read 32-bit value.
     */
     uint32_t readReg32Bit(uint16_t reg);
 
@@ -1366,19 +1361,20 @@ class VL53L1X
     void setROICenter(uint8_t spadNum);
     uint8_t getROICenter();
 
-    /** Blah title
+    /** @brief Starts continuous ranging measurements.
 
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+        @param period_ms Measurement interval in milliseconds.
     */
     void startContinuous(uint32_t period_ms);
     void stopContinuous();
-    /** Blah title
+    /** @brief Reads the measured distance from the sensor.
 
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah blah
-        blah blah blah blah blah blah blah blah blah blah
+        This function reads the measurement data only if an interrupt is active.
+        It then converts the measured data into millimeters and clears the 
+        interrupt after reading all values.
+
+        @param blocking If true, waits for a new measurement to be available.
+        @return The measured distance in millimeters.
     */
     uint16_t read_sensor(bool blocking = true);
     uint16_t readRangeContinuousMillimeters(bool blocking = true) { return read_sensor(blocking); } // alias of read()
@@ -1422,7 +1418,7 @@ class VL53L1X
     struct ResultBuffer
     {
       uint8_t range_status;
-    // uint8_t report_status: not used
+   // uint8_t report_status: not used
       uint8_t stream_count;
       uint16_t dss_actual_effective_spads_sd0;
    // uint16_t peak_signal_count_rate_mcps_sd0: not used
@@ -1455,8 +1451,6 @@ class VL53L1X
     uint8_t saved_vhv_timeout;
 
     DistanceMode distance_mode;
-
-    // unsigned long millis();
 
     // Record the current time to check an upcoming timeout against
     void startTimeout() { timeout_start_ms = millis(); }

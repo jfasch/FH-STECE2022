@@ -1,10 +1,12 @@
-"""@package docstring
-Documentation for Reading JSON Messages.
- 
-This File is used for the visualization of the meassured distance.
-At first it connects to the existing MQTT broker and subscribes the topic 'DistanceData'.
-Then it extracts the Data which are published to this topic and saves it on the Variable 'current_distance'.
-In the next step the variable is visualized with the help of the library matplotlib.
+"""! Reads the JSON string provided via MQTT.
+    @file ReadTestMes.py
+    @brief Visualization of the measured distance from MQTT messages.
+    @package docstring
+    
+    This File is used for the visualization of the meassured distance.
+    At first it connects to the existing MQTT broker and subscribes the topic 'DistanceData'.
+    Then it extracts the Data which are published to this topic and saves it on the Variable 'current_distance'.
+    In the next step the variable is visualized with the help of the library matplotlib.
 """
 
 import json
@@ -22,18 +24,20 @@ MQTT_TOPIC = "DistanceData"
 current_distance = 0
 
 def on_message(client, userdata, message):
-    """Documentation for reading the Data.
- 
-    This function reads in the sent Data in ASCII.
-    It then converts back the raw ASCII Data into the JSON Dataformat.
-    Extracts at this stage of the Softwaredevelopment only the sent Distance.
+    """! Documentation for reading the Data.
+        @brief Handles incoming MQTT messages.
     
-    +some Errorhandeling is happening.
+        This function reads in the sent Data in ASCII.
+        It then converts back the raw ASCII Data into the JSON Dataformat.
+        Extracts at this stage of the Softwaredevelopment only the sent Distance.
+        
+        @param client The MQTT client instance.
+        @param message The received MQTT message containing the JSON payload.
 
-    Intern Parameters:
-    Payload: ASCII Decoded raw Data
-    Data: JSON Datastruct created out of the payload.
-    current_distance: Distance data extracted from the data.
+        @return current_distance GlobalVariable which stores the measured distance
+
+        @exception json.JSONDecodeError Raised if the received payload is not valid JSON.
+        @exception KeyError Raised if the expected key ('Data' or 'Distance') is missing.
     """
     global current_distance
     try:
@@ -56,13 +60,16 @@ bar = ax.barh(["Distance"], [0], color="blue")
 ax.set_xlim(0, 2300)
 
 def update(frame):
-    """Documentation for visualization of the Data.
- 
-    This function adaptes the length of the bar with each measured value.
-    At this point of softwaredevelopment the scale of the barchart is set to 2300mm. This could be adapted.
-    Because of the maximum scale length the current distance is trimmed to a max value of 2300mm.
-    Possible solution: Adaption of the scale ax.set_xlim(0, 2300) -> ax.set_xlim(0, max(current_distance, 2300)).
-    And usage of this inside the function which updates the Bar's length.
+    """! Documentation for visualization of the Data.
+
+        @brief Updates the visualization with the latest distance measurement.    
+        
+        This function adaptes the length of the bar with each measured value.
+        At this point of softwaredevelopment the scale of the barchart is set to 2300mm. This could be adapted.
+        Because of the maximum scale length the current distance is trimmed to a max value of 2300mm.
+        @code
+        ax.set_xlim(0, max(current_distance, 2300))
+        @endcode
     """
     global current_distance
     if current_distance >= 2300:

@@ -3,7 +3,7 @@
 .. include:: <mmlalias.txt>
 
 
-(ACTIVE) Proximity Sensor: VL53L1X
+(CLOSED) Proximity Sensor: VL53L1X
 ==================================
 
 .. contents::

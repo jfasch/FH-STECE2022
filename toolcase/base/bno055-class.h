@@ -1,3 +1,8 @@
+/***************************************************************
+Original Library by Frank4DD
+License information '/Documentation/toolcase/sensor-bno055.rst'
+****************************************************************/
+Frank4DD 
 #ifndef BNO055_CLASS
 #define BNO055_CLASS
 

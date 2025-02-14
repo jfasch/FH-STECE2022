@@ -14,14 +14,25 @@ Gyroscope Sensor: BNO055
 Background
 ----------
 
-.. todo:: **Gyroscope**
+On the CrazyCar a Gyroscope/Accelometer (BNO055) is included.
+It can be used to log data e.g. if you drive into a curve and want to know how much force was put onto the car and in which orientation it is.
+Our goal was to get this sensor to work.
+The first thing was to find an exisiting library and to adapt it, so that it fits for our purpose.
+As we researched we stumbled upon this library:
+https://github.com/fm4dd/pi-bno055
+This is a project that was already made for the raspberry pi which was perfect.
+Problems:
+   * it was not object-oriented
+   * it was not written in c++
+   * we did not need all of the functions, so we made it a bit more lightweight
+The license that this project has, is the MIT license, that means that we cant modify the code and publish it, but the developer gives no warranty if everything works properly.
 
-   * Link to this document: :ref:`gyro-background`
-   * Link to datsheet
-   * Where was the code stolen from? 
-   * Which license
+
+Link to the datasheet of the sensor.
+https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf
 
 .. _gyro-class-descr:
+
 
 Class Description
 -----------------

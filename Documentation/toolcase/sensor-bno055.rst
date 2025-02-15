@@ -22,11 +22,17 @@ As we researched we stumbled upon this library:
 https://github.com/fm4dd/pi-bno055
 This is a project that was already made for the raspberry pi which was perfect.
 Problems:
-   * it was not object-oriented
-   * it was not written in c++
-   * we did not need all of the functions, so we made it a bit more lightweight
-The license that this project has, is the MIT license, that means that we cant modify the code and publish it, but the developer gives no warranty if everything works properly.
 
+* it used global variables a lot which makes it hard to re-use in
+  larger projects
+* it was not object-oriented
+* it was not written in c++
+* we did not need all of the functions, so we made it a bit more
+  lightweight
+
+The license that this project has, is the MIT license, that means that
+we can modify the code and publish it, but the developer gives no
+warranty if everything works properly.
 
 Link to the datasheet of the sensor.
 https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf

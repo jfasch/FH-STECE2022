@@ -14,7 +14,8 @@ Crazy Car NG, Running Linux
 The Mission
 -----------
 
-The bachelor studies `Electronics and Computer Engineering
+The `FH Joanneum <https://www.fh-joanneum.at/>`__ bachelor studies
+`Electronics and Computer Engineering
 <https://www.fh-joanneum.at/elektronik-und-computer-engineering/bachelor/en/>`__
 has a class `Embedded Computing (1 and 2)
 <https://www.fh-joanneum.at/elektronik-und-computer-engineering/bachelor/en/my-studies/curriculum/>`__,
@@ -27,16 +28,17 @@ in semester 4 and 5. During this class we want to learn
 * ... and more
 
 Also on FH Joanneum, there is a fun contest, `Crazy Car
-<https://www.fh-joanneum.at/veranstaltung/crazy-car/>`__. FH Joanneum
-is one of the competitors, and as such has hardware (a
-car). Traditionally, that car has been equipped with bare metal
-software (class `Embedded Systems
+<https://www.fh-joanneum.at/veranstaltung/crazy-car/>`__ - RC cars
+racing against each other, autonomously. FH Joanneum is one of the
+competitors, and as such has hardware (a car). Traditionally, that car
+has been equipped with bare metal software (class `Embedded Systems
 <https://www.fh-joanneum.at/elektronik-und-computer-engineering/bachelor/en/my-studies/curriculum/>`__,
 semester 3).
 
-In search for something to play with in Embedded Computing 2, we
-decided to have fun with the car and a `Raspberry Pi
-<https://www.raspberrypi.org/>`__.
+In search for something to play with in Embedded Computing 2, we chose
+to have fun with the car's next generation hardware
+(:download:`schematics and print <Schematic_and_print_CrazyCar.pdf>`)
+and a `Raspberry Pi <https://www.raspberrypi.org/>`__.
 
 Goal: Create Toolcase
 .....................
